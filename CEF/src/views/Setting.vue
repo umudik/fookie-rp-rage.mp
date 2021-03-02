@@ -1,0 +1,17 @@
+<template>
+    <div>{{ $store.state["system_model"].rawData }}</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            test: null,
+        };
+    },
+    mounted: async function () {},
+};
+</script>
+
+<style>
+</style>
