@@ -5,7 +5,7 @@ module.exports = {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
-            appgen: {
+            fookie: {
                 input: "text",
                 get: {
                     auth: ['everybody'],
@@ -20,7 +20,8 @@ module.exports = {
         },
         icon: {
             type: DataTypes.STRING,
-            appgen: {
+            allowNull: false,
+            fookie: {
                 input: "text",
                 get: {
                     auth: ['everybody'],
@@ -34,7 +35,7 @@ module.exports = {
 
         },
     },
-    appgen: {
+    fookie: {
         display: "title",
         post: {
             auth: ['everybody'],

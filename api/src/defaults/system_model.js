@@ -1,76 +1,108 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require('sequelize')
 module.exports = {
-    name: "system_model",
+    name: 'system_model',
     schema: {
         name: {
             type: DataTypes.STRING,
             unique: true,
-            appgen: {
+            fookie: {
                 input: "text",
                 get: {
-                    auth: ["everybody"],
+                    auth: ['everybody'],
                     effect: []
                 },
                 patch: {
-                    auth: ["everybody"],
-                    effect: []
+                    auth: ['everybody'],
+                    effect: ['sync']
                 }
             }
+
         },
         schema: {
             type: DataTypes.JSONB,
-            appgen: {
-                input: "json",
+            fookie: {
+                input: "text",
                 get: {
-                    auth: ["everybody"],
+                    auth: ['everybody'],
                     effect: []
                 },
                 patch: {
-                    auth: ["everybody"],
-                    effect: []
+                    auth: ['everybody'],
+                    effect: ['sync']
                 }
             }
         },
-        appgen: {
+        fookie: {
             type: DataTypes.JSONB,
-            appgen: {
-                input: "json",
+            fookie: {
+                input: "text",
                 get: {
-                    auth: ["everybody"],
+                    auth: ['everybody'],
                     effect: []
                 },
                 patch: {
-                    auth: ["everybody"],
-                    effect: []
+                    auth: ['everybody'],
+                    effect: ['sync']
                 }
             }
-
-
+        },
+        application: {
+            type: DataTypes.INTEGER,
+            fookie: {
+                get: {
+                    auth: ['everybody'],
+                    effect: []
+                },
+                patch: {
+                    auth: ['everybody'],
+                    effect: ['sync']
+                }
+            },
+            relation: {
+                model: "system_application",
+                key: "id"
+            }
+        },
+        sub: {
+            type: DataTypes.INTEGER,
+            fookie: {
+                get: {
+                    auth: ['everybody'],
+                    effect: []
+                },
+                patch: {
+                    auth: ['everybody'],
+                    effect: ['sync']
+                }
+            },
+            relation: {
+                model: "system_application",
+                key: "id"
+            }
         },
         icon: {
             type: DataTypes.STRING,
-            unique: true,
-            appgen: {
+            fookie: {
                 input: "text",
                 get: {
-                    auth: ["everybody"],
+                    auth: ['everybody'],
                     effect: []
                 },
                 patch: {
-                    auth: ["everybody"],
+                    auth: ['everybody'],
                     effect: []
                 }
             }
-        }
+        },
     },
-    appgen: {
+    fookie: {
         display: "name",
         post: {
-            auth: ["everybody"],
-            effect: ["sync"]
+            auth: ['everybody'],
+            effect: ['sync']
         },
         delete: {
-            auth: ["everybody"],
+            auth: ['everybody'],
             effect: []
         },
     }

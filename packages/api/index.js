@@ -1,9 +1,6 @@
-let Api = require('../../api/src/index')
+let FookieJS = require('../../api/src/index')
 
-mp.api = new Api({
-    login: true,
-    register: true
-})
+mp.api = new FookieJS()
 async function start() {
     await mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay')
 
@@ -11,13 +8,13 @@ async function start() {
     mp.api.model(require('../../api/models/Player'))
 
 
-    mp.api.effect('log', async (user, document, ctx) => {
+    mp.api.effect('log', async(user, document, ctx) => {
         console.log("EFFECT LOG");
         console.log(document);
     })
 
 
-    mp.api.effect('createObject', async (user, document, ctx) => {
+    mp.api.effect('createObject', async(user, document, ctx) => {
         mp.objects.new(document.name, user.position)
     })
 
@@ -37,7 +34,7 @@ mp.api.run({}, 'post', "system_model", {}, { name: "shop", sub: 1, application: 
 */
 
 
-mp.events.addProc('api', async (player, req) => {
+mp.events.addProc('api', async(player, req) => {
     req = JSON.parse(req)
     console.log(req);
     let method = req.method || ""

@@ -1,11 +1,18 @@
-const { Sequelize, Op, CITEXT } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const { EventEmitter } = require('events')
-const { clear } = require('./helpers')
+const queryString = require("query-string")
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const { sha512 } = require('js-sha512')
+const bodyParser = require('body-parser')
+const { hasFields, response, clear } = require('./helpers')
+const cors = require('cors')
 const modelParser = require('./helpers/modelParser')
 const findRequiredRoles = require('./helpers/requiredRoles');
 const checkAuth = require('./helpers/checkAuth');
+const calcEffects = require('./helpers/calcEffect')
 
-class AppGen extends EventEmitter {
+class Fookie extends EventEmitter {
     connection
     requester
     models
@@ -28,6 +35,67 @@ class AppGen extends EventEmitter {
         this.roles = new Map()
         this.effects = new Map()
         this.routines = new Map()
+        this.store = new Set()
+
+        this.app = express()
+        this.app.use(cors())
+        this.app.use(bodyParser.urlencoded({ extended: true }))
+        this.app.use(bodyParser.json())
+
+        //LOGIN REGISTER
+        this.app.post('/login', async(req, res) => {
+            let { email, password } = req.body
+
+            if (this.models.has('User')) {
+                let Model = this.models.get('User')
+                let user = await Model.findOne({ where: { email, password: sha512(password) } })
+
+                if (user instanceof Model && this.config.login) {
+                    const token = jwt.sign({ id: user.id }, this.config.secret);
+                    res.json(response(200, { token, user: user.filter(user, 'get') }))
+                } else {
+                    res.json(response(401, {}))
+                }
+            }
+        })
+
+        this.app.post('/register', async(req, res) => {
+            let { email, password } = req.body
+
+            if (this.models.has('User') && this.config.register) {
+                let Model = this.models.get('User')
+                let user = await Model.findOne({ email, password: sha512(password) })
+                if (user instanceof Model) {
+                    res.json(response(400, {}))
+                } else {
+                    user = await Model.create({ email, password })
+                    res.json(response(201, {}))
+                }
+            }
+        })
+
+        this.app.use(async(req, res) => {
+
+            //req
+            let method = req.body.method || ""
+            let body = req.body.body || {}
+            let model = req.body.model || ""
+            let query = req.body.query || {}
+            let token = req.headers.TOKEN || ""
+
+            //auth
+            let payload = {}
+            let user = {}
+
+            try {
+                payload = jwt.verify(token, this.config.secret) // deceded typeof _id
+                let User = this.models.get('User')
+                user = await User.findOne({ where: { payload } })
+            } catch (error) {}
+
+            let result = await this.run(user, method, model, query, body)
+            res.json(result)
+        })
     }
 
 
@@ -37,17 +105,9 @@ class AppGen extends EventEmitter {
     }
 
     async model(model) {
-        console.log('Model yaratılıyor')
-        console.log(model);
-
+        console.log(modelParser(model));
+        let Model = this.sequelize.define(model.name, modelParser(model).schema)
         let ctx = this
-        let roles = this.roles
-        let models = this.models
-        let config = this.config
-        let effects = this.effects
-
-        let Model = this.sequelize.define(model.name, model.schema)
-
         Model.get = async function({ user, query }) {
             let document = await Model.findOne(query)
             if (document instanceof Model) {
@@ -66,10 +126,10 @@ class AppGen extends EventEmitter {
         }
 
         Model.post = async function({ user, body }) {
-            let document = Model.build(body)
-            if (document.checkAuth(user, 'post', body)) {
-                let tmp = await document.save()
-                return await tmp.filter(user, 'post')
+            if (hasFields(Model, body)) {
+                let document = Model.build(body)
+                await document.save()
+                return true
             } else {
                 return false
             }
@@ -78,24 +138,22 @@ class AppGen extends EventEmitter {
         Model.delete = async function({ user, query }) {
             let document = await this.findOne(query)
             if (document instanceof Model) {
-                if (document.checkAuth(user, 'delete', clear(document.toJSON()))) {
-                    return await this.destroy(query)
-                } else {
-                    return false
-                }
+
+                return await this.destroy(query)
+
             } else {
                 return false
             }
         }
 
         Model.patch = async function({ user, query, body }) {
-            let document = await this.findOne(query)
-            if (document.checkAuth(user, 'patch', body)) {
+            if (hasFields(Model, body)) {
+                let document = await this.findOne(query)
                 for (let f in body) {
                     document[f] = body[f]
                 }
-                let tmp = await document.save()
-                return await tmp.filter(user, 'get')
+                await document.save()
+                return true
             } else {
                 return false
             }
@@ -105,16 +163,18 @@ class AppGen extends EventEmitter {
 
         }
 
-        Model.options = async function({ user, body, query }) {
+        Model.options = async function({ user, body }) {
             let document = model.schema
             let method = body.method || 'patch'
             let r = {}
             let res = {}
-            let keys = Object.keys(document)
+
+
+            let requiredRoles = findRequiredRoles(model, document, method)
             for (let i in keys) {
-                let requiredRoles = findRequiredRoles(model, keys[i], method, 'auth')
-                if (requiredRoles.every(role => roles.has(role))) {
-                    let canAccess = requiredRoles.some(role => roles.get(role)(user, document))
+
+                if (requiredRoles.every(role => this.roles.has(role))) {
+                    let canAccess = requiredRoles.some(role => this.roles.get(role)(user, document))
                     if (canAccess) {
                         res[keys[i]] = document[keys[i]]
                     }
@@ -123,25 +183,28 @@ class AppGen extends EventEmitter {
                 }
             }
             r.fields = res
-            r.appgen = model.appgen
+            r.fookie = model.fookie
             return r
 
-        }
-
-        Model.prototype.checkAuth = function(user, method, body) {
-            let keys = Object.keys(body)
-            return keys.some(key => checkAuth(user, body, model, key, method, roles, 'auth'))
         }
 
         Model.prototype.filter = function(user, method) {
             let document = clear(this.toJSON())
             let res = {}
-
             let keys = Object.keys(document)
-            for (let i in keys) {
-                checkAuth(user, document, model, keys[i], method, roles, 'auth', (doc, field) => {
-                    res[keys[i]] = doc[keys[i]]
-                })
+
+            for (let key of keys) {
+                let obj = {}
+                obj[key] = document[key]
+                let requiredRoles = findRequiredRoles(model, obj, method)
+                if (requiredRoles.every(i => ctx.roles.has(i))) {
+                    let auth = requiredRoles.some(i => ctx.roles.get(i)(user, this))
+                    if (auth) {
+                        res[key] = document[key]
+                    }
+                } else {
+                    return "hepsi yok"
+                }
             }
             res.updatedAt = this.updatedAt
             res.createdAt = this.createdAt
@@ -149,35 +212,9 @@ class AppGen extends EventEmitter {
             return res
         }
 
-        Model.calcEffects = async function(user, method, result) {
-            let keys = []
-            if (result instanceof Model) {
-                result = await result.filter(user, method)
-                keys = Object.keys(result)
-            }
-
-            let effs = findRequiredRoles(model, "", 'post', 'effect')
-            effs.concat(findRequiredRoles(model, "", 'delete', 'effect'))
-            for (let i in keys) {
-                let requiredEffects = findRequiredRoles(model, keys[i], method, 'effect')
-                for (let r of requiredEffects) {
-                    if (!effs.includes(r)) {
-                        effs.push(r)
-                    }
-                }
-            }
-            if (effs.every(e => effects.has(e))) {
-                effs.forEach(async(eff) => {
-                    await effects.get(eff)(user, result, ctx)
-                });
-            }
-        }
-
-
         await this.sequelize.sync({ alter: true })
         model.model = Model
         this.models.set(model.name, model)
-
         return Model
     }
 
@@ -185,35 +222,41 @@ class AppGen extends EventEmitter {
         this.effects.set(name, effect)
     }
 
-    async exec(user, Model, method, query = {}, body) {
-        let result = await Model[method]({
-            user,
-            body,
-            query
-        })
-        if (result) {
-            Model.calcEffects(user, method, result)
-            return result
-        } else {
-            return null
-        }
-
-
-    }
-
-    async run(user, method, model, query, body) {
-        if (this.models.has(model)) {
-            let Model = this.models.get(model).model
-            if (typeof Model[method] == 'function') {
-                console.log(`[${method}] Model:${model} |  Query:${query}`);
-                return await this.exec(user, Model, method, query, body)
-            } else {
-                console.log('Method yok');
-                return null
+    async run(user, method, modelName, query, body) {
+        if (this.models.has(modelName) && typeof this.models.get(modelName).model[method] == 'function') {
+            let model = this.models.get(modelName)
+            console.log(`[${method}] Model:${modelName} |  Query:${query}`);
+            if (
+                checkAuth({
+                    user,
+                    body,
+                    model,
+                    method,
+                    ctx: this
+                })
+            ) {
+                let result = await model.model[method]({
+                    user,
+                    body,
+                    query
+                })
+                calcEffects({
+                    user,
+                    model,
+                    result,
+                    method,
+                    ctx: this
+                })
+                if (result instanceof model.model) {
+                    return result.filter(user, 'get')
+                } else if (Array.isArray(result) && result.every(i => i instanceof model.model)) {
+                    return result.map(i => i.filter(user, 'get'))
+                } else {
+                    return result
+                }
             }
         } else {
-            console.log('Model yok');
-            return null
+            return "Model yok veya Method desteklenmiyor."
         }
     }
 
@@ -228,7 +271,6 @@ class AppGen extends EventEmitter {
 
     async connect(url, config = {}) {
         this.sequelize = new Sequelize(url, {
-            logging: false,
             define: {
                 freezeTableName: true
             },
@@ -264,42 +306,53 @@ class AppGen extends EventEmitter {
         })
         try {
             await this.sequelize.authenticate();
+            await this.prepare()
             console.log('Connection has been established successfully.');
 
 
         } catch (error) {
             console.error('Unable to connect to the database:', error);
         }
-        await this.prepare()
     }
 
     async prepare() {
-        let sm = await this.model(require('./defaults/system_model.js'))
+        // let system_model = await this.model(require('./defaults/system_model.js'))
+        // this.model(require('./defaults/system_application'))
+        //this.model(require('./defaults/system_effect'))
 
-        let model = await sm.findAll({
-            where: {
-
-            }
-        })
-
-        for (let m of model) {
-            let parsedModel = modelParser(m.dataValues)
-            await this.model(parsedModel)
-        }
-
+        /*
+    let models = await system_model.findAll()
+     
+    for (let m of models) {
+    console.log(m.name + " SENKRONIZE EDILDI");
+    let parsedModel = modelParser(m)
+    console.log(parsedModel);
+    this.model(parsedModel)
+    }
+    */
         this.role('everybody', () => {
             return true
         })
         this.role('nobody', () => {
-                return false
-            })
+            return false
+        })
+
+        this.effect('sync', async(User, document, ctx) => {
             /*
-                    this.effect('sync', async(User, document, ctx) => {
-                        let parsedModel = modelParser(document)
-                        this.model(parsedModel)
-                    })
+            console.log('SYNC ÇALIŞTI');
+            let parsedModel = modelParser(document)
+            this.model(parsedModel)
             */
+        })
+
+    }
+
+    listen(port) {
+        this.app.listen(port, () => {
+            console.log(`[API] ${port} is listening...`);
+
+        })
     }
 }
 
-module.exports = AppGen
+module.exports = Fookie

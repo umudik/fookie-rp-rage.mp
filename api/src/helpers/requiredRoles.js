@@ -1,9 +1,18 @@
-module.exports = function(model, field, method, selector) {
-    let t2 = ['post', 'delete']
-    if (t2.includes(method)) {
-        return model.appgen[method][selector]
-    } else {
-        return model.schema[field].appgen[method][selector]
-    }
+module.exports = function(model, body, method, selector) {
+    let methods = ['get', 'patch']
+    if (!methods.includes(method)) {
+        return model.fookie[method][selector ? selector : "auth"]
 
+    } else {
+        let set = new Set()
+        let keys = Object.keys(body)
+        for (let field of keys) {
+            if (model.schema[field]) {
+                model.schema[field].fookie[method][selector ? selector : "auth"].forEach(element => {
+                    set.add(element)
+                });
+            }
+        }
+        return Array.from(set)
+    }
 }
