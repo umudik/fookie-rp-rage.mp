@@ -1,42 +1,30 @@
-let FookieJS = require('../../api/src/index')
+let FookieJS = require('../../../../html/appgen/src/index')
 
 mp.api = new FookieJS()
 async function start() {
     await mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay')
-
-
-    mp.api.model(require('../../api/models/Player'))
-
-
-    mp.api.effect('log', async(user, document, ctx) => {
-        console.log("EFFECT LOG");
-        console.log(document);
-    })
-
-
-    mp.api.effect('createObject', async(user, document, ctx) => {
-        mp.objects.new(document.name, user.position)
-    })
-
-    mp.api.routine('hello', 1000 * 60 * 10, (ctx) => {
-        console.log('heelo');
-    })
+    mp.api.model(require('../../fookie/models/Player'))
+    mp.api.listen(7777)
 }
 
 start()
 
 
-/*
-mp.api.run({}, 'post', "system_application", {}, { title: "Object", icon: "mdi-tag" })
-mp.api.run({}, 'post', "system_model", {}, { name: "player", sub: 1, application: 1, icon: "mdi-tag-outline" })
-mp.api.run({}, 'post', "system_model", {}, { name: "vehicle", sub: 1, application: 1, icon: "mdi-tag-outline" })
-mp.api.run({}, 'post', "system_model", {}, { name: "shop", sub: 1, application: 1, icon: "mdi-tag-outline" })
-*/
+mp.api.effect('createObject', async({ user, model, method, result, ctx }) => {
+    mp.objects.new(document.name, user.position)
+})
+
+mp.api.effect('notify', async({ user, model, method, result, ctx }) => {
+    console.log("notify");
+})
+
+mp.events.addCommand('v', (player) => {
+    mp.vehicles.new(mp.joaat("flashgt"), player.position)
+})
 
 
 mp.events.addProc('api', async(player, req) => {
     req = JSON.parse(req)
-    console.log(req);
     let method = req.method || ""
     let body = req.body || {}
     let model = req.model || ""
@@ -44,6 +32,8 @@ mp.events.addProc('api', async(player, req) => {
     let res = await mp.api.run(player, method, model, query, body)
     return JSON.stringify(res)
 })
+
+
 
 
 
