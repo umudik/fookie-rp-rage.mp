@@ -1,23 +1,19 @@
 module.exports = {
-    name: 'item',
+    name: 'inventory',
     schema: {
-        item_type: {
+        inventory_type: {
             type: "INTEGER",
             relation: {
-                model: "item_type",
+                model: "inventory_type",
                 key: "key"
             },
         },
-        inventory: {
+        owner: {
             type: "INTEGER",
             relation: {
                 model: "inventory",
                 key: "id"
             },
-        },
-        amount: {
-            type: "STRING",
-            input: "text",
         },
     },
     fookie: {

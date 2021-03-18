@@ -1,11 +1,15 @@
 module.exports = {
-    name: 'system_model',
+    name: 'item_type',
     schema: {
         key: {
             type: "STRING",
             input: "text",
         },
         name: {
+            type: "STRING",
+            input: "text",
+        },
+        type: {
             type: "STRING",
             input: "text",
         },

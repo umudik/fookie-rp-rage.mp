@@ -1,24 +1,29 @@
 module.exports = {
-    name: 'item',
+    name: 'inventory_type',
     schema: {
-        item_type: {
-            type: "INTEGER",
-            relation: {
-                model: "item_type",
-                key: "key"
-            },
-        },
-        inventory: {
-            type: "INTEGER",
-            relation: {
-                model: "inventory",
-                key: "id"
-            },
-        },
-        amount: {
+        key: {
             type: "STRING",
-            input: "text",
+            input: "text"
         },
+        name: {
+            type: "STRING",
+            input: "text"
+        },
+        slot_size: {
+            type: "INTEGER",
+            input: "number"
+        },
+        maxWeight: {
+            type: "FLOAT",
+            input: "number"
+        },
+        model: {
+            type: "INTEGER",
+            relation: {
+                model: "system_model",
+                key: "id"
+            }
+        }
     },
     fookie: {
         get: {
