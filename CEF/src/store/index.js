@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios"
 Vue.use(Vuex);
 
 /* eslint-disable */
@@ -7,20 +8,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 
     state: {
+        baseURL: "http://localhost:7777",
+        inGame: false,
         system_model: {
             loading: true,
             options: { fields: undefined, appgen: undefined },
             deepData: [],
             rawData: [],
         },
-
-        system_application: {
-            loading: true,
-            options: { fields: undefined, appgen: undefined },
-            deepData: [],
-            rawData: [],
-        },
-
         self: {},
         token: null,
     },
@@ -64,8 +59,14 @@ export default new Vuex.Store({
 
         },
         appgen: async function(ctx, payload) {
-            let res = await mp.events.callProc('local', JSON.stringify(payload))
-            return JSON.parse(res);
+            if (ctx.state.inGame) {
+                let res = await mp.events.callProc('local', JSON.stringify(payload))
+                return JSON.parse(res);
+            } else {
+                let res = await axios.post(ctx.state.baseURL, payload)
+                return res
+            }
+
         }
     },
     modules: {}

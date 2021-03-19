@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Setting from "../views/Setting.vue";
 import View from "../views/View.vue";
-import Dashboard from "../views/Dashboard.vue";
 import ApiSetting from "../views/ApiSetting.vue";
 
 Vue.use(VueRouter);
@@ -19,13 +18,8 @@ const routes = [{
         component: View,
     },
     {
-        path: "Dashboard",
-        name: "Dashboard",
-        component: Dashboard,
-    },
-    {
-        path: "ApiSetting",
-        name: "ApiSetting",
+        path: "api",
+        name: "api",
         component: ApiSetting,
     },
     {

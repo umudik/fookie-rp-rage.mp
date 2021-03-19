@@ -3,7 +3,6 @@ let FookieJS = require('../../../../html/appgen/src/index')
 mp.api = new FookieJS()
 async function start() {
     await mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay')
-    mp.api.model(require('../../fookie/models/Player'))
     mp.api.listen(7777)
 }
 

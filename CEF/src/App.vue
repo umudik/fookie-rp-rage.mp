@@ -1,18 +1,24 @@
 <template>
-    <v-app class="myapp">    
-
-    
-        <v-main app class="myapp">
+    <v-app>
+        <v-system-bar lights-out app height="30">
+            <v-switch
+                dense
+                v-model="$store.state.inGame"
+                label="Game"
+            ></v-switch>
+            <v-spacer></v-spacer>
+            <v-icon @click="$router.push({ name: 'home' })">mdi-home</v-icon>
+            <v-icon @click="$router.push({ name: 'api' })">mdi-cog</v-icon>
+            <v-icon @click="$router.push({ name: 'settings' })">mdi-account</v-icon>
+            <v-icon @click="$router.push({ name: 'web' })">mdi-web</v-icon>
+            <v-icon @click="$router.push({ name: 'help' })">mdi-help</v-icon>
+            <span>12:30</span>
+        </v-system-bar>
+        <v-main app>
             <v-container fluid>
                 <router-view></router-view>
             </v-container>
         </v-main>
-            <v-snackbar
-      v-model="snackbar"
-      timeout="2000"
-    >
-      Uyarı
-    </v-snackbar>
     </v-app>
 </template>
 
@@ -20,9 +26,7 @@
 export default {
     name: "App",
     data() {
-        return {
-            snackbar:false
-        };
+        return {};
     },
     mounted: async function () {
         this.$store.state["system_model"].options = await this.$store.dispatch(
@@ -31,7 +35,7 @@ export default {
                 model: "system_model",
                 method: "options",
                 body: {
-                    method: "post",
+                    method: "write",
                 },
             }
         );

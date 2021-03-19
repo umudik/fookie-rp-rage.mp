@@ -21,7 +21,7 @@ module.exports = {
             type: "INTEGER",
             relation: {
                 model: "system_model",
-                key: "id"
+                key: "name"
             }
         }
     },
