@@ -1,5 +1,6 @@
 module.exports = {
     name: 'item_type',
+    display: "name",
     schema: {
         key: {
             type: "STRING",
@@ -43,6 +44,7 @@ module.exports = {
         },
     },
     fookie: {
+
         get: {
             auth: ["everybody"],
         },

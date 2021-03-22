@@ -1,5 +1,6 @@
 module.exports = {
     name: 'item',
+    display: "id",
     schema: {
         item_type: {
             type: "INTEGER",
@@ -18,6 +19,10 @@ module.exports = {
         amount: {
             type: "STRING",
             input: "text",
+        },
+        data: {
+            type: "JSONB",
+            input: "json",
         },
     },
     fookie: {

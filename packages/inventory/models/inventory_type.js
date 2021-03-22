@@ -1,5 +1,6 @@
 module.exports = {
     name: 'inventory_type',
+    display: "name",
     schema: {
         key: {
             type: "STRING",
@@ -26,6 +27,7 @@ module.exports = {
         }
     },
     fookie: {
+
         get: {
             auth: ["everybody"],
         },

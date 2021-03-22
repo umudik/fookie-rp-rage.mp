@@ -31,7 +31,7 @@ export default {
                 .relation.model || null;
 
         this.display =
-            this.$store.state[this.relationModel].options.appgen.display ||
+            this.$store.state[this.relationModel].options.fookie.display ||
             "name";
 
         if (this.relationModel) {

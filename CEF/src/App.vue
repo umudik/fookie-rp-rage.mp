@@ -9,7 +9,9 @@
             <v-spacer></v-spacer>
             <v-icon @click="$router.push({ name: 'home' })">mdi-home</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-cog</v-icon>
-            <v-icon @click="$router.push({ name: 'settings' })">mdi-account</v-icon>
+            <v-icon @click="$router.push({ name: 'settings' })"
+                >mdi-account</v-icon
+            >
             <v-icon @click="$router.push({ name: 'web' })">mdi-web</v-icon>
             <v-icon @click="$router.push({ name: 'help' })">mdi-help</v-icon>
             <span>12:30</span>
@@ -29,24 +31,6 @@ export default {
         return {};
     },
     mounted: async function () {
-        this.$store.state["system_model"].options = await this.$store.dispatch(
-            "appgen",
-            {
-                model: "system_model",
-                method: "options",
-                body: {
-                    method: "write",
-                },
-            }
-        );
-
-        this.$store.state["system_model"].deepData = await this.$store.dispatch(
-            "getAllDeep",
-            {
-                model: "system_model",
-            }
-        );
-
         this.$store.state["system_model"].rawData = await this.$store.dispatch(
             "appgen",
             {
@@ -54,46 +38,48 @@ export default {
                 model: "system_model",
             }
         );
+        this.$store.state["system_model"].options = await this.$store.dispatch(
+            "appgen",
+            {
+                method: "options",
+                model: "system_model",
+                body: {
+                    method: "write",
+                },
+            }
+        );
 
         this.$store.state["system_model"].loading = false;
 
         for (let model of this.$store.state["system_model"].rawData) {
-            this.$set(this.$store.state, model.name, {
-                loading: true,
-                options: { fields: undefined, appgen: undefined },
-                deepData: [],
-                rawData: [],
-            });
+            if (model.name != "system_model") {
+                this.$set(this.$store.state, model.name, {
+                    loading: true,
+                    options: { schema: undefined, fookie: undefined },
+                    deepData: [],
+                    rawData: [],
+                });
 
-            this.$store.state[model.name].options = await this.$store.dispatch(
-                "appgen",
-                {
+                this.$store.state[
+                    model.name
+                ].options = await this.$store.dispatch("appgen", {
                     model: model.name,
                     method: "options",
                     body: {
-                        method: "post",
+                        method: "write",
                     },
-                }
-            );
+                });
 
-            this.$store.state[model.name].deepData = await this.$store.dispatch(
-                "getAllDeep",
-                {
-                    model: model.name,
-                }
-            );
-
-            this.$store.state[model.name].rawData = await this.$store.dispatch(
-                "appgen",
-                {
+                this.$store.state[
+                    model.name
+                ].rawData = await this.$store.dispatch("appgen", {
                     method: "getAll",
                     model: model.name,
-                }
-            );
+                });
 
-            this.$store.state[model.name].loading = false;
+                this.$store.state[model.name].loading = false;
+            }
         }
-        this.$store.state.loading = false;
     },
 };
 </script>

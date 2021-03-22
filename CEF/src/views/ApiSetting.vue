@@ -1,18 +1,17 @@
 <template>
     <div>
-    jhj
         <v-tabs>
             <v-tab
-                v-for="model in $store.state['system_model'].rawData"
-                :key="model"
+                v-for="(model, i) in $store.state['system_model'].rawData"
+                :key="i"
                 >{{ model.name }}</v-tab
             >
             <v-tab-item
-                v-for="model in $store.state['system_model'].rawData"
-                :key="model"
+                v-for="(model, i) in $store.state['system_model'].rawData"
+                :key="i"
             >
-                <appgen-viewer :Model="model.name"></appgen-viewer
-            ></v-tab-item>
+                <appgen-viewer :Model="model.name"></appgen-viewer>
+            </v-tab-item>
         </v-tabs>
     </div>
 </template>

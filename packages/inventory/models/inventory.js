@@ -1,5 +1,6 @@
 module.exports = {
     name: 'inventory',
+    display: "id",
     schema: {
         inventory_type: {
             type: "INTEGER",
@@ -8,15 +9,13 @@ module.exports = {
                 key: "key"
             },
         },
-        owner: {
-            type: "INTEGER",
-            relation: {
-                model: "inventory",
-                key: "id"
-            },
+        openable: {
+            type: "BOOLEAN",
+            inptut: "boolean"
         },
     },
     fookie: {
+
         get: {
             auth: ["everybody"],
         },

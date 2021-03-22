@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 
-import post from './components/appgen/post.vue'
+
 import deletee from './components/appgen/delete.vue'
 import edit from './components/appgen/edit.vue'
 import kanban from './components/appgen/canban.vue'
@@ -17,7 +17,6 @@ import chartmodelstatus from './components/dashboard/chart-model-status.vue'
 import timeline_day_remain from './components/dashboard/timeline-day-remain.vue'
 
 
-Vue.component('post', post)
 Vue.component('appgen-delete', deletee)
 Vue.component('appgen-edit', edit)
 Vue.component('appgen-kanban', kanban)

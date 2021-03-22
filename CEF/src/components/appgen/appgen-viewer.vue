@@ -1,8 +1,8 @@
 <template>
-    <v-card elevation="2" :loading="$store.state.loading">
+    <v-card elevation="2" :key="$store.state[Model]">
         <v-card-title class="flex justify-between">{{ Model }} </v-card-title>
         <v-tabs>
-            <v-tab v-for="item in ['List', 'Create']" :key="item">
+            <v-tab v-for="item in ['List', 'Create', 'Options']" :key="item">
                 {{ item }}
             </v-tab>
             <v-tab-item class="p-4">
@@ -53,9 +53,9 @@
                 </v-simple-table>
             </v-tab-item>
             <v-tab-item>
-                test
                 <appgen-post :Model="Model"></appgen-post>
             </v-tab-item>
+            <v-tab-item> {{ headers }} </v-tab-item>
         </v-tabs>
     </v-card>
 </template>
@@ -65,20 +65,26 @@ export default {
     props: ["Model"],
     data() {
         return {
-            headers: Object.keys(
-                this.$store.state[this.Model].options.fields
-            ).concat(["createdAt", "updatedAt", "id"]),
             filters: {},
-            filteredFields:
-                this.$store.state[this.Model].options.appgen.filteredFields ||
-                [],
         };
     },
     methods: {},
     computed: {
+        filteredFields() {
+            return (
+                this.$store.state[this.Model].options.fookie.filteredFields || [
+                    "createdAt",
+                    "updatedAt",
+                    "id",
+                ]
+            );
+        },
+        headers() {
+            return Object.keys(this.$store.state[this.Model].options.schema);
+        },
         filteredData() {
             let res = [];
-            let data = this.$store.state[this.Model].deepData;
+            let data = this.$store.state[this.Model].rawData;
             let filters = this.filters;
             for (let f in filters) {
                 data = data.filter((field) =>

@@ -12,7 +12,7 @@ export default new Vuex.Store({
         inGame: false,
         system_model: {
             loading: true,
-            options: { fields: undefined, appgen: undefined },
+            options: { schema: undefined, fookie: undefined },
             deepData: [],
             rawData: [],
         },
@@ -63,8 +63,12 @@ export default new Vuex.Store({
                 let res = await mp.events.callProc('local', JSON.stringify(payload))
                 return JSON.parse(res);
             } else {
-                let res = await axios.post(ctx.state.baseURL, payload)
-                return res
+                let res = await axios.post(ctx.state.baseURL, payload, {
+                    headers: {
+                        TOKEN: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE2MzE0OTk4fQ.DHiZsGsX4pA8z4X0NGVEj3t0byx8ng1aheRfhoSqARA"
+                    }
+                })
+                return res.data
             }
 
         }

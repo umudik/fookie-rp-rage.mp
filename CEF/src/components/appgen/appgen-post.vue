@@ -1,19 +1,22 @@
 <template>
     <v-card>
         <v-card-title>Create {{ Model }}</v-card-title>
-        <v-card-text v-if="fields">
-            <v-row v-for="(sch, i) in fields" :key="i">
+        <v-card-text>
+            <v-row
+                v-for="(sch, i) in $store.state[Model].options.schema"
+                :key="i"
+            >
                 <!-- ------------------ -->
                 <v-text-field
                     prepend-icon="mdi-text"
-                    v-if="sch.appgen.input == 'text'"
+                    v-if="sch.input == 'text'"
                     :label="i"
                     v-model="body[i]"
                 ></v-text-field>
 
                 <!-- ------------------ -->
                 <v-text-field
-                    v-if="sch.appgen.input == 'password'"
+                    v-if="sch.input == 'password'"
                     :label="i"
                     v-model="body[i]"
                     prepend-icon="mdi-lock"
@@ -26,7 +29,7 @@
                 <!-- ------------------ -->
                 <!-- ------------------ -->
                 <v-text-field
-                    v-if="sch.appgen.input == 'number'"
+                    v-if="sch.input == 'number'"
                     :label="i"
                     v-model="body[i]"
                     prepend-icon="mdi-numeric"
@@ -35,7 +38,7 @@
 
                 <!-- ------------------ -->
                 <v-menu
-                    v-if="sch.appgen.input == 'time'"
+                    v-if="sch.input == 'time'"
                     v-model="menus[i]"
                     :nudge-right="40"
                     :return-value.sync="syncs[i]"
@@ -66,7 +69,7 @@
                 <!-- ------------------ -->
 
                 <v-menu
-                    v-if="sch.appgen.input == 'color'"
+                    v-if="sch.input == 'color'"
                     :return-value.sync="syncs[i]"
                     transition="scale-transition"
                     offset-y
@@ -91,7 +94,7 @@
                 </v-menu>
                 <!-- ------------------ -->
                 <v-menu
-                    v-if="sch.appgen.input == 'date'"
+                    v-if="sch.input == 'date'"
                     v-model="menus[i]"
                     :return-value.sync="syncs[i]"
                     transition="scale-transition"
@@ -113,13 +116,12 @@
                 </v-menu>
                 <!---------------------->
 
-                <div v-if="sch.appgen.input == 'rich'">
+                <div v-if="sch.input == 'rich'">
                     <quill-editor ref="myQuillEditor" v-model="body[i]" />
                 </div>
                 <!-- ------------------ -->
-                {{ i }}
                 <v-jsoneditor
-                    v-if="sch.appgen.input == 'json'"
+                    v-if="sch.input == 'json'"
                     v-model="body[i]"
                     :plus="false"
                     height="400px"
@@ -129,7 +131,7 @@
                 <!-- ------------------ -->
                 <v-sheet class="">
                     <v-switch
-                        v-if="sch.appgen.input == 'boolean'"
+                        v-if="sch.input == 'boolean'"
                         v-model="body[i]"
                         inset
                         :label="i"
@@ -137,12 +139,14 @@
                 </v-sheet>
                 <!-- ------------------ -->
                 <v-autocomplete
-                    v-if="sch.relation && relationOption[sch.field]"
+                    v-if="sch.relation"
                     v-model="body[i]"
                     item-value="id"
                     prepend-icon="mdi-relation-one-to-one"
-                    :items="relationData[i]"
-                    :item-text="relationOption[sch.field].appgen.display"
+                    :items="$store.state[sch.relation.model].rawData"
+                    :item-text="
+                        $store.state[sch.relation.model].options.fookie.display
+                    "
                     :label="i"
                     clearable
                 ></v-autocomplete>
@@ -157,7 +161,6 @@
             <v-spacer></v-spacer>
             <v-btn color="success darken-1" text @click="create">
                 CREATE
-                {{ formatted }}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -174,19 +177,15 @@ export default {
     props: ["Model", "defaults", "schema"],
     data() {
         return {
-            formatted: null,
             syncs: {},
             menus: {},
             relationOption: {},
             relationData: {},
             body: {},
-            fields: null,
         };
     },
     mounted: async function () {
-        this.fields = this.$store.state[this.Model].options.fields;
-
-        let fields = this.fields;
+        let fields = this.$store.state[this.Model].options.schema;
         for (let f in fields) {
             if (fields[f].relation) {
                 this.relationOption[f] = this.$store.state[
@@ -195,7 +194,7 @@ export default {
 
                 this.relationData[f] = this.$store.state[
                     fields[f].relation.model
-                ].deepData;
+                ].rawData;
             }
         }
     },
