@@ -1,22 +1,22 @@
 <template>
     <v-card>
-        <v-card-title>Create {{ Model }}</v-card-title>
+        <v-card-title>Create {{ model.name }}</v-card-title>
         <v-card-text>
             <v-row
-                v-for="(sch, i) in $store.state[Model].options.schema"
+                v-for="(field, i) in model.schema"
                 :key="i"
             >
                 <!-- ------------------ -->
                 <v-text-field
                     prepend-icon="mdi-text"
-                    v-if="sch.input == 'text'"
+                    v-if="field.input == 'text'"
                     :label="i"
                     v-model="body[i]"
                 ></v-text-field>
 
                 <!-- ------------------ -->
                 <v-text-field
-                    v-if="sch.input == 'password'"
+                    v-if="field.input == 'password'"
                     :label="i"
                     v-model="body[i]"
                     prepend-icon="mdi-lock"
@@ -29,7 +29,7 @@
                 <!-- ------------------ -->
                 <!-- ------------------ -->
                 <v-text-field
-                    v-if="sch.input == 'number'"
+                    v-if="field.input == 'number'"
                     :label="i"
                     v-model="body[i]"
                     prepend-icon="mdi-numeric"
@@ -38,7 +38,7 @@
 
                 <!-- ------------------ -->
                 <v-menu
-                    v-if="sch.input == 'time'"
+                    v-if="field.input == 'time'"
                     v-model="menus[i]"
                     :nudge-right="40"
                     :return-value.sync="syncs[i]"
@@ -69,7 +69,7 @@
                 <!-- ------------------ -->
 
                 <v-menu
-                    v-if="sch.input == 'color'"
+                    v-if="field.input == 'color'"
                     :return-value.sync="syncs[i]"
                     transition="scale-transition"
                     offset-y
@@ -94,7 +94,7 @@
                 </v-menu>
                 <!-- ------------------ -->
                 <v-menu
-                    v-if="sch.input == 'date'"
+                    v-if="field.input == 'date'"
                     v-model="menus[i]"
                     :return-value.sync="syncs[i]"
                     transition="scale-transition"
@@ -116,12 +116,12 @@
                 </v-menu>
                 <!---------------------->
 
-                <div v-if="sch.input == 'rich'">
+                <div v-if="field.input == 'rich'">
                     <quill-editor ref="myQuillEditor" v-model="body[i]" />
                 </div>
                 <!-- ------------------ -->
                 <v-jsoneditor
-                    v-if="sch.input == 'json'"
+                    v-if="field.input == 'json'"
                     v-model="body[i]"
                     :plus="false"
                     height="400px"
@@ -131,7 +131,7 @@
                 <!-- ------------------ -->
                 <v-sheet class="">
                     <v-switch
-                        v-if="sch.input == 'boolean'"
+                        v-if="field.input == 'boolean'"
                         v-model="body[i]"
                         inset
                         :label="i"
@@ -139,13 +139,13 @@
                 </v-sheet>
                 <!-- ------------------ -->
                 <v-autocomplete
-                    v-if="sch.relation"
+                    v-if="field.relation"
                     v-model="body[i]"
                     item-value="id"
                     prepend-icon="mdi-relation-one-to-one"
-                    :items="$store.state[sch.relation.model].rawData"
+                    :items="$store.state[field.relation.model].pool"
                     :item-text="
-                        $store.state[sch.relation.model].options.fookie.display
+                        $store.state[field.relation.model].display
                     "
                     :label="i"
                     clearable
@@ -174,7 +174,7 @@ import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
 export default {
     components: { quillEditor },
-    props: ["Model", "defaults", "schema"],
+    props: ["model", "defaults", "fieldema"],
     data() {
         return {
             syncs: {},
@@ -185,24 +185,13 @@ export default {
         };
     },
     mounted: async function () {
-        let fields = this.$store.state[this.Model].options.schema;
-        for (let f in fields) {
-            if (fields[f].relation) {
-                this.relationOption[f] = this.$store.state[
-                    fields[f].relation.model
-                ].options;
-
-                this.relationData[f] = this.$store.state[
-                    fields[f].relation.model
-                ].rawData;
-            }
-        }
+    
     },
     methods: {
         create: async function () {
             this.$store.dispatch("appgen", {
                 method: "post",
-                model: this.Model,
+                model: this.model,
                 body: this.body,
             });
         },

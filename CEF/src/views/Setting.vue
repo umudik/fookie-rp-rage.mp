@@ -1,5 +1,5 @@
 <template>
-    <div>{{ $store.state["system_model"].rawData }}</div>
+    <div>{{ $store.state["system_model"].pool }}</div>
 </template>
 
 <script>

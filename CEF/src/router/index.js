@@ -23,17 +23,11 @@ const routes = [{
         component: ApiSetting,
     },
     {
-        path: "Setting",
-        name: "Setting",
+        path: "setting",
+        name: "setting",
         component: Setting,
     }
 ]
-
-
-
-
-
-
 
 const router = new VueRouter({
     mode: "history",

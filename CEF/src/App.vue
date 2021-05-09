@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app style="background-color: transparent">
         <v-system-bar lights-out app height="30">
             <v-switch
                 dense
@@ -7,8 +7,8 @@
                 label="Game"
             ></v-switch>
             <v-spacer></v-spacer>
-            <v-icon @click="$router.push({ name: 'home' })">mdi-home</v-icon>
-            <v-icon @click="$router.push({ name: 'api' })">mdi-cog</v-icon>
+            <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
+            <v-icon @click="$router.push({ name: 'setting' })">mdi-cog</v-icon>
             <v-icon @click="$router.push({ name: 'settings' })"
                 >mdi-account</v-icon
             >
@@ -31,17 +31,18 @@ export default {
         return {};
     },
     mounted: async function () {
-        this.$store.state["system_model"].rawData = await this.$store.dispatch(
+        this.$store.state["system_model"].pool = await this.$store.dispatch(
             "appgen",
             {
                 method: "getAll",
                 model: "system_model",
             }
         );
-        this.$store.state["system_model"].options = await this.$store.dispatch(
+
+        this.$store.state["system_model"].schema = await this.$store.dispatch(
             "appgen",
             {
-                method: "options",
+                method: "schema",
                 model: "system_model",
                 body: {
                     method: "write",
@@ -49,35 +50,29 @@ export default {
             }
         );
 
-        this.$store.state["system_model"].loading = false;
-
-        for (let model of this.$store.state["system_model"].rawData) {
+        for (let model of this.$store.state["system_model"].pool) {
             if (model.name != "system_model") {
                 this.$set(this.$store.state, model.name, {
-                    loading: true,
-                    options: { schema: undefined, fookie: undefined },
-                    deepData: [],
-                    rawData: [],
+                    display: "id",
+                    schema: undefined,
+                    pool: [],
                 });
 
-                this.$store.state[
-                    model.name
-                ].options = await this.$store.dispatch("appgen", {
+                this.$store.state[model.name].schema = await this.$store.dispatch("appgen", {
                     model: model.name,
-                    method: "options",
+                    method: "schema",
                     body: {
                         method: "write",
                     },
                 });
 
-                this.$store.state[
-                    model.name
-                ].rawData = await this.$store.dispatch("appgen", {
-                    method: "getAll",
-                    model: model.name,
-                });
-
-                this.$store.state[model.name].loading = false;
+                this.$store.state[model.name].pool = await this.$store.dispatch(
+                    "appgen",
+                    {
+                        method: "getAll",
+                        model: model.name,
+                    }
+                );
             }
         }
     },

@@ -22,7 +22,6 @@ export default new Vuex.Store({
     mutations: {},
     actions: {
         getAllDeep: async function(ctx, req) {
-
             let res = await ctx.dispatch('appgen', {
                 model: req.model,
                 method: "options",
@@ -65,7 +64,7 @@ export default new Vuex.Store({
             } else {
                 let res = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
-                        TOKEN: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE2MzE0OTk4fQ.DHiZsGsX4pA8z4X0NGVEj3t0byx8ng1aheRfhoSqARA"
+                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"
                     }
                 })
                 return res.data

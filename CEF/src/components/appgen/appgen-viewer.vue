@@ -1,111 +1,120 @@
 <template>
-    <v-card elevation="2" :key="$store.state[Model]">
-        <v-card-title class="flex justify-between">{{ Model }} </v-card-title>
+    <v-card elevation="2">
+        <v-card-title class="flex justify-between"
+            >{{ model.name }}
+        </v-card-title>
         <v-tabs>
-            <v-tab v-for="item in ['List', 'Create', 'Options']" :key="item">
+            <v-tab v-for="item in ['List', 'Create', 'Schema']" :key="item">
                 {{ item }}
             </v-tab>
             <v-tab-item class="p-4">
-                <v-select
-                    v-model="filteredFields"
-                    :items="headers"
-                    attach
-                    chips
-                    label="Filtered Fields"
-                    multiple
-                    clearable
-                ></v-select>
-                <v-simple-table v-if="$store.state[Model].options">
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th
-                                    v-for="t in headers.filter(
-                                        (k) => !filteredFields.includes(k)
-                                    )"
-                                    :key="t"
+                <v-data-iterator
+                    :items="model.pool"
+                    :items-per-page.sync="itemsPerPage"
+                    :page.sync="page"
+          
+                >
+                    <template v-slot:header>
+                        <v-toolbar dark color="blue darken-3" class="mb-1">
+                            <v-text-field
+                                clearable
+                                flat
+                                solo-inverted
+                                hide-details
+                                prepend-inner-icon="mdi-magnify"
+                                label="Search"
+                            ></v-text-field>
+
+                            <v-spacer></v-spacer>
+
+                            <v-btn-toggle v-model="sortDesc" mandatory>
+                                <v-btn
+                                    large
+                                    depressed
+                                    color="blue"
+                                    :value="false"
                                 >
-                                    <v-text-field
-                                        :label="t"
-                                        v-model="filters[t]"
-                                    />
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                v-for="(col, j) in filteredData"
-                                :key="col + 'col' + j"
-                            >
-                                <td
-                                    v-for="(field, i) in col"
-                                    :key="field + 'field' + i"
+                                    <v-icon>mdi-arrow-up</v-icon>
+                                </v-btn>
+                                <v-btn
+                                    large
+                                    depressed
+                                    color="blue"
+                                    :value="true"
                                 >
-                                    <appgen-field
-                                        :Model="Model"
-                                        :fieldName="i"
-                                        :fieldValue="field"
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
+                                    <v-icon>mdi-arrow-down</v-icon>
+                                </v-btn>
+                            </v-btn-toggle>
+                        </v-toolbar>
                     </template>
-                </v-simple-table>
+
+                    <template v-slot:default="props">
+                        <v-row>
+                            <v-col
+                                v-for="item in props.items"
+                                :key="item.id"
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                lg="3"
+                            >
+                                <v-card>
+                                    <v-list dense>
+                                        <v-list-item
+                                            v-for="(key, index) in Object.keys(
+                                                model.schema
+                                            )"
+                                            :key="index"
+                                        >
+                                            <v-list-item-content
+                                                :class="{
+                                                    'blue--text':
+                                                        sortBy === key,
+                                                }"
+                                            >
+                                                {{ key }}:
+                                            </v-list-item-content>
+                                            <v-list-item-content
+                                                class="align-end"
+                                                :class="{
+                                                    'blue--text':
+                                                        sortBy === key,
+                                                }"
+                                            >
+                                                {{ item[key.toLowerCase()] }}
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </template>
+                </v-data-iterator>
             </v-tab-item>
             <v-tab-item>
-                <appgen-post :Model="Model"></appgen-post>
+                <appgen-post :model="model"></appgen-post>
             </v-tab-item>
-            <v-tab-item> {{ headers }} </v-tab-item>
+            <v-tab-item> {{ model.schema }} </v-tab-item>
         </v-tabs>
     </v-card>
 </template>
 
 <script>
 export default {
-    props: ["Model"],
+    props: ["model"],
     data() {
         return {
             filters: {},
+            itemsPerPageArray: [4, 8, 12],
+            search: "",
+            filter: {},
+            sortDesc: false,
+            page: 1,
+            itemsPerPage: 4,
         };
     },
     methods: {},
-    computed: {
-        filteredFields() {
-            return (
-                this.$store.state[this.Model].options.fookie.filteredFields || [
-                    "createdAt",
-                    "updatedAt",
-                    "id",
-                ]
-            );
-        },
-        headers() {
-            return Object.keys(this.$store.state[this.Model].options.schema);
-        },
-        filteredData() {
-            let res = [];
-            let data = this.$store.state[this.Model].rawData;
-            let filters = this.filters;
-            for (let f in filters) {
-                data = data.filter((field) =>
-                    JSON.stringify(field[f])
-                        .toLowerCase()
-                        .includes(filters[f].toLowerCase())
-                );
-            }
-
-            for (let i in data) {
-                res[i] = {};
-                for (let j in data[i]) {
-                    if (!this.filteredFields.includes(j)) {
-                        res[i][j] = data[i][j];
-                    }
-                }
-            }
-
-            return res;
-        },
-    },
+    computed: {},
 };
 </script>
 
