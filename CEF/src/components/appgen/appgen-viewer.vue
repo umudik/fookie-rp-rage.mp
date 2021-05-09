@@ -12,7 +12,6 @@
                     :items="model.pool"
                     :items-per-page.sync="itemsPerPage"
                     :page.sync="page"
-          
                 >
                     <template v-slot:header>
                         <v-toolbar dark color="blue darken-3" class="mb-1">
@@ -26,25 +25,6 @@
                             ></v-text-field>
 
                             <v-spacer></v-spacer>
-
-                            <v-btn-toggle v-model="sortDesc" mandatory>
-                                <v-btn
-                                    large
-                                    depressed
-                                    color="blue"
-                                    :value="false"
-                                >
-                                    <v-icon>mdi-arrow-up</v-icon>
-                                </v-btn>
-                                <v-btn
-                                    large
-                                    depressed
-                                    color="blue"
-                                    :value="true"
-                                >
-                                    <v-icon>mdi-arrow-down</v-icon>
-                                </v-btn>
-                            </v-btn-toggle>
                         </v-toolbar>
                     </template>
 
@@ -85,6 +65,12 @@
                                             </v-list-item-content>
                                         </v-list-item>
                                     </v-list>
+                                    <v-card-actions>
+                                        <appgen-delete
+                                            :model="model"
+                                            :selectedId="item.id"
+                                        ></appgen-delete>
+                                    </v-card-actions>
                                 </v-card>
                             </v-col>
                         </v-row>

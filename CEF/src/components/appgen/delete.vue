@@ -1,57 +1,48 @@
 <template>
-    <v-row justify="center">
-        <v-dialog v-model="dialog" max-width="600px">
-            <template v-slot:activator="{ on, attrs }">
-                <v-avatar
-                    v-bind="attrs"
-                    v-on="on"                    
-                    color="red"
-                    size="36"
-                >
-                    <v-icon color="white">mdi-trash-can-outline</v-icon>
-                </v-avatar>
-            </template>
-            <v-card>
-                <v-card-title>
-                    <span class="headline">Delete {{ Model }}</span>
-                </v-card-title>
-                <v-card-text> Delete ID:{{ id }} </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
+    <v-dialog v-model="dialog" width="700">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" color="red" size="36">
+                <v-icon color="white">mdi-trash-can-outline</v-icon>
+            </v-btn>
+        </template>
+        <v-card>
+            <v-card-title>
+                <span class="headline">Delete {{ model.name }}</span>
+            </v-card-title>
+            <v-card-text> Delete ID:{{ selectedId }} </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
 
-                    <v-btn color="red darken-1" text @click="del">
-                        DELETE
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-    </v-row>
+                <v-btn color="red darken-1" text @click="del"> DELETE </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 
 <script>
 export default {
-    props: ["Model", "id"],
+    props: ["model", "selectedId"],
     data() {
         return {
-            dialog:false,
+            dialog: false,
         };
     },
 
     methods: {
         del: async function () {
-            let id = this.id;
-            let model = this.Model;
-            await this.$store.dispatch('appgen',{
+            let id = this.selectedId;
+            let model = this.model.name;
+            await this.$store.dispatch("appgen", {
                 method: "delete",
                 model,
-                query:{
-                    where:{
-                        id:{
-                            $eq:id
-                        }
-                    }
-                }
+                query: {
+                    where: {
+                        id: {
+                            $eq: id,
+                        },
+                    },
+                },
             });
         },
     },
