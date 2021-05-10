@@ -3,25 +3,25 @@ module.exports = {
     display: "id",
     schema: {
         item_type: {
-            type: "INTEGER",
+            type: "integer",
             relation: {
                 model: "item_type",
                 key: "key"
             },
         },
         inventory: {
-            type: "INTEGER",
+            type: "integer",
             relation: {
                 model: "inventory",
                 key: "id"
             },
         },
         amount: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         data: {
-            type: "JSONB",
+            type: "jsonb",
             input: "json",
         },
     },
@@ -41,7 +41,7 @@ module.exports = {
         delete: {
             auth: ["system_admin"],
         },
-        options: {
+        schema: {
             auth: ["everybody"],
         }
     }

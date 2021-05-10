@@ -3,43 +3,39 @@ module.exports = {
     display: "name",
     schema: {
         key: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         name: {
-            type: "STRING",
-            input: "text",
-        },
-        type: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         weight: {
-            type: "FLOAT",
+            type: "float",
             input: "number",
         },
         stackable: {
-            type: "BOOLEAN",
+            type: "boolean",
             input: "boolean",
         },
         stack_size: {
-            type: "INTEGER",
+            type: "integer",
             input: "number",
         },
         desc: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         in: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         out: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
         use: {
-            type: "STRING",
+            type: "string",
             input: "text",
         },
     },
@@ -60,7 +56,7 @@ module.exports = {
         delete: {
             auth: ["system_admin"],
         },
-        options: {
+        schema: {
             auth: ["everybody"],
         }
     }

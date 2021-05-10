@@ -3,14 +3,14 @@ module.exports = {
     display: "id",
     schema: {
         inventory_type: {
-            type: "INTEGER",
+            type: "integer",
             relation: {
                 model: "inventory_type",
                 key: "key"
             },
         },
         openable: {
-            type: "BOOLEAN",
+            type: "boolean",
             inptut: "boolean"
         },
     },
@@ -31,7 +31,7 @@ module.exports = {
         delete: {
             auth: ["system_admin"],
         },
-        options: {
+        schema: {
             auth: ["everybody"],
         }
     }

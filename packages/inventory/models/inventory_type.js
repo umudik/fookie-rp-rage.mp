@@ -3,31 +3,19 @@ module.exports = {
     display: "name",
     schema: {
         key: {
-            type: "STRING",
-            input: "text"
-        },
-        name: {
-            type: "STRING",
+            type: "string",
             input: "text"
         },
         slot_size: {
-            type: "INTEGER",
+            type: "integer",
             input: "number"
         },
         maxWeight: {
-            type: "FLOAT",
+            type: "integer",
             input: "number"
         },
-        model: {
-            type: "INTEGER",
-            relation: {
-                model: "system_model",
-                key: "name"
-            }
-        }
     },
     fookie: {
-
         get: {
             auth: ["everybody"],
         },
@@ -43,7 +31,7 @@ module.exports = {
         delete: {
             auth: ["system_admin"],
         },
-        options: {
+        schema: {
             auth: ["everybody"],
         }
     }
