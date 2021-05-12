@@ -28,7 +28,14 @@
                 <v-select
                     v-if="model === 'order' && getUserType !== 'driver'"
                     v-model="sortBy"
-                    :items="['Tümü'].concat(keys)"
+                    :items="
+                        ['Tümü'].concat(
+                            Object.keys(statuses).map((x) => ({
+                                text: statuses[x].label,
+                                value: x,
+                            }))
+                        )
+                    "
                     flat
                     hide-details
                     label="Sırala"
@@ -46,8 +53,8 @@
                         </v-btn>
                     </v-btn-toggle>
                 </template>
-                <v-spacer></v-spacer>
-                <appgen-post :model="model" />
+                <v-spacer v-if="getUserType === 'admin'"></v-spacer>
+                <appgen-post v-if="getUserType === 'admin'" :model="model" />
             </v-toolbar>
         </template>
 
@@ -69,12 +76,14 @@
 
                         <v-list dense>
                             <v-list-item
-                                v-for="(key, index) in keys"
+                                v-for="(key, index) in filteredKeys"
                                 :key="index"
                             >
                                 <v-list-item-content>
-                                    {{ key }}:
-                                </v-list-item-content>
+                                    {{
+                                        getSchema[key].label
+                                    }}:</v-list-item-content
+                                >
                                 <v-list-item-content class="align-end">
                                     {{ getContent(item, key) }}
                                 </v-list-item-content>
@@ -83,10 +92,12 @@
                         <v-card-actions class="card-action">
                             <v-btn-toggle mandatory dark>
                                 <appgen-post
+                                    v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"
                                 />
                                 <appgen-delete
+                                    v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"
                                 />
@@ -101,7 +112,9 @@
 
 
 <script>
-export default {
+import vue from "vue";
+
+export default vue.extend({
     props: {
         model: {
             type: String,
@@ -131,22 +144,39 @@ export default {
         };
     },
     computed: {
+        getUserType() {
+            return this.$store.state.self.user.type;
+        },
         items() {
             if (this.sortBy == null || this.sortBy == "Tümü") {
-                return this.model.pool;
+                return this.$store.state[this.model].pool;
             } else {
-                return this.model.pool.filter((x) => x.status === this.sortBy);
+                return this.$store.state[this.model].pool.filter(
+                    (x) => x.status === this.sortBy
+                );
             }
         },
         keys() {
-            return Object.keys(this.model.schema);
+            return Object.keys(this.$store.state[this.model].schema);
         },
         numberOfPages() {
             return Math.ceil(this.items.length / this.itemsPerPage);
         },
-
+        filteredKeys() {
+            return this.keys
+                .filter(
+                    (key) =>
+                        key !== "name" && key !== "password" && key !== "id"
+                )
+                .filter(
+                    (k) =>
+                        this.getSchema[k][
+                            this.$store.state.self.user.type || "driver"
+                        ].read === true
+                );
+        },
         getSchema() {
-            return this.model.schema;
+            return this.$store.state[this.model].schema;
         },
     },
     methods: {
@@ -173,7 +203,7 @@ export default {
             return item[key] || "-";
         },
     },
-};
+});
 </script>
 
 

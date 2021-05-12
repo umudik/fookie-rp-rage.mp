@@ -1,23 +1,25 @@
+
 <template>
     <v-dialog v-model="dialog" width="700">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" color="red" size="36">
-                <v-icon color="white">mdi-trash-can-outline</v-icon>
+            <v-btn v-bind="attrs" v-on="on" color="error" dark>
+                <v-icon>mdi-delete</v-icon>
             </v-btn>
         </template>
         <v-card>
             <v-card-title>
-                <span class="headline">Delete {{ model.name }}</span>
+                <span class="headline">Sil {{ model.name }}</span>
             </v-card-title>
-            <v-card-text> Delete ID:{{ selectedId }} </v-card-text>
+            <v-card-text> Sil ID:{{ selectedId }}</v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-
-                <v-btn color="red darken-1" text @click="del"> DELETE </v-btn>
+                <v-btn color="red darken-1" text @click="del"> DELETE</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
+
+
 
 
 <script>
@@ -28,34 +30,14 @@ export default {
             dialog: false,
         };
     },
-
     methods: {
         del: async function () {
-            let id = this.selectedId;
-            let model = this.model.name;
-            await this.$store.dispatch("appgen", {
-                method: "delete",
-                model,
-                query: {
-                    where: {
-                        id: {
-                            $eq: id,
-                        },
-                    },
-                },
-            });
+            console.log("del");
         },
     },
 };
 </script>
 
+
 <style>
-.ql-editor {
-    min-height: 300px;
-}
-</style> 
-
-
-
-
-
+</style>

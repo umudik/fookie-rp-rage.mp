@@ -3,7 +3,6 @@ let FookieJS = require('../../../../html/api/src/index')
 mp.api = new FookieJS()
 async function start() {
     await mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay')
-
     mp.api.use((ctx) => {
         ctx.store.set("secret", "secret")
         ctx.store.set("login", true)
