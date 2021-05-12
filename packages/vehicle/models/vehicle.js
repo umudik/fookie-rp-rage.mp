@@ -1,21 +1,21 @@
 module.exports = {
-    name: 'inventory',
+    name: 'vehicle',
     display: "id",
     schema: {
-        inventory_type: {
+        position: {
+            type: "jsonb",
+            input: "json"
+        },
+        type: {
             type: "integer",
             relation: {
-                model: "inventory_type",
+                model: "vehicle_type",
                 key: "key"
             },
         },
-        openable: {
-            type: "boolean",
-            input: "boolean"
-        },
+       
     },
     fookie: {
-
         get: {
             auth: ["everybody"],
         },
@@ -26,7 +26,7 @@ module.exports = {
             auth: ["system_admin"],
         },
         post: {
-            auth: ["system_admin"],
+            auth: ["system_admin","rage_mp_post"],
         },
         delete: {
             auth: ["system_admin"],

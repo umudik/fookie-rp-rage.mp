@@ -122,6 +122,8 @@
                 <div v-if="field.input === 'rich'">
                     <quill-editor ref="myQuillEditor" v-model="body[i]" />
                 </div>
+
+                <div v-if="field.input === 'json'">{{ i }}</div>
                 <v-jsoneditor
                     v-if="field.input === 'json'"
                     v-model="body[i]"

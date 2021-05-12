@@ -1,18 +1,19 @@
 module.exports = {
-    name: 'inventory',
+    name: 'example',
     display: "id",
     schema: {
-        inventory_type: {
+        position: {
+            type: "jsonb",
+            input: "json"
+        },
+        type: {
             type: "integer",
             relation: {
-                model: "inventory_type",
+                model: "vehicle_type",
                 key: "key"
             },
         },
-        openable: {
-            type: "boolean",
-            input: "boolean"
-        },
+       
     },
     fookie: {
 

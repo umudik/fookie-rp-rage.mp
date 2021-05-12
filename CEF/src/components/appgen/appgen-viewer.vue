@@ -102,23 +102,7 @@
 
 <script>
 export default {
-    props: {
-        model: {
-            type: String,
-        },
-        admin: {
-            type: Boolean,
-            default: () => {
-                return false;
-            },
-        },
-        actions: {
-            type: Array,
-            default: () => {
-                return ["post", "delete", "patch"];
-            },
-        },
-    },
+    props: ["model"],
     data() {
         return {
             itemsPerPageArray: [4, 8, 12],

@@ -14,8 +14,8 @@ async function start() {
 start()
 
 
-mp.api.effect('createObject', async({ user, model, method, result, ctx }) => {
-    mp.objects.new(document.name, user.position)
+mp.api.effect('rage_mp_post', async(payload) => {
+    console.log(payload);
 })
 
 mp.api.effect('notify', async({ user, model, method, result, ctx }) => {
