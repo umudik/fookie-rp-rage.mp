@@ -1,12 +1,14 @@
 <template>
-    <v-card>
-        <v-card-title>Logs</v-card-title>
-        <v-card-text>
-            <div v-for="(log, i) in $store.state['logs']" :key="i">
-                {{ log }}
-            </div>
-        </v-card-text>
-    </v-card>
+    <v-expansion-panels>
+        <v-expansion-panel v-for="(log, i) in $store.state['logs']" :key="i">
+            <v-expansion-panel-header>
+                {{ log.title }}
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                {{ log.body }}
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
 </template>
 
 <script>

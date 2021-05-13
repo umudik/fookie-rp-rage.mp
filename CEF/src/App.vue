@@ -13,8 +13,9 @@
             <span>12:30</span>
 
             <v-avatar
+                @click="$store.state.inGame = !$store.state.inGame"
                 class="ml-1"
-                :color="$store.state.inGame ? 'teal' : 'red'"
+                :color="$store.state.inGame ? 'green' : 'red'"
                 size="12"
             ></v-avatar>
         </v-system-bar>

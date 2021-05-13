@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        logs:[],
+        logs: [],
         baseURL: "http://localhost:7777",
         inGame: true,
         system_model: {
@@ -74,17 +74,28 @@ export default new Vuex.Store({
 
         },
         api: async function (ctx, payload) {
+            console.log(payload.model);
             if (ctx.state.inGame) {
-                ctx.state.logs.push('ingame = true')
                 let res = await mp.events.callProc('local', JSON.stringify(payload))
-                console.log(JSON.parse(res))
+                ctx.state.logs.push({
+                    title: `${res.status} | ${payload.method} | ${payload.model}`,
+                    body: res
+                })
+                if (res.status == 200) {
+
+                } else {
+
+                }
                 return JSON.parse(res).data
             } else {
-                ctx.state.logs.push('ingame = false')
                 let res = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
                         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"
                     }
+                })
+                ctx.state.logs.push({
+                    title: `${res.status} | ${payload.method} | ${payload.model}`,
+                    body: res
                 })
                 return res.data
             }

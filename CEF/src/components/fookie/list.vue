@@ -26,7 +26,6 @@
                 ></v-text-field>
                 <v-spacer></v-spacer>
                 <v-select
-                    v-if="model === 'order' && getUserType !== 'driver'"
                     v-model="sortBy"
                     :items="
                         ['Tümü'].concat(
@@ -53,8 +52,8 @@
                         </v-btn>
                     </v-btn-toggle>
                 </template>
-                <v-spacer v-if="getUserType === 'admin'"></v-spacer>
-                <fookie-post v-if="getUserType === 'admin'" :model="model" />
+                <v-spacer></v-spacer>
+                <fookie-post :model="model" />
             </v-toolbar>
         </template>
 
@@ -81,7 +80,7 @@
                             >
                                 <v-list-item-content>
                                     {{
-                                        getSchema[key].label
+                                        model.schema[key].label
                                     }}:</v-list-item-content
                                 >
                                 <v-list-item-content class="align-end">
@@ -92,12 +91,10 @@
                         <v-card-actions class="card-action">
                             <v-btn-toggle mandatory dark>
                                 <fookie-post
-                                    v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"
                                 />
                                 <fookie-delete
-                                    v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"
                                 />
@@ -144,39 +141,23 @@ export default vue.extend({
         };
     },
     computed: {
-        getUserType() {
-            return this.$store.state.self.user.type;
-        },
         items() {
             if (this.sortBy == null || this.sortBy == "Tümü") {
-                return this.$store.state[this.model].pool;
+                return this.model.pool;
             } else {
-                return this.$store.state[this.model].pool.filter(
-                    (x) => x.status === this.sortBy
-                );
+                return this.model.pool.filter((x) => x.status === this.sortBy);
             }
         },
         keys() {
-            return Object.keys(this.$store.state[this.model].schema);
+            return Object.keys(this.model.schema);
         },
         numberOfPages() {
             return Math.ceil(this.items.length / this.itemsPerPage);
         },
         filteredKeys() {
-            return this.keys
-                .filter(
-                    (key) =>
-                        key !== "name" && key !== "password" && key !== "id"
-                )
-                .filter(
-                    (k) =>
-                        this.getSchema[k][
-                            this.$store.state.self.user.type || "driver"
-                        ].read === true
-                );
-        },
-        getSchema() {
-            return this.$store.state[this.model].schema;
+            return this.keys.filter(
+                (key) => key !== "name" && key !== "password" && key !== "id"
+            );
         },
     },
     methods: {
@@ -190,13 +171,13 @@ export default vue.extend({
             this.itemsPerPage = number;
         },
         getContent(item, key) {
-            if (this.getSchema[key].input === "relation") {
+            if (this.model.schema[key].input === "relation") {
                 let maybe = this.$store.state[
-                    this.getSchema[key].relation.model
+                    this.model.schema[key].relation.model
                 ].pool.find((i) => i.id === item[key]);
                 if (!maybe) return "-";
                 return maybe[
-                    this.$store.state[this.getSchema[key].relation.model]
+                    this.$store.state[this.model.schema[key].relation.model]
                         .display
                 ];
             }
