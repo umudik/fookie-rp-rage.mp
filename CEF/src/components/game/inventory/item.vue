@@ -1,8 +1,8 @@
 <template>
-    <v-sheet dark height="75" width="75" color="grey darken-2">
-        <v-sheet-title>{{ item.id }}</v-sheet-title>
-        <v-sheet-text>{{ item.type }}</v-sheet-text>
-        <v-sheet-footer>{{ item.amount }}</v-sheet-footer>
+    <v-sheet dark height="98" width="97" color="grey darken-2">
+        <div>type: {{ item.item_type }}</div>
+        <div>id: {{ item.id }}</div>
+        <div>x{{ item.amount }}</div>
     </v-sheet>
 </template>
 

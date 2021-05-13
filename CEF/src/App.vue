@@ -1,7 +1,7 @@
 <template>
     <v-app style="background-color: transparent">
-        <v-system-bar dark app height="30">
-            <v-ststem-bar-title>UmudikRP</v-ststem-bar-title>
+        <v-system-bar dark app height="30" lights-out>
+            <v-system-bar-title>RP</v-system-bar-title>
             <v-spacer></v-spacer>
             <v-icon @click="$router.push({ name: 'game' })">mdi-play</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
@@ -51,6 +51,12 @@ export default {
 <style >
 .justify-center {
     justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.justify-around {
+    justify-content: space-around;
 }
 .flex-wrap {
     flex-wrap: wrap;

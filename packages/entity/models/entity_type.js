@@ -3,7 +3,8 @@ module.exports = {
     display: "key",
     schema: {
         key: {
-            relation: "system_model"
+            type: "string",
+            input: "text"
         },
     },
     fookie: {

@@ -1,9 +1,8 @@
 <template>
-    <v-sheet height="600" width="400" color="red darken-2">
-        <v-sheet-title>inventory</v-sheet-title>
-        <v-sheet-text class="d-flex gap-1 justify-center flex-wrap">
+    <v-sheet height="800" width="400" color="grey darken-3">
+        <div class="d-flex gap-1 justify-around flex-wrap">
             <game-item v-for="(item, i) in items" :key="i" :item="item" />
-        </v-sheet-text>
+        </div>
     </v-sheet>
 </template>
 
