@@ -9,9 +9,21 @@ module.exports = {
                 key: "key"
             },
         },
-        openable: {
-            type: "boolean",
-            input: "boolean"
+        name: {
+            type: "string",
+            input: "text"
+        },
+        position: {
+            type: "jsonb",
+            input: "json"
+        },
+        hunger: {
+            type: "integer",
+            input: "number"
+        },
+        thirst: {
+            type: "integer",
+            input: "number"
         },
     },
     fookie: {
