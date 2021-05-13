@@ -6,10 +6,10 @@ Vue.use(Vuex);
 /* eslint-disable */
 
 export default new Vuex.Store({
-
     state: {
+        logs:[],
         baseURL: "http://localhost:7777",
-        inGame: false,
+        inGame: true,
         system_model: {
             loading: true,
             options: { schema: undefined, fookie: undefined },
@@ -19,9 +19,25 @@ export default new Vuex.Store({
         self: {},
         token: null,
     },
-    mutations: {},
+    mutations: {
+        get(state, { res, payload }) {
+            state[payload.model].pool = res.data;
+        },
+        post(state, { res, payload }) {
+            state[payload.model].pool.push(res.data);
+        },
+        remove(state, { res, payload }) {
+            payload.model = payload.model.replace('/' + payload.id, '');
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.id);
+        },
+        patch(state, { res, payload }) {
+            payload.model = payload.model.replace('/' + res.data.id, '');
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != res.data.id);
+            state[payload.model].pool.push(res.data);
+        },
+    },
     actions: {
-        getAllDeep: async function(ctx, req) {
+        getAllDeep: async function (ctx, req) {
             let res = await ctx.dispatch('appgen', {
                 model: req.model,
                 method: "options",
@@ -57,11 +73,14 @@ export default new Vuex.Store({
 
 
         },
-        appgen: async function(ctx, payload) {
+        api: async function (ctx, payload) {
             if (ctx.state.inGame) {
+                ctx.state.logs.push('ingame = true')
                 let res = await mp.events.callProc('local', JSON.stringify(payload))
-                return JSON.parse(res);
+                console.log(JSON.parse(res))
+                return JSON.parse(res).data
             } else {
+                ctx.state.logs.push('ingame = false')
                 let res = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
                         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"

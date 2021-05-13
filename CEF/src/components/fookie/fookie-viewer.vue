@@ -47,7 +47,7 @@
                     </v-btn-toggle>
                 </template>
                 <v-spacer></v-spacer>
-                <appgen-post :model="model" />
+                <fookie-post :model="model" />
             </v-toolbar>
         </template>
 
@@ -82,11 +82,11 @@
                         </v-list>
                         <v-card-actions class="card-action">
                             <v-btn-toggle mandatory dark>
-                                <appgen-post
+                                <fookie-post
                                     :model="model"
                                     :selectedId="item.id"
                                 />
-                                <appgen-delete
+                                <fookie-delete
                                     :model="model"
                                     :selectedId="item.id"
                                 />

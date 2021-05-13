@@ -10,9 +10,9 @@
                 v-for="(model, i) in $store.state['system_model'].pool"
                 :key="i"
             >
-                <appgen-viewer
+                <fookie-viewer
                     :model="$store.state[model.name]"
-                ></appgen-viewer>
+                ></fookie-viewer>
             </v-tab-item>
         </v-tabs>
     </div>
@@ -22,7 +22,7 @@
 export default {
     mounted: async function () {
         this.$store.state["system_model"].pool = await this.$store.dispatch(
-            "appgen",
+            "api",
             {
                 method: "getAll",
                 model: "system_model",
@@ -30,7 +30,7 @@ export default {
         );
 
         this.$store.state["system_model"].schema = await this.$store.dispatch(
-            "appgen",
+            "api",
             {
                 method: "schema",
                 model: "system_model",
@@ -50,7 +50,7 @@ export default {
 
                 this.$store.state[
                     model.name
-                ].schema = await this.$store.dispatch("appgen", {
+                ].schema = await this.$store.dispatch("api", {
                     model: model.name,
                     method: "schema",
                     body: {
@@ -59,7 +59,7 @@ export default {
                 });
 
                 this.$store.state[model.name].pool = await this.$store.dispatch(
-                    "appgen",
+                    "api",
                     {
                         method: "getAll",
                         model: model.name,

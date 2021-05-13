@@ -1,6 +1,6 @@
 <template>
     <div :key="$route.query.model">
-        <appgen-viewer  v-if="!$store.state.loading" :Model="$route.query.model"></appgen-viewer>
+        <fookie-viewer  v-if="!$store.state.loading" :Model="$route.query.model"></fookie-viewer>
     </div>
 </template>
 

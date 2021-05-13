@@ -1,5 +1,5 @@
 <template>
-    <appgen-viewer :Model="$route.name"> </appgen-viewer>
+    <fookie-viewer :Model="$route.name"> </fookie-viewer>
 </template>
 
 <script>

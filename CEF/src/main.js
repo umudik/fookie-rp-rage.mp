@@ -5,26 +5,22 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 
 
-import deletee from './components/appgen/delete.vue'
-import edit from './components/appgen/edit.vue'
-import kanban from './components/appgen/canban.vue'
-import viewer from './components/appgen/appgen-viewer.vue'
-import filter from './components/appgen/appgen-filter.vue'
-import appgenPost from './components/appgen/appgen-post.vue'
-import field from './components/appgen/appgen-field.vue'
-import card from './components/appgen/appgen-card.vue'
+import deletee from './components/fookie/delete.vue'
+import viewer from './components/fookie/fookie-viewer.vue'
+import filter from './components/fookie/fookie-filter.vue'
+import fookiePost from './components/fookie/fookie-post.vue'
+import field from './components/fookie/fookie-field.vue'
+import card from './components/fookie/fookie-card.vue'
 import chartmodelstatus from './components/dashboard/chart-model-status.vue'
 import timeline_day_remain from './components/dashboard/timeline-day-remain.vue'
 
 
-Vue.component('appgen-delete', deletee)
-Vue.component('appgen-edit', edit)
-Vue.component('appgen-kanban', kanban)
-Vue.component('appgen-viewer', viewer)
-Vue.component('appgen-post', appgenPost)
-Vue.component('appgen-filter', filter)
-Vue.component('appgen-field', field)
-Vue.component('appgen-card', card)
+Vue.component('fookie-delete', deletee)
+Vue.component('fookie-viewer', viewer)
+Vue.component('fookie-post', fookiePost)
+Vue.component('fookie-filter', filter)
+Vue.component('fookie-field', field)
+Vue.component('fookie-card', card)
 Vue.component('chart-model-status', chartmodelstatus)
 Vue.component('timeline-day-remain', timeline_day_remain)
 

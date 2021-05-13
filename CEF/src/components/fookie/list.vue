@@ -54,7 +54,7 @@
                     </v-btn-toggle>
                 </template>
                 <v-spacer v-if="getUserType === 'admin'"></v-spacer>
-                <appgen-post v-if="getUserType === 'admin'" :model="model" />
+                <fookie-post v-if="getUserType === 'admin'" :model="model" />
             </v-toolbar>
         </template>
 
@@ -91,12 +91,12 @@
                         </v-list>
                         <v-card-actions class="card-action">
                             <v-btn-toggle mandatory dark>
-                                <appgen-post
+                                <fookie-post
                                     v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"
                                 />
-                                <appgen-delete
+                                <fookie-delete
                                     v-if="getUserType === 'admin'"
                                     :model="model"
                                     :selectedId="item.id"

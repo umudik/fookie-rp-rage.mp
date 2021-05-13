@@ -14,11 +14,11 @@ async function start() {
 start()
 
 
-mp.api.effect('rage_mp_post', async(payload) => {
-    console.log(payload);
+mp.api.effect('rage_mp_post', async (payload) => {
+    console.log(payload.model.name);
 })
 
-mp.api.effect('notify', async({ user, model, method, result, ctx }) => {
+mp.api.effect('notify', async ({ user, model, method, result, ctx }) => {
     console.log("notify");
 })
 
@@ -27,13 +27,20 @@ mp.events.addCommand('v', (player) => {
 })
 
 
-mp.events.addProc('api', async(player, req) => {
-    req = JSON.parse(req)
-    let method = req.method || ""
-    let body = req.body || {}
-    let model = req.model || ""
-    let query = req.query || {}
-    let res = await mp.api.run(player, method, model, query, body)
+mp.events.addProc('api', async (player, payload) => {
+    payload = JSON.parse(payload)
+    console.log(`Model: ${payload.model} | Method: ${payload.method} `);
+    let _payload = {
+        user: { system: true },
+        method: payload.method || "",
+        body: payload.body || {},
+        model: payload.model || "",
+        query: payload.query || {},
+        token: payload.token || "",
+        options: payload.options || {},
+    }
+
+    let res = await mp.api.run(_payload)
     return JSON.stringify(res)
 })
 
@@ -68,8 +75,8 @@ mp.events.addProc('api', async(player, req) => {
 
 
 /*
-mp.events.addProc('login', async(player, req) => {
-    let { email, password } = req.body
+mp.events.addProc('login', async(player, payload) => {
+    let { email, password } = payload.body
 
     if (mp.api.models.has('User')) {
         let Model = mp.api.models.get('User')
@@ -85,8 +92,8 @@ mp.events.addProc('login', async(player, req) => {
 })
 
 
-mp.events.addProc('register', async(player, req) => {
-    let { email, password } = req.body
+mp.events.addProc('register', async(player, payload) => {
+    let { email, password } = payload.body
 
     if (mp.api.models.has('User') && mp.api.config.register) {
         let Model = mp.api.models.get('User')

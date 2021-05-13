@@ -29,15 +29,15 @@
                                 <v-card-title>
                                     {{
                                         task[
-                                            $store.state[Model].options.appgen
+                                            $store.state[Model].options.fookie
                                                 .display
                                         ]
                                     }}
                                 </v-card-title>
                                 <v-card-text> ID:{{ task.id }} </v-card-text>
                                 <v-card-actions class="m-2">
-                                    <appgen-edit :Model="Model" :id="task.id" />
-                                    <appgen-delete :Model="Model" :id="task.id" />
+                                    <fookie-edit :Model="Model" :id="task.id" />
+                                    <fookie-delete :Model="Model" :id="task.id" />
                                 </v-card-actions>
                             </v-card>
                         </div>
