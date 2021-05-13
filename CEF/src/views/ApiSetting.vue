@@ -21,41 +21,26 @@
 <script>
 export default {
     mounted: async function () {
-        this.$store.state["system_model"].pool = await this.$store.dispatch(
-            "api",
-            {
-                method: "getAll",
-                model: "system_model",
-            }
-        );
-
-        this.$store.state["system_model"].schema = await this.$store.dispatch(
-            "api",
-            {
+        this.$set(this.$store.state, "system_model", {
+            name: "sysmte_model",
+            display: "name",
+            schema: await this.$store.dispatch("api", {
                 method: "schema",
                 model: "system_model",
-                body: {
-                    method: "write",
-                },
-            }
-        );
-
+            }),
+            pool: await this.$store.dispatch("api", {
+                method: "getAll",
+                model: "system_model",
+            }),
+        });
         for (let model of this.$store.state["system_model"].pool) {
             if (model.name != "system_model") {
                 this.$set(this.$store.state, model.name, {
-                    display: "id",
-                    schema: undefined,
+                    name: model.name,
+                    display: model.display,
+                    schema: model.schema,
+                    fookie: model.fookie,
                     pool: [],
-                });
-
-                this.$store.state[
-                    model.name
-                ].schema = await this.$store.dispatch("api", {
-                    model: model.name,
-                    method: "schema",
-                    body: {
-                        method: "write",
-                    },
                 });
 
                 this.$store.state[model.name].pool = await this.$store.dispatch(

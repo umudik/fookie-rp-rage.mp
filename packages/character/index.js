@@ -1,0 +1,1 @@
+mp.api.model(require("./models/character.js"))

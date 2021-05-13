@@ -1,22 +1,18 @@
 module.exports = {
-    name: 'item',
-    display: "id",
+    name: 'object',
+    display: "name",
     schema: {
-        item_type: {
-            type: "integer",
-            relation: "item_type",
-        },
-        inventory: {
-            type: "integer",
-            relation: "inventory",
-        },
-        amount: {
+        name: {
             type: "string",
-            input: "text",
+            input: "text"
         },
-        data: {
-            type: "jsonb",
-            input: "json",
+        type: {
+            type: "string",
+            input: "text"
+        },
+        model: {
+            type: "string",
+            input: "text"
         },
     },
     fookie: {
@@ -30,7 +26,7 @@ module.exports = {
             auth: ["system_admin"],
         },
         post: {
-            auth: ["system_admin"],
+            auth: ["system_admin", "rage_mp_post"],
         },
         delete: {
             auth: ["system_admin"],

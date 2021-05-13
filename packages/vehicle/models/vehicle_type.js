@@ -1,6 +1,6 @@
 module.exports = {
     name: 'vehicle_type',
-    display: "id",
+    display: "key",
     schema: {
         key: {
             type: "string",

@@ -3,6 +3,7 @@
         <v-system-bar dark app height="30">
             <v-ststem-bar-title>UmudikRP</v-ststem-bar-title>
             <v-spacer></v-spacer>
+            <v-icon @click="$router.push({ name: 'game' })">mdi-play</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
             <v-icon @click="$router.push({ name: 'setting' })">mdi-cog</v-icon>
             <v-icon @click="$router.push({ name: 'settings' })"
@@ -24,6 +25,16 @@
                 <router-view></router-view>
             </v-container>
         </v-main>
+        <v-snackbar
+            right
+            light
+            absolute
+            :color="$store.state.snackbar.color"
+            :timeout="1500"
+            v-model="$store.state.snackbar.opened"
+        >
+            {{ $store.state.snackbar.text }}
+        </v-snackbar>
     </v-app>
 </template>
 
@@ -33,58 +44,17 @@ export default {
     data() {
         return {};
     },
-    mounted: async function () {
-        this.$store.state["system_model"].pool = await this.$store.dispatch(
-            "api",
-            {
-                method: "getAll",
-                model: "system_model",
-            }
-        );
-
-        this.$store.state["system_model"].schema = await this.$store.dispatch(
-            "api",
-            {
-                method: "schema",
-                model: "system_model",
-                body: {
-                    method: "write",
-                },
-            }
-        );
-
-        for (let model of this.$store.state["system_model"].pool) {
-            if (model.name != "system_model") {
-                this.$set(this.$store.state, model.name, {
-                    display: "id",
-                    schema: undefined,
-                    pool: [],
-                });
-
-                this.$store.state[
-                    model.name
-                ].schema = await this.$store.dispatch("api", {
-                    model: model.name,
-                    method: "schema",
-                    body: {
-                        method: "write",
-                    },
-                });
-
-                this.$store.state[model.name].pool = await this.$store.dispatch(
-                    "api",
-                    {
-                        method: "getAll",
-                        model: model.name,
-                    }
-                );
-            }
-        }
-    },
+    mounted: async function () {},
 };
 </script>
 
 <style >
+.justify-center {
+    justify-content: center;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
 .myapp {
     background-color: transparent !important;
 }

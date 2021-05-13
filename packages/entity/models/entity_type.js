@@ -1,22 +1,9 @@
 module.exports = {
-    name: 'item',
-    display: "id",
+    name: 'entity_type',
+    display: "key",
     schema: {
-        item_type: {
-            type: "integer",
-            relation: "item_type",
-        },
-        inventory: {
-            type: "integer",
-            relation: "inventory",
-        },
-        amount: {
-            type: "string",
-            input: "text",
-        },
-        data: {
-            type: "jsonb",
-            input: "json",
+        key: {
+            relation: "system_model"
         },
     },
     fookie: {

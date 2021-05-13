@@ -1,25 +1,18 @@
 module.exports = {
-    name: 'item',
-    display: "id",
+    name: 'object_type',
+    display: "key",
     schema: {
-        item_type: {
-            type: "integer",
-            relation: "item_type",
-        },
-        inventory: {
-            type: "integer",
-            relation: "inventory",
-        },
-        amount: {
+        key: {
             type: "string",
-            input: "text",
+            input: "text"
         },
-        data: {
-            type: "jsonb",
-            input: "json",
-        },
+        model: {
+            type: "string",
+            input: "text"
+        }
     },
     fookie: {
+
         get: {
             auth: ["everybody"],
         },

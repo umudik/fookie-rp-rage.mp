@@ -26,7 +26,6 @@
                 ></v-text-field>
                 <v-spacer></v-spacer>
                 <v-select
-                    v-if="model === 'order' && getUserType !== 'driver'"
                     v-model="sortBy"
                     :items="['Tümü'].concat(keys)"
                     flat
@@ -123,14 +122,10 @@ export default {
             }
         },
         keys() {
-            return Object.keys(this.model.schema);
+            return ["id"].concat(Object.keys(this.model.schema));
         },
         numberOfPages() {
             return Math.ceil(this.items.length / this.itemsPerPage);
-        },
-
-        getSchema() {
-            return this.model.schema;
         },
     },
     methods: {
@@ -144,14 +139,14 @@ export default {
             this.itemsPerPage = number;
         },
         getContent(item, key) {
-            if (this.getSchema[key].input === "relation") {
+            if (key == "id") return item[key];
+            if (typeof this.model.schema[key].relation === "string") {
                 let maybe = this.$store.state[
-                    this.getSchema[key].relation.model
+                    this.model.schema[key].relation
                 ].pool.find((i) => i.id === item[key]);
                 if (!maybe) return "-";
                 return maybe[
-                    this.$store.state[this.getSchema[key].relation.model]
-                        .display
+                    this.$store.state[this.model.schema[key].relation].display
                 ];
             }
             return item[key] || "-";

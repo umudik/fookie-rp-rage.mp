@@ -32,7 +32,20 @@ export default {
     },
     methods: {
         del: async function () {
-            console.log("del");
+            this.dialog = false;
+
+            let model = this.model.name;
+            let id = this.selectedId;
+
+            this.$store.dispatch("api", {
+                method: "delete",
+                model,
+                query: {
+                    where: {
+                        id,
+                    },
+                },
+            });
         },
     },
 };

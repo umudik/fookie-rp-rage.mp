@@ -2,12 +2,12 @@ module.exports = {
     name: 'inventory',
     display: "id",
     schema: {
+        entity: {
+            relation:"entity"
+        },
         inventory_type: {
             type: "integer",
-            relation: {
-                model: "inventory_type",
-                key: "key"
-            },
+            relation: "inventory_type",
         },
         openable: {
             type: "boolean",

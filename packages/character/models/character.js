@@ -1,21 +1,13 @@
 module.exports = {
-    name: 'inventory',
+    name: 'character',
     display: "id",
     schema: {
-        inventory_type: {
-            type: "integer",
-            relation: {
-                model: "inventory_type",
-                key: "key"
-            },
-        },
         name: {
             type: "string",
             input: "text"
         },
-        position: {
-            type: "jsonb",
-            input: "json"
+        system_user: {
+            relation:"system_user"
         },
         hunger: {
             type: "integer",

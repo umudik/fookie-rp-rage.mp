@@ -1,22 +1,33 @@
 module.exports = {
-    name: 'example',
+    name: 'entity',
     display: "id",
     schema: {
+        type: {         
+            relation: "entity_type"
+        },
+        alpha: {
+            type: "integer",
+            input: "number"
+        },
+        data: {
+            type: "jsonb",
+            input: "json"
+        },
+        dimension: {
+            type: "integer",
+            input: "number"
+        },
+        model: {
+            type: "string",
+            input: "text"
+        },
         position: {
             type: "jsonb",
             input: "json"
         },
-        type: {
-            type: "integer",
-            relation: {
-                model: "vehicle_type",
-                key: "key"
-            },
-        },
-       
+
     },
     fookie: {
-
         get: {
             auth: ["everybody"],
         },

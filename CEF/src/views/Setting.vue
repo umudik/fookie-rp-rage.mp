@@ -1,8 +1,8 @@
 <template>
     <v-expansion-panels>
-        <v-expansion-panel v-for="(log, i) in $store.state['logs']" :key="i">
+        <v-expansion-panel v-for="(log, i) in logs" :key="i">
             <v-expansion-panel-header>
-                {{ log.title }}
+                [{{ log.index }}] {{ log.title }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 {{ log.body }}
@@ -19,6 +19,11 @@ export default {
         };
     },
     mounted: async function () {},
+    computed: {
+        logs() {
+            return this.$store.state.logs;
+        },
+    },
 };
 </script>
 

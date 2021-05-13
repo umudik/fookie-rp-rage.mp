@@ -131,20 +131,20 @@
                     :plus="false"
                     height="400px"
                 />
-                <v-sheet class>
-                    <v-switch
-                        v-if="field.input === 'boolean'"
-                        v-model="body[i]"
-                        :label="i"
-                        inset
-                    ></v-switch>
-                </v-sheet>
-                <v-autocomplete
-                    v-if="typeof field.relation == 'object'"
+
+                <v-switch
+                    v-if="field.input === 'boolean'"
                     v-model="body[i]"
-                    :item-text="relationModel(field.relation.model).display"
-                    :items="relationModel(field.relation.model).pool"
-                    :label="field.relation.model"
+                    :label="i"
+                    inset
+                ></v-switch>
+
+                <v-autocomplete
+                    v-if="typeof field.relation == 'string'"
+                    v-model="body[i]"
+                    :item-text="relationModel(field.relation).display"
+                    :items="relationModel(field.relation).pool"
+                    :label="i"
                     clearable
                     item-value="id"
                     prepend-icon="mdi-relation-one-to-one"
@@ -205,32 +205,31 @@ export default {
         }
     },
     methods: {
-        keyEvent(e) {
-            if (e.key === "Enter") {
-                this.selectedId ? this.edit() : this.create();
-            }
-        },
         relationModel(model) {
             return this.$store.state[model];
         },
         create: async function () {
             this.dialog = false;
-            let data = JSON.parse(JSON.stringify(this.body));
-            if (data.phone) data.phone = data.phone.replaceAll(/[ ()-]/g, "");
+
+            let body = this.body;
+            let model = this.model.name;
+
             await this.$store.dispatch("api", {
                 method: "post",
-                model: this.model.name,
-                body: data,
+                model,
+                body,
             });
         },
         edit: async function () {
             this.dialog = false;
-            let data = this.patchBody;
-            if (data.phone) data.phone = data.phone.replaceAll(/[ ()-]/g, "");
+
+            let body = this.patchBody;
+            let model = this.model.name;
+
             await this.$store.dispatch("api", {
                 method: "patch",
-                model: this.model.name,
-                body: data,
+                model,
+                body,
             });
         },
     },

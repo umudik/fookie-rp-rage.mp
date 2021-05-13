@@ -16,90 +16,81 @@ export default new Vuex.Store({
             deepData: [],
             rawData: [],
         },
-        self: {},
+        snackbar: {
+            text: "Ok",
+            opened: false,
+            color: "success",
+        },
+        menus: [
+            { type: "inventory", id: 1 },
+        ],
         token: null,
     },
     mutations: {
-        get(state, { res, payload }) {
+        getAll(state, { res, payload }) {
             state[payload.model].pool = res.data;
+        },
+        get(state, { res, payload }) {
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != res.data.id);
+            state[payload.model].pool.push(res.data);
         },
         post(state, { res, payload }) {
             state[payload.model].pool.push(res.data);
         },
         remove(state, { res, payload }) {
-            payload.model = payload.model.replace('/' + payload.id, '');
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.id);
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.query.where.id);
         },
         patch(state, { res, payload }) {
-            payload.model = payload.model.replace('/' + res.data.id, '');
             state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != res.data.id);
             state[payload.model].pool.push(res.data);
         },
+        schema(state, { res, payload }) {
+            state[payload.model].schema = res.data
+        },
+        log(state, payload) {
+            state.logs.push({
+                index: state.logs.length + 1,
+                title: payload.title,
+                body: payload.body
+            })
+        },
+        snackbar(state, payload) {
+            state.snackbar = {
+                opened: true,
+                text: payload.text,
+                color: payload.color
+            }
+        },
     },
     actions: {
-        getAllDeep: async function (ctx, req) {
-            let res = await ctx.dispatch('appgen', {
-                model: req.model,
-                method: "options",
-                body: {
-                    method: "get",
-                },
-
-            });
-            let schema = res;
-
-            let items = await ctx.dispatch('appgen', { method: "getAll", model: req.model })
-            for (let i in items) {
-                for (let f in items[i]) {
-                    if (schema.fields[f]) {
-                        if (schema.fields[f].relation) {
-                            let relation = schema.fields[f].relation
-                            let where = {}
-                            where[relation.key] = items[i][f]
-                            let data = await ctx.dispatch('appgen', {
-                                method: "get",
-                                model: relation.model,
-                                query: {
-                                    where
-                                }
-                            })
-                            items[i][f] = data || '-'
-                        }
-                    }
-                }
-            }
-            return items
-
-
-
-        },
         api: async function (ctx, payload) {
-            console.log(payload.model);
+            let res = null
             if (ctx.state.inGame) {
-                let res = await mp.events.callProc('local', JSON.stringify(payload))
-                ctx.state.logs.push({
-                    title: `${res.status} | ${payload.method} | ${payload.model}`,
-                    body: res
-                })
-                if (res.status == 200) {
-
-                } else {
-
-                }
-                return JSON.parse(res).data
+                res = await mp.events.callProc('local', JSON.stringify(payload))
             } else {
-                let res = await axios.post(ctx.state.baseURL, payload, {
+                res = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
                         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"
                     }
                 })
-                ctx.state.logs.push({
-                    title: `${res.status} | ${payload.method} | ${payload.model}`,
-                    body: res
-                })
-                return res.data
             }
 
+
+            if (res.status == 200) {
+                if (payload.method === 'delete') payload.method = 'remove'; // delete resevered keyword
+                ctx.commit(payload.method, { res, payload });
+                ctx.commit("snackbar", { color: "success", text: `Method:${payload.method.toUpperCase()} | Model:${payload.model}` });
+
+            } else {
+                ctx.commit("snackbar", { color: "error", text: `Status:${res.status} | Method:${payload.method} | Model:${payload.model}` });
+            }
+
+            ctx.commit("log", {
+                title: `Status:${res.status} | Method:${payload.method} | Model:${payload.model}`,
+                body: res
+            })
+
+            return res.data
         }
     },
     modules: {}
