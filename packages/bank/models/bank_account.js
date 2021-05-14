@@ -1,29 +1,17 @@
 module.exports = {
-    name: 'character',
-    display: "name",
+    name: 'bank_account',
+    display: "id",
     schema: {
-        name: {
-            type: "string",
-            input: "text"
+        owner: {
+            relation: "character",
         },
-        system_user: {
-            relation: "system_user"
-        },
-        position: {
-            type: "jsonb",
-            input: "json"
+        number: {
+            type: "integer",
+            input: "number",
         },
         inventory: {
             relation: "inventory"
-        },
-        hunger: {
-            type: "integer",
-            input: "number"
-        },
-        thirst: {
-            type: "integer",
-            input: "number"
-        },
+        }
     },
     fookie: {
         get: {

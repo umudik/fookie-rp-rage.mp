@@ -7,12 +7,7 @@ module.exports = {
             input: "text"
         },
         type: {
-            type: "string",
-            input: "text"
-        },
-        model: {
-            type: "string",
-            input: "text"
+            relation: "object_type"
         },
     },
     fookie: {

@@ -1,11 +1,31 @@
 module.exports = {
     name: 'entity_type',
-    display: "key",
+    display: "name",
     schema: {
-        key: {
+        name: {
             type: "string",
             input: "text"
         },
+        pool: {
+            type: "string",
+            input: "text"
+        },
+        model: {
+            type: "string",
+            input: "text"
+        },
+        spawnAtStart: {
+            type: "boolean",
+            input: "boolean"
+        },
+        syncInterval: {
+            type: "boolean",
+            input: "boolean"
+        },
+        syncRate: {
+            type: "integer",
+            input: "number"
+        }
     },
     fookie: {
         get: {

@@ -40,7 +40,6 @@ module.exports = {
         },
     },
     fookie: {
-
         get: {
             auth: ["everybody"],
         },

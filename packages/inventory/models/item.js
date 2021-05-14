@@ -2,12 +2,10 @@ module.exports = {
     name: 'item',
     display: "id",
     schema: {
-        item_type: {
-            type: "integer",
+        item_type: {       
             relation: "item_type",
         },
-        inventory: {
-            type: "integer",
+        inventory: {          
             relation: "inventory",
         },
         amount: {
@@ -21,22 +19,22 @@ module.exports = {
     },
     fookie: {
         get: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         getAll: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         patch: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         post: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         delete: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         schema: {
-            auth: ["everybody"],
+            role: ["everybody"],
         }
     }
 }

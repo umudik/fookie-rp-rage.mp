@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'object_type',
+    name: 'object_model',
     display: "key",
     schema: {
         key: {

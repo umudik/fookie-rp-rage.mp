@@ -2,15 +2,19 @@ module.exports = {
     name: 'vehicle',
     display: "id",
     schema: {
-        position: {
-            type: "jsonb",
-            input: "json"
-        },
         type: {
-            type: "integer",
             relation: "vehicle_type",
         },
-
+        owner: {
+            relation: "character"
+        },
+        inventory: {
+            relation: "character"
+        },
+        position: {
+            type: "jsonb",
+            input: "json",
+        },
     },
     fookie: {
         get: {

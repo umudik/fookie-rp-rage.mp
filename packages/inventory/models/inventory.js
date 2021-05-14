@@ -2,9 +2,6 @@ module.exports = {
     name: 'inventory',
     display: "id",
     schema: {
-        entity: {
-            relation:"entity"
-        },
         inventory_type: {
             type: "integer",
             relation: "inventory_type",

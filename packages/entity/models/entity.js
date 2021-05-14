@@ -2,7 +2,8 @@ module.exports = {
     name: 'entity',
     display: "id",
     schema: {
-        type: {         
+        type: {
+            require: true,
             relation: "entity_type"
         },
         alpha: {
@@ -17,15 +18,14 @@ module.exports = {
             type: "integer",
             input: "number"
         },
-        model: {
-            type: "string",
-            input: "text"
+        target: {
+            type: "integer",
+            input: "number"
         },
         position: {
             type: "jsonb",
             input: "json"
         },
-
     },
     fookie: {
         get: {
