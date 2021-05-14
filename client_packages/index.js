@@ -1,14 +1,13 @@
 let cef = new mp.browsers.new('http://localhost:8080')
 cef.execute(`app.$store.state.inGame = true;`)
 
-mp.events.add('api', (payload) => {
-    cef.execute(`app.$store.commit("api",${payload})`)
+mp.events.add('apiSync', (payload) => {
+    cef.execute(`app.$store.dispatch("apiSync",${payload})`)
 })
 
 
-mp.events.addProc('local', async (payload) => {
-    let res = await mp.events.callRemoteProc('api', payload)
-    return res
+mp.events.addProc('apiProc', async (payload) => {
+    return await mp.events.callRemoteProc('apiProc', payload)
 })
 
 let cursor = false

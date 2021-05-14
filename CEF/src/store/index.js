@@ -27,25 +27,26 @@ export default new Vuex.Store({
         token: null,
     },
     mutations: {
-        getAll(state, { res, payload }) {
-            state[payload.model].pool = res.data;
+        getAll(state, payload) {
+            state[payload.model].pool = payload.response.data;
         },
-        get(state, { res, payload }) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != res.data.id);
-            state[payload.model].pool.push(res.data);
+
+        get(state, payload) {
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.response.data.id);
+            state[payload.model].pool.push(payload.response.data);
         },
-        post(state, { res, payload }) {
-            state[payload.model].pool.push(res.data);
+        post(state, payload) {
+            state[payload.model].pool.push(payload.response.data);
         },
-        remove(state, { res, payload }) {
+        remove(state, payload) {
             state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.query.where.id);
         },
-        patch(state, { res, payload }) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != res.data.id);
-            state[payload.model].pool.push(res.data);
+        patch(state, payload) {
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.response.data.id);
+            state[payload.model].pool.push(payload.response.data);
         },
-        schema(state, { res, payload }) {
-            state[payload.model].schema = res.data
+        schema(state, payload) {
+            state[payload.model].schema = payload.response.data
         },
         log(state, payload) {
             state.logs.push({
@@ -61,37 +62,46 @@ export default new Vuex.Store({
                 color: payload.color
             }
         },
+
+
+
+
+
     },
     actions: {
         api: async function (ctx, payload) {
-            let res = null
             if (ctx.state.inGame) {
-                res = await mp.events.callProc('local', JSON.stringify(payload))
+                payload.response = JSON.parse(await mp.events.callProc('apiProc', JSON.stringify(payload)))
+
+
             } else {
-                res = await axios.post(ctx.state.baseURL, payload, {
+                payload.response = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
                         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"
                     }
                 })
             }
 
+            ctx.dispatch("apiSync", payload)
+            return payload.response.data
+        },
+        apiSync(ctx, payload) {      
 
-            if (res.status == 200) {
+            if (payload.response.status == 200) {
                 if (payload.method === 'delete') payload.method = 'remove'; // delete resevered keyword
-                ctx.commit(payload.method, { res, payload });
+
+                ctx.commit(payload.method, payload);
                 ctx.commit("snackbar", { color: "success", text: `Method:${payload.method.toUpperCase()} | Model:${payload.model}` });
 
             } else {
-                ctx.commit("snackbar", { color: "error", text: `Status:${res.status} | Method:${payload.method} | Model:${payload.model}` });
+                ctx.commit("snackbar", { color: "error", text: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}` });
             }
 
             ctx.commit("log", {
-                title: `Status:${res.status} | Method:${payload.method} | Model:${payload.model}`,
-                body: res
+                title: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}`,
+                body: payload.response
             })
-
-            return res.data
-        }
+        },
     },
     modules: {}
 });
