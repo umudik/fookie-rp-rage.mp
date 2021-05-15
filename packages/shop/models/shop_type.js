@@ -1,4 +1,5 @@
 module.exports = {
+
     name: 'shop_type',
     display: "joaat",
     schema: {
