@@ -6,13 +6,17 @@ module.exports = {
             type: "string",
             input: "text"
         },
+        model: {
+            type: "string",
+            input: "text"
+        },
         pool: {
             type: "string",
             input: "text"
         },
-        model: {
-            type: "string",
-            input: "text"
+        data: {
+            type: "jsonb",
+            input: "json"
         },
         spawnAtStart: {
             type: "boolean",
@@ -25,26 +29,26 @@ module.exports = {
         syncRate: {
             type: "integer",
             input: "number"
-        }
+        },
     },
     fookie: {
         get: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         getAll: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         patch: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         post: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         delete: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         schema: {
-            auth: ["everybody"],
-        }
+            role: ["everybody"],
+        },
     }
 }

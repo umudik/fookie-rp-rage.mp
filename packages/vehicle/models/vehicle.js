@@ -9,7 +9,7 @@ module.exports = {
             relation: "character"
         },
         inventory: {
-            relation: "character"
+            relation: "inventory"
         },
         position: {
             type: "jsonb",
@@ -18,22 +18,29 @@ module.exports = {
     },
     fookie: {
         get: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         getAll: {
-            auth: ["everybody"],
+            role: ["everybody"],
         },
         patch: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         post: {
-            auth: ["system_admin", "rage_mp_post"],
+            role: ["system_admin"],
         },
         delete: {
-            auth: ["system_admin"],
+            role: ["system_admin"],
         },
         schema: {
-            auth: ["everybody"],
-        }
+            role: ["everybody"],
+        },
+        spawn: {
+            rule: [],
+            role: [],
+            effect: [],
+            modify: [],
+            filter: [],
+        },
     }
 }
