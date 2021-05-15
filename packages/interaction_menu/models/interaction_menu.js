@@ -1,17 +1,20 @@
 module.exports = {
-    name: 'bank',
-    display: "name",
+    name: 'interaction_menu',
+    display: "tag",
     schema: {
-        owner: {
-            relation: "character"
+        entity_type: {
+            relation: "entity_type"
         },
-        name: {
+        control: {
             type: "string",
-            input: "text",
+            input: "text"
+        },
+        label: {
+            type: "string",
+            input: "text"
         },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },
@@ -29,13 +32,6 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
-        },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
-        },
+        }
     }
 }

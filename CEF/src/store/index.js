@@ -62,18 +62,15 @@ export default new Vuex.Store({
                 color: payload.color
             }
         },
-
-
-
-
-
     },
     actions: {
         api: async function (ctx, payload) {
+            ctx.commit("log", {
+                title: `REQUEST -> Method:${payload.method} | Model:${payload.model}`,
+                body: payload
+            })
             if (ctx.state.inGame) {
                 payload.response = JSON.parse(await mp.events.callProc('apiProc', JSON.stringify(payload)))
-
-
             } else {
                 payload.response = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
@@ -85,8 +82,7 @@ export default new Vuex.Store({
             ctx.dispatch("apiSync", payload)
             return payload.response.data
         },
-        apiSync(ctx, payload) {      
-
+        apiSync(ctx, payload) {
             if (payload.response.status == 200) {
                 if (payload.method === 'delete') payload.method = 'remove'; // delete resevered keyword
 

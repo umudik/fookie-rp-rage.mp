@@ -15,3 +15,7 @@ mp.keys.bind(0x71, true, function () {
     cursor = !cursor
     mp.gui.cursor.show(cursor, cursor);
 });
+
+
+
+require('./interact_menu/index.js')

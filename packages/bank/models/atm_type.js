@@ -1,17 +1,13 @@
 module.exports = {
-    name: 'bank',
-    display: "name",
+    name: 'atm_type',
+    display: "joaat",
     schema: {
-        owner: {
-            relation: "character"
-        },
-        name: {
+        joaat: {
             type: "string",
-            input: "text",
+            input: "text"
         },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },
@@ -29,13 +25,6 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
-        },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
-        },
+        }
     }
 }

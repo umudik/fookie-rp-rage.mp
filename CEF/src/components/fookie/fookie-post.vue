@@ -23,13 +23,14 @@
         </template>
         <v-card>
             <v-card-title> Create {{ model.name }} </v-card-title>
-            <v-card-text v-for="(field, i) in model.schema" :key="i">
+            <v-card-text v-for="(field, i) in model.schema" :key="field">
                 <v-text-field
                     v-if="field.input === 'text'"
                     v-model="body[i]"
                     :label="i"
                     prepend-icon="mdi-text"
                 ></v-text-field>
+
                 <v-text-field
                     v-if="field.input === 'password'"
                     v-model="body[i]"
@@ -40,6 +41,7 @@
                     type="password"
                     @click:append="menus[i] = !menus[i]"
                 ></v-text-field>
+
                 <v-text-field
                     v-if="field.input === 'number'"
                     v-model="body[i]"
@@ -47,6 +49,7 @@
                     prepend-icon="mdi-numeric"
                     type="number"
                 ></v-text-field>
+
                 <v-menu
                     v-if="field.input === 'time'"
                     v-model="menus[i]"
@@ -214,6 +217,11 @@ export default {
             let body = this.body;
             let model = this.model.name;
 
+            // string to number parser
+            for (let key of Object.keys(body))
+                if (this.model.schema[key].type == "integer")
+                    body[key] = parseInt(body[key]);
+
             await this.$store.dispatch("api", {
                 method: "post",
                 model,
@@ -222,14 +230,24 @@ export default {
         },
         edit: async function () {
             this.dialog = false;
-
             let body = this.patchBody;
             let model = this.model.name;
+            let id = this.selectedId;
+
+            // string to number parser
+            for (let key of Object.keys(body))
+                if (this.model.schema[key].type == "integer")
+                    body[key] = parseInt(body[key]);
 
             await this.$store.dispatch("api", {
                 method: "patch",
                 model,
                 body,
+                query: {
+                    where: {
+                        id,
+                    },
+                },
             });
         },
     },

@@ -1,1 +1,0 @@
-//mp.api.model(require("./models/example.js"))
