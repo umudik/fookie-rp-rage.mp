@@ -1,5 +1,6 @@
 mp.api.model(require("./models/entity_type.js"))
 mp.api.model(require("./models/entity.js"))
+mp.api.effect("rage_mp_entity_sync", require("./effects/rage_mp_entity_sync.js"))
 
 // SPAWN METHOD
 mp.events.add("fookie_connected", function () {
@@ -38,7 +39,6 @@ mp.events.add("fookie_connected", function () {
 
         let fileds = Object.keys(payload.model.schema)
         for (let f of fileds) {
-
             if (["dimension", "position", "entityId"].includes(f))
                 ragempInGameEntity[f] = ragempEntity[f]
         }
@@ -116,7 +116,8 @@ mp.events.add("playerJoin", (player) => {
 })
 
 
-mp.api.routine("test", 30000, async (ctx) => {
+mp.api.routine("test", 10000, async (ctx) => {
+    
     let res = await mp.api.run({
         user: { system: true },
         model: "entity",
@@ -128,9 +129,9 @@ mp.api.routine("test", 30000, async (ctx) => {
         let res = await mp.api.run({
             user: { system: true },
             model: "entity",
-            method: "get",
+            method: "save",
             query: { where: { id: e.id } }
         })
-        console.log(res.status);
     }
+    
 })

@@ -90,13 +90,14 @@ export default new Vuex.Store({
                 ctx.commit("snackbar", { color: "success", text: `Method:${payload.method.toUpperCase()} | Model:${payload.model}` });
 
             } else {
+                ctx.commit("log", {
+                    title: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}`,
+                    body: payload.response
+                })
                 ctx.commit("snackbar", { color: "error", text: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}` });
             }
 
-            ctx.commit("log", {
-                title: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}`,
-                body: payload.response
-            })
+
         },
     },
     modules: {}

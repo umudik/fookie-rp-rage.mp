@@ -35,10 +35,11 @@ module.exports = {
         },
         patch: {
             role: ["system_admin"],
+            effect: ["rage_mp_entity_sync"],
         },
         post: {
             role: ["system_admin"],
-            effect:[],
+            effect: ["rage_mp_entity_sync"],
         },
         delete: {
             role: ["system_admin"],
