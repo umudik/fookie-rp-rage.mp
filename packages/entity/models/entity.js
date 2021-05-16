@@ -38,6 +38,7 @@ module.exports = {
         },
         post: {
             role: ["system_admin"],
+            effect:[],
         },
         delete: {
             role: ["system_admin"],
