@@ -4,25 +4,17 @@ mp.api = new FookieJS()
 
 mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay').then(async () => {
 
-    mp.api.use((ctx) => {
-        ctx.store.set("secret", "secret")
-        ctx.store.set("login", true)
-        ctx.store.set("register", true)
-    })
+
+    mp.api.store.set("secret", "secret")
+    mp.api.store.set("login", true)
+    mp.api.store.set("register", true)
+
     await mp.api.listen(7777)
 
-    mp.api.use(async (ctx) => {
-        ctx.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
-        ctx.store.set('afters', ctx.store.get('afters').concat(["rage_mp_sync"]))
-    })
 
-    mp.events.addCommand('v', (player) => {
-        mp.vehicles.new(mp.joaat("formula"), player.position)
-    })
+    mp.api.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
+    mp.api.store.set('afters', mp.api.store.get('afters').concat(["rage_mp_sync"]))
 
-    mp.events.addCommand('v2', (player) => {
-        mp.vehicles.new(mp.joaat("turismor"), player.position)
-    })
 
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)
@@ -49,6 +41,14 @@ mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay').then(async () 
 
 mp.events.addCommand("pos", (player) => {
     player.outputChatBox(player.position + " -pos")
+})
+
+mp.events.addCommand('v', (player) => {
+    mp.vehicles.new(mp.joaat("formula"), player.position)
+})
+
+mp.events.addCommand('v2', (player) => {
+    mp.vehicles.new(mp.joaat("turismor"), player.position)
 })
 
 

@@ -1,4 +1,5 @@
 module.exports = async function (payload) {
+    /*
     console.log("check_Weight");
     let inv_id = null
     if (payload.method == "post") {
@@ -18,5 +19,6 @@ module.exports = async function (payload) {
             }
         }
     })
+    */
     return true
 }

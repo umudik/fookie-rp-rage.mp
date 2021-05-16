@@ -219,7 +219,7 @@ export default {
 
             // string to number parser
             for (let key of Object.keys(body))
-                if (this.model.schema[key].type == "integer")
+                if (["integer", "float"].includes(this.model.schema[key].type))
                     body[key] = parseInt(body[key]);
 
             await this.$store.dispatch("api", {
@@ -236,7 +236,7 @@ export default {
 
             // string to number parser
             for (let key of Object.keys(body))
-                if (this.model.schema[key].type == "integer")
+                if (["integer", "float"].includes(this.model.schema[key].type))
                     body[key] = parseInt(body[key]);
 
             await this.$store.dispatch("api", {

@@ -19,7 +19,7 @@ module.exports = {
             input: "number"
         },
         model: {
-            input: "text"
+            input: "number"
         },
         position: {
             type: "jsonb",
@@ -46,6 +46,20 @@ module.exports = {
             role: ["everybody"],
         },
         spawn: {
+            rule: [],
+            effect: [],
+            modify: ["get_target"],
+            filter: [],
+            role: ["system_admin"],
+        },
+        save: {
+            rule: [],
+            effect: [],
+            modify: ["get_target"],
+            filter: [],
+            role: ["system_admin"],
+        },
+        find: {
             rule: [],
             effect: [],
             modify: ["get_target"],
