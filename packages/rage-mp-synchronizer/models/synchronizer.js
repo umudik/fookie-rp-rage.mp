@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'entity_type',
+    name: 'synchronizer',
     display: "name",
     schema: {
         name: {
@@ -50,5 +50,12 @@ module.exports = {
         schema: {
             role: ["everybody"],
         },
+        spawn: {
+            rule: [],
+            effect: [],
+            modify: [],
+            filter:[],
+            role: ["system_admin"],
+        }
     }
 }
