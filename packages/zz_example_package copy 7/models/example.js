@@ -2,10 +2,6 @@ module.exports = {
     name: 'example',
     display: "id",
     schema: {
-        position: {
-            type: "jsonb",
-            input: "json"
-        },
         type: {
             type: "integer",
             relation: "example",

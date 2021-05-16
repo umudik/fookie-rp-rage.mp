@@ -12,10 +12,6 @@ module.exports = {
             type: "integer",
             relation: "shop_type",
         },
-        position: {
-            type: "jsonb",
-            input: "json",
-        },
         open: {
             type: "boolean",
             input: "boolean"

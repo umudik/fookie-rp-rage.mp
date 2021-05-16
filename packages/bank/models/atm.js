@@ -2,10 +2,6 @@ module.exports = {
     name: 'atm',
     display: "id",
     schema: {
-        position: {
-            type: "jsonb",
-            input: "json"
-        },
         type: {
             relation: "atm_type"
         },

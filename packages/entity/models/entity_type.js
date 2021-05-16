@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'synchronizer',
+    name: 'entity_type',
     display: "name",
     schema: {
         name: {

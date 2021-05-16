@@ -1,24 +1,29 @@
 module.exports = {
-    name: 'character',
+    name: 'entity',
     display: "name",
     schema: {
-        name: {
-            type: "string",
+        type: {
+            relation: "entity_type"
+        },
+        entityId: {
+            input: "number"
+        },
+        alpha: {
+            input: "number"
+        },
+        data: {
+            type: "jsonb",
+            input: "json",
+        },
+        dimension: {
+            input: "number"
+        },
+        model: {
             input: "text"
         },
-        system_user: {
-            relation: "system_user"
-        },
-        inventory: {
-            relation: "inventory"
-        },
-        hunger: {
-            type: "integer",
-            input: "number"
-        },
-        thirst: {
-            type: "integer",
-            input: "number"
+        position: {
+            type: "jsonb",
+            input: "json",
         },
     },
     fookie: {
@@ -42,10 +47,17 @@ module.exports = {
         },
         spawn: {
             rule: [],
-            role: [],
             effect: [],
-            modify: [],
+            modify: ["get_target"],
             filter: [],
+            role: ["system_admin"],
         },
+        despawn: {
+            rule: [],
+            effect: [],
+            modify: ["get_target"],
+            filter: [],
+            role: ["system_admin"],
+        }
     }
 }

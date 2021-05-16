@@ -11,10 +11,6 @@ module.exports = {
         inventory: {
             relation: "inventory"
         },
-        position: {
-            type: "jsonb",
-            input: "json",
-        },
     },
     fookie: {
         get: {
