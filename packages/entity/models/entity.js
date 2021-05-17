@@ -3,9 +3,11 @@ module.exports = {
     display: "name",
     schema: {
         type: {
+            required:true,
             relation: "entity_type"
         },
         entityId: {
+            required:true,
             input: "number"
         },
         alpha: {
@@ -22,6 +24,7 @@ module.exports = {
             input: "number"
         },
         position: {
+            required:true,
             type: "jsonb",
             input: "json",
         },

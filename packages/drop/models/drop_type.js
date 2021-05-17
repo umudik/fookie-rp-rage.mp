@@ -1,19 +1,12 @@
 module.exports = {
-    name: 'bank_account',
-    display: "id",
+    name: 'drop_type',
+    display: "joaat",
     schema: {
-        owner: {
-            relation: "character",
-        },
-        number: {
+        joaat: {
             required:true,
-            type: "integer",
-            input: "number",
+            type: "string",
+            input: "text",
         },
-        inventory: {
-            required:true,
-            relation: "inventory"
-        }
     },
     fookie: {
         get: {

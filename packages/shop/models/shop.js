@@ -3,12 +3,14 @@ module.exports = {
     display: "id",
     schema: {
         inventory: {
+            required:true,
             relation: "inventory"
         },
         owner: {
             relation: "character"
         },
         type: {
+            required:true,
             type: "integer",
             relation: "shop_type",
         },

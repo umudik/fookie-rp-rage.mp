@@ -7,10 +7,12 @@ module.exports = {
             input: "text"
         },
         model: {
+            required:true,
             type: "string",
             input: "text"
         },
         pool: {
+            required:true,
             type: "string",
             input: "text"
         },

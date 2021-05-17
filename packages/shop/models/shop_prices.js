@@ -3,6 +3,7 @@ module.exports = {
     display: "id",
     schema: {
         shop: {
+            required:true,
             relation: "shop"
         },
         price: {

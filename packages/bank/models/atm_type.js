@@ -3,6 +3,7 @@ module.exports = {
     display: "joaat",
     schema: {
         joaat: {
+            required:true,
             type: "string",
             input: "text"
         },

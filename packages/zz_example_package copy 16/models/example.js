@@ -1,21 +1,14 @@
 module.exports = {
-    name: 'bank_account',
+    name: 'example',
     display: "id",
     schema: {
-        owner: {
-            relation: "character",
-        },
-        number: {
-            required:true,
+        type: {
             type: "integer",
-            input: "number",
+            relation: "example",
         },
-        inventory: {
-            required:true,
-            relation: "inventory"
-        }
     },
     fookie: {
+
         get: {
             role: ["everybody"],
         },

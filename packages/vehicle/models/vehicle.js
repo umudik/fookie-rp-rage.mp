@@ -3,6 +3,7 @@ module.exports = {
     display: "id",
     schema: {
         type: {
+            required:true,
             relation: "vehicle_type",
         },
         owner: {
