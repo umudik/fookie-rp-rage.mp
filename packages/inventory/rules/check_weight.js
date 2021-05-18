@@ -1,24 +1,63 @@
 module.exports = async function (payload) {
-    /*
-    console.log("check_Weight");
-    let inv_id = null
-    if (payload.method == "post") {
-        inv_id = payload.body.inventory
-    } else if (payload.method == "patch") {
-        inv_id = payload.target.inventory
-    }
-
-    //find items in same inv.
-    let items = await payload.ctx.run({
+    let res = await mp.api.run({
         user: { system: true },
         method: "getAll",
         model: "item",
         query: {
-            where: {
-                id: inv_id
-            }
+            where: { inventory: payload.target.inventory }
         }
     })
-    */
-    return true
+
+    let items = res.data
+    let total = 0
+
+    for (let item of items) {
+        res = await mp.api.run({
+            user: { system: true },
+            method: "get",
+            model: "item_type",
+            query: {
+                where: { id: item.item_type }
+            }
+        })
+
+        let item_type = res.data
+        total += item.amount * item_type.weight
+    }
+
+    res = await mp.api.run({
+        user: { system: true },
+        method: "get",
+        model: "item_type",
+        query: {
+            where: { id: payload.target.item_type }
+        }
+    })
+
+    let self_type = res.data
+
+    total += payload.target.amount * self_type.weight
+
+
+    res = await mp.api.run({
+        user: { system: true },
+        method: "get",
+        model: "inventory",
+        query: {
+            where: { id: payload.target.inventory }
+        }
+    })
+
+    let inventory = res.data
+
+    res = await mp.api.run({
+        user: { system: true },
+        method: "get",
+        model: "inventory_type",
+        query: {
+            where: { id: inventory.inventory_type }
+        }
+    })
+    let inventory_type = res.data
+    return inventory_type.maxWeight >= total
 }

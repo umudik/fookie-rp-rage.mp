@@ -117,7 +117,7 @@ mp.events.add("playerJoin", (player) => {
 
 
 mp.api.routine("test", 10000, async (ctx) => {
-    
+
     let res = await mp.api.run({
         user: { system: true },
         model: "entity",
@@ -133,5 +133,5 @@ mp.api.routine("test", 10000, async (ctx) => {
             query: { where: { id: e.id } }
         })
     }
-    
+
 })

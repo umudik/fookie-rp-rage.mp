@@ -3,7 +3,7 @@ module.exports = {
     display: "id",
     schema: {
         inventory_type: {
-            type: "integer",
+            required:true,
             relation: "inventory_type",
         },
         openable: {

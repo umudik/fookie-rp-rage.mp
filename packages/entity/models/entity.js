@@ -53,28 +53,28 @@ module.exports = {
         spawn: {
             rule: [],
             effect: [],
-            modify: ["get_target"],
+            modify: ["set_target"],
             filter: [],
             role: ["system_admin"],
         },
         save: {
             rule: [],
             effect: [],
-            modify: ["get_target"],
+            modify: ["set_target"],
             filter: [],
             role: ["system_admin"],
         },
         find: {
             rule: [],
             effect: [],
-            modify: ["get_target"],
+            modify: ["set_target"],
             filter: [],
             role: ["system_admin"],
         },
         despawn: {
             rule: [],
             effect: [],
-            modify: ["get_target"],
+            modify: ["set_target"],
             filter: [],
             role: ["system_admin"],
         }

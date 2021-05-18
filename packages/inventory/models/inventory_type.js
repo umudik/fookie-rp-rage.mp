@@ -3,14 +3,26 @@ module.exports = {
     display: "name",
     schema: {
         name: {
+            required: true,
             type: "string",
             input: "text"
         },
-        slot_size: {
+        entity_type: {
+            required: true,
+            relation: "entity_type"
+        },
+        field: {
+            required: true,
+            type: "string",
+            input: "text"
+        },
+        slotSize: {
+            required: true,
             type: "integer",
             input: "number"
         },
         maxWeight: {
+            required: true,
             type: "integer",
             input: "number"
         },

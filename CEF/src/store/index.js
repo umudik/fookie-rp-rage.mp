@@ -74,7 +74,7 @@ export default new Vuex.Store({
             } else {
                 payload.response = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
-                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTQ0ODcwfQ.eLvvSHODD7W6XvZgEd6XtFIZBPmb877WUU5ytG99Thw"
+                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIxMzY3MTA1fQ.E2vmVXMPxFk2MTh0j7Ype3wRfQd68ue3FxNnHSodTBE"
                     }
                 })
             }

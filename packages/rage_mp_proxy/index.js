@@ -1,4 +1,5 @@
 
+
 //-------------------VEHİCLE MODIFY------------------------
 
 let properties = [
@@ -13,7 +14,7 @@ let properties = [
     { key: "mod_fender", modType: 8, min: 0, max: 0 },// OK
     { key: "mod_right_fender", modType: 9, min: 0, max: 0 },// OK
     { key: "mod_roof", modType: 10, min: 0, max: 0 },// OK
-    { key: "mod_engine", mod min: 0, max: 0 },// OK
+    { key: "mod_engine", modType: 11, min: 0, max: 0 },// OK
     { key: "mod_brake", modType: 12, min: 0, max: 0 },// OK
     { key: "mod_transmission", modType: 13, min: 0, max: 0 },// OK
     { key: "mod_horn", modType: 14, min: 0, max: 0 },// OK
@@ -24,21 +25,21 @@ let properties = [
     { key: "mod_front_wheels", modType: 23, min: 0, max: 0 },// OK
     { key: "mod_back_wheels", modType: 24, min: 0, max: 0 },// OK
     { key: "mod_plate_holder", modType: 25, min: 0, max: 0 },// OK
-    { key: "mod_vanity_plates", modType: 26, min: 0, max: 0 },// OK
+    { key: "mod_vanity_plate", modType: 26, min: 0, max: 0 },// OK
     { key: "mod_trim_design", modType: 27, min: 0, max: 0 },// OK
-    { key: "mod_ornaments", modType: 28, min: 0, max: 0 },// OK
+    { key: "mod_ornament", modType: 28, min: 0, max: 0 },// OK
     { key: "mod_dial_design", modType: 30, min: 0, max: 0 },// OK
     { key: "mod_steering_wheel", modType: 33, min: 0, max: 0 },// OK
     { key: "mod_shift_lever", modType: 34, min: 0, max: 0 },// OK
     { key: "mod_plaques", modType: 35, min: 0, max: 0 },// OK
     { key: "mod_speakers", modType: 36, min: 0, max: 0 },// OK
     { key: "mod_trunk", modType: 37, min: 0, max: 0 },// OK
-    { key: "mod_hydraulics", modType: 38, min: 0, max: 0 },// OK
+    { key: "mod_hydraulic", modType: 38, min: 0, max: 0 },// OK
     { key: "mod_engine_block", modType: 39, min: 0, max: 0 },// OK
     { key: "mod_boost", modType: 40, min: 0, max: 0 },// OK AIR FILTER OR BOOST
     { key: "mod_struts", modType: 41, min: 0, max: 0 },// OK
     { key: "mod_arch_cover", modType: 42, min: 0, max: 0 },// OK
-    { key: "mod_aerials", modType: 43, min: 0, max: 0 },// OK
+    { key: "mod_aerial", modType: 43, min: 0, max: 0 },// OK
     { key: "mod_trim", modType: 44, min: 0, max: 0 },// OK
     { key: "mod_tank", modType: 45, min: 0, max: 0 },// OK
     { key: "mod_windows", modType: 46, min: 0, max: 0 },// OK
@@ -133,18 +134,18 @@ mp.events.addCommand("veh_color", (player) => {
 */
 
 let player_props = [
-    { key: "head", type: 0, min: 0, max: 255 },
-    { key: "beard", type: 1, min: 0, max: 255 },
-    { key: "hair", type: 2, min: 0, max: 255 },
-    { key: "torso", type: 3, min: 0, max: 255 },
-    { key: "legs", type: 4, min: 0, max: 255 },
-    { key: "hand", type: 5, min: 0, max: 255 },
-    { key: "foot", type: 6, min: 0, max: 255 },
-    { key: "eye", type: 7, min: 0, max: 255 },
-    { key: "Accessory1", type: 8, min: 0, max: 255 },
-    { key: "Accessory2", type: 9, min: 0, max: 255 },
-    { key: "decal", type: 10, min: 0, max: 255 },
-    { key: "auxiliary ", min: 0, max: 255 },
+    { key: "cloth_head", type: 0, min: 0, max: 255 },
+    { key: "cloth_beard", type: 1, min: 0, max: 255 },
+    { key: "cloth_hair", type: 2, min: 0, max: 255 },
+    { key: "cloth_torso", type: 3, min: 0, max: 255 },
+    { key: "cloth_legs", type: 4, min: 0, max: 255 },
+    { key: "cloth_hand", type: 5, min: 0, max: 255 },
+    { key: "cloth_foot", type: 6, min: 0, max: 255 },
+    { key: "cloth_eye", type: 7, min: 0, max: 255 },
+    { key: "cloth_accessory1", type: 8, min: 0, max: 255 },
+    { key: "acloth_accessory2", type: 9, min: 0, max: 255 },
+    { key: "cloth_decal", type: 10, min: 0, max: 255 },
+    { key: "cloth_auxiliary ", min: 0, max: 255 },
 ]
 
 for (let p of player_props) {
@@ -164,33 +165,33 @@ for (let p of player_props) {
 
 //--------------------Customization-----------------
 let player_customs = [
-    { key: "gender", type: 0, min: 0, max: 255 },
-    { key: "mother_blend", min: 0, max: 255 },
-    { key: "father_blend", min: 0, max: 255 },
-    { key: "f_blend_shape", min: 0, max: 255 },
-    { key: "f_blend_skin", min: 0, max: 255 },
-    { key: "hair_highlight", min: 0, max: 255 },
-    { key: "hair_color", min: 0, max: 255 },
-    { key: "nose_width", min: 0, max: 255 },
-    { key: "nose_height", min: 0, max: 255 },
-    { key: "nose_length", min: 0, max: 255 },
-    { key: "nose_bridge", min: 0, max: 255 },
-    { key: "nose_tip", min: 0, max: 255 },
-    { key: "nose_bridge_shift", min: 0, max: 255 },
-    { key: "brow_height", min: 0, max: 255 },
-    { key: "brow_width", min: 0, max: 255 },
-    { key: "c_bone_height", min: 0, max: 255 },
-    { key: "c_bone_width", min: 0, max: 255 },
-    { key: "cheek_width", min: 0, max: 255 },
-    { key: "eyes", min: 0, max: 255 },
-    { key: "lips", min: 0, max: 255 },
-    { key: "jaw_width", min: 0, max: 255 },
-    { key: "jaw_height", min: 0, max: 255 },
-    { key: "chin_length", min: 0, max: 255 },
-    { key: "chin_pos", min: 0, max: 255 },
-    { key: "chin_width", min: 0, max: 255 },
-    { key: "chin_shape", min: 0, max: 255 },
-    { key: "neck_width", min: 0, max: 255 },
+    { key: "customization_gender", type: 0, min: 0, max: 255 },
+    { key: "customization_mother_blend", min: 0, max: 255 },
+    { key: "customization_father_blend", min: 0, max: 255 },
+    { key: "customization_f_blend_shape", min: 0, max: 255 },
+    { key: "customization_f_blend_skin", min: 0, max: 255 },
+    { key: "customization_hair_highlight", min: 0, max: 255 },
+    { key: "customization_hair_color", min: 0, max: 255 },
+    { key: "customization_nose_width", min: 0, max: 255 },
+    { key: "customization_nose_height", min: 0, max: 255 },
+    { key: "customization_nose_length", min: 0, max: 255 },
+    { key: "customization_nose_bridge", min: 0, max: 255 },
+    { key: "customization_nose_tip", min: 0, max: 255 },
+    { key: "customization_nose_bridge_shift", min: 0, max: 255 },
+    { key: "customization_brow_height", min: 0, max: 255 },
+    { key: "customization_brow_width", min: 0, max: 255 },
+    { key: "customization_c_bone_height", min: 0, max: 255 },
+    { key: "customization_c_bone_width", min: 0, max: 255 },
+    { key: "customization_cheek_width", min: 0, max: 255 },
+    { key: "customization_eyes", min: 0, max: 255 },
+    { key: "customization_lips", min: 0, max: 255 },
+    { key: "customization_jaw_width", min: 0, max: 255 },
+    { key: "customization_jaw_height", min: 0, max: 255 },
+    { key: "customization_chin_length", min: 0, max: 255 },
+    { key: "customization_chin_pos", min: 0, max: 255 },
+    { key: "customization_chin_width", min: 0, max: 255 },
+    { key: "customization_chin_shape", min: 0, max: 255 },
+    { key: "customization_neck_width", min: 0, max: 255 },
 ]
 
 for (let p of player_customs) {
@@ -244,7 +245,5 @@ for (let p of player_customs) {
     })
 }
 
-//------------------Clothes-----------------
-//------------------Clothes-----------------
-//------------------Clothes-----------------
-//------------------Clothes-----------------
+//------------------TATTOOS-----------------
+

@@ -33,16 +33,22 @@ module.exports = {
             role: ["everybody"],
         },
         patch: {
-            rule: ["openable", "check_weight", "has_slot", "is_slot_avaible"],
+            modify: [],
+            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
             role: ["system_admin"],
+            effect: ["item_out", "item_in"],
         },
         post: {
-            rule: ["openable", "check_weight", "has_slot", "is_slot_avaible"],
+            modify: [],
+            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight",],
             role: ["system_admin"],
+            effect: ["item_in"],
         },
         delete: {
+            modify: [],
             rule: [],
             role: ["system_admin"],
+            effect: ["item_out"],
         },
         schema: {
             role: ["everybody"],

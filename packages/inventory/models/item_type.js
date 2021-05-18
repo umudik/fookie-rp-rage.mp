@@ -3,22 +3,31 @@ module.exports = {
     display: "name",
     schema: {
         key: {
+            require: true,
             type: "string",
             input: "text",
         },
+        inventory_type: {
+            require: true,
+            relation: "inventory_type",
+        },
         name: {
+            require: true,
             type: "string",
             input: "text",
         },
         weight: {
+            require: true,
             type: "float",
             input: "number",
         },
         stackable: {
+            require: true,
             type: "boolean",
             input: "boolean",
         },
         stack_size: {
+            require: true,
             type: "integer",
             input: "number",
         },
