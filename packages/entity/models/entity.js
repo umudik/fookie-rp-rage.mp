@@ -2,29 +2,11 @@ module.exports = {
     name: 'entity',
     display: "name",
     schema: {
-        type: {
-            required:true,
-            relation: "entity_type"
-        },
-        entityId: {
-            required:true,
-            input: "number"
-        },
-        alpha: {
-            input: "number"
-        },
-        data: {
-            type: "jsonb",
-            input: "json",
-        },
         dimension: {
             input: "number"
         },
-        model: {
-            input: "number"
-        },
         position: {
-            required:true,
+            required: true,
             type: "jsonb",
             input: "json",
         },

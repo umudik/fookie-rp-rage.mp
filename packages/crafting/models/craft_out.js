@@ -1,14 +1,19 @@
 module.exports = {
-    name: 'example',
+    name: 'craft_out',
     display: "id",
     schema: {
-        type: {
-            type: "integer",
-            relation: "example",
+        craft: {
+            relation: "craft"
         },
+        item_type: {
+            relation: "item_type"
+        },
+        amount: {
+            type: "integer",
+            input: "number"
+        }
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

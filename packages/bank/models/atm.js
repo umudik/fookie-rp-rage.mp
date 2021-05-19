@@ -3,12 +3,20 @@ module.exports = {
     display: "id",
     schema: {
         type: {
-            required:true,
+            required: true,
             relation: "atm_type"
         },
         bank: {
             relation: "bank"
-        }
+        },
+        dimension: {
+            input: "number"
+        },
+        position: {
+            required: true,
+            type: "jsonb",
+            input: "json",
+        },
     },
     fookie: {
         get: {

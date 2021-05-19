@@ -1,22 +1,15 @@
 module.exports = {
-    name: 'drop',
+    name: 'member',
     display: "id",
     schema: {
-        type: {
-            relation: "drop_type",
-            required:true,
+        faction: {
+            relation: "faction",
         },
-        inventory: {
-            required:true,
-            relation: "inventory",
+        member_type: {
+            relation: "member_type",
         },
-        dimension: {
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "jsonb",
-            input: "json",
+        character: {
+            relation: "character",
         },
     },
     fookie: {

@@ -1,14 +1,17 @@
 module.exports = {
-    name: 'example',
-    display: "id",
+    name: 'punishment_type',
+    display: "name",
     schema: {
-        type: {
-            type: "integer",
-            relation: "example",
+        name: {
+            type: "string",
+            input: "text"
         },
+        description: {
+            type: "string",
+            input: "rich"
+        }
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

@@ -1,14 +1,18 @@
 module.exports = {
-    name: 'example',
-    display: "id",
+    name: 'member_type',
+    display: "name",
     schema: {
-        type: {
-            type: "integer",
-            relation: "example",
+        name: {
+            relation: "faction",
+        },
+        level: {
+            relation: "character",
+        },
+        faction_type: {
+            relation: "faction_type",
         },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

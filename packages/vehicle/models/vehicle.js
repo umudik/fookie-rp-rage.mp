@@ -2,8 +2,8 @@ module.exports = {
     name: 'vehicle',
     display: "id",
     schema: {
-        type: {
-            required:true,
+        vehicle_type: {
+            required: true,
             relation: "vehicle_type",
         },
         owner: {
@@ -11,6 +11,14 @@ module.exports = {
         },
         inventory: {
             relation: "inventory"
+        },
+        dimension: {
+            input: "number"
+        },
+        position: {
+            required: true,
+            type: "jsonb",
+            input: "json",
         },
     },
     fookie: {

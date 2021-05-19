@@ -1,23 +1,14 @@
 module.exports = {
-    name: 'drop',
-    display: "id",
+    name: 'craft',
+    display: "name",
     schema: {
-        type: {
-            relation: "drop_type",
-            required:true,
+        name: {
+            type: "string",
+            input: "text"
         },
-        inventory: {
-            required:true,
-            relation: "inventory",
-        },
-        dimension: {
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "jsonb",
-            input: "json",
-        },
+        crafting_table: {
+            relation: "crafting_table"
+        }
     },
     fookie: {
         get: {

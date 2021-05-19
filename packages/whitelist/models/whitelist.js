@@ -2,13 +2,16 @@ module.exports = {
     name: 'example',
     display: "id",
     schema: {
-        type: {
-            type: "integer",
-            relation: "example",
+        rgscId: {
+            type: "string",
+            relation: "text",
+        },
+        socialClub: {
+            type: "string",
+            relation: "text",
         },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

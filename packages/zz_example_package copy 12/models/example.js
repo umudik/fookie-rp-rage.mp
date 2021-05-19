@@ -3,12 +3,10 @@ module.exports = {
     display: "id",
     schema: {
         type: {
-            type: "integer",
             relation: "example",
         },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

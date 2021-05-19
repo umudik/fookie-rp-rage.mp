@@ -20,6 +20,14 @@ module.exports = {
             type: "integer",
             input: "number"
         },
+        dimension: {
+            input: "number"
+        },
+        position: {
+            required: true,
+            type: "jsonb",
+            input: "json",
+        },
     },
     fookie: {
         get: {

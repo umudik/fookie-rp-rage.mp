@@ -3,21 +3,29 @@ module.exports = {
     display: "id",
     schema: {
         inventory: {
-            required:true,
+            required: true,
             relation: "inventory"
         },
         owner: {
             relation: "character"
         },
         type: {
-            required:true,
+            required: true,
             type: "integer",
             relation: "shop_type",
         },
         open: {
             type: "boolean",
             input: "boolean"
-        }
+        },
+        dimension: {
+            input: "number"
+        },
+        position: {
+            required: true,
+            type: "jsonb",
+            input: "json",
+        },
     },
     fookie: {
         get: {

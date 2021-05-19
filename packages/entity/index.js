@@ -1,137 +1,140 @@
+const entity = require("./models/entity.js")
+
 mp.api.model(require("./models/entity_type.js"))
 mp.api.model(require("./models/entity.js"))
 mp.api.effect("rage_mp_entity_sync", require("./effects/rage_mp_entity_sync.js"))
 
 // SPAWN METHOD
-mp.events.add("fookie_connected", function () {
-    let entityModel = mp.api.models.get("entity")
-    entityModel.methods.set("spawn", async function (payload) {
+mp.events.add("fookie_connected", async function () {
+    let res = await mp.api.run({
+        user: { system: true },
+        model: "entity_type",
+        method: "getAll"
+    })
+    entity_types = res.data
 
-        let ragempEntity = payload.target
+    for (let entity_type of entity_types) {
+        let model = mp.api.models.get(entity_type.model)
 
+        let tmp_method = {
+            modify: ["set_target", "set_type"],
+            rule: ["need_target", "need_type"],
+            role: ["system_admin"],
+        }
+        model.fookie.spawn = tmp_method
+        model.fookie.despawn = tmp_method
+        model.fookie.save = tmp_method
+
+
+
+        model.methods.set("spawn", async function (payload) {
+            console.log(payload.type, "type");
+            let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
+            entity.setVariable("fookieID", payload.target.position.id)
+
+            for (let key of Object.keys(payload.model.schema)) {
+                entity[key] = payload.target[key]
+            }
+        })
+
+        model.methods.set("despawn", async function (payload) {
+            if (mp[entity_type.pool].exists(payload.target.fookieID)) {
+                let entity = mp[entity_type.pool].at(payload.target.fookieID)
+                entity.destroy();
+            }
+
+        })
+
+        model.methods.set("save", async function (payload) {
+            if (mp[entity_type.pool].exists(payload.target.fookieID)) {
+                let entity = mp[entity_type.pool].at(payload.target.fookieID)
+                let body = {}
+
+                for (let key of Object.keys(payload.model.schema)) {
+                    if (entity[key] != payload.target[key]) {
+                        body[key] = entity[key]
+                    }
+                }
+
+                mp.api.run({
+                    user: { system: true },
+                    model: payload.model.name,
+                    method: "patch",
+                    body
+                })
+            }
+        })
+    }
+})
+
+
+
+
+mp.events.add("fookie_connected", async function () {
+    mp.api.modify("set_type", async function (payload) {
+        let id = payload.target[payload.model.name + "_type"]
+        console.log(payload.model.name, "idididdd");
         let res = await mp.api.run({
             user: { system: true },
-            model: "entity_type",
+            model: payload.model.name + "_type",
             method: "get",
-            query: { where: { id: ragempEntity.type } }
+            query: { where: { id } }
         })
+        payload.type = res.data
 
-        let entity_type = res.data
-
-        res = await mp.api.run({
-            user: { system: true },
-            model: entity_type.model,
-            method: "get",
-            query: { where: { id: ragempEntity.entityId } }
-        })
-        let entity = res.data
-
-        res = await mp.api.run({
-            user: { system: true },
-            model: entity_type.model + "_type",
-            method: "get",
-            query: { where: { id: entity.type } }
-        })
-        let type = res.data
-
-        let ragempInGameEntity = mp[entity_type.pool].new(type.joaat, ragempEntity.position, ragempEntity.data)
-
-
-        let fileds = Object.keys(payload.model.schema)
-        for (let f of fileds) {
-            if (["dimension", "position", "entityId"].includes(f))
-                ragempInGameEntity[f] = ragempEntity[f]
-        }
-        return ragempInGameEntity
     })
 
-    entityModel.methods.set("find", async function (payload) {
-        let entity = payload.target
-        let res = await mp.api.run({
-            user: { system: true },
-            model: "entity_type",
-            method: "get",
-            query: { where: { id: entity.type } }
-        })
+    mp.api.rule("need_type", async function (payload) {
 
-        let entity_type = res.data
-        let ret = mp[entity_type.pool].toArray().find(e => e.entityId === entity.entityId)
-        return ret
-    })
-
-    entityModel.methods.set("save", async function (payload) {
-
-        let ragempInGameEntity = await mp.api.run({
-            user: { system: true },
-            model: "entity",
-            method: "find",
-            query: { where: { id: payload.target.id } }
-        })
-        ragempInGameEntity = ragempInGameEntity.data
-
-        let fileds = Object.keys(payload.model.schema)
-        let body = {}
-        for (let f of fileds) {
-            body[f] = ragempInGameEntity[f]
-        }
-        delete body.type
-        delete body.model
-        let res = await mp.api.run({
-            user: { system: true },
-            model: "entity",
-            method: "patch",
-            body,
-            query: { where: { id: payload.target.id } }
-        })
-        return res
-
+        return typeof payload.type == "object"
     })
 })
+
+
+
+
+
+
+
+
+
+
 
 
 
 mp.events.add("fookie_connected", async function () {
     let res = await mp.api.run({
         user: { system: true },
-        model: "entity",
-        method: "getAll",
+        model: "entity_type",
+        method: "getAll"
     })
+    entity_types = res.data
 
-    let allEntities = res.data
-
-    for (let entity of allEntities) {
-        res = await mp.api.run({
-            user: { system: true },
-            model: "entity",
-            method: "spawn",
-            query: { where: { id: entity.id } }
-        })
-        console.log("[Spawn] " + res.data);
-    }
-})
-
-
-mp.events.add("playerJoin", (player) => {
-    player.outputChatBox(player.dimension + "-")
-})
-
-
-mp.api.routine("test", 10000, async (ctx) => {
-
-    let res = await mp.api.run({
-        user: { system: true },
-        model: "entity",
-        method: "getAll",
-    })
-    res = res.data
-
-    for (let e of res) {
+    for (let entity_type of entity_types) {
         let res = await mp.api.run({
             user: { system: true },
-            model: "entity",
-            method: "save",
-            query: { where: { id: e.id } }
-        })
-    }
+            method: "getAll",
+            model: entity_type.model,
 
+        })
+
+        let allEntites = res.data
+
+        for (let entity of allEntites) {
+            mp.api.run({
+                user: { system: true },
+                method: "spawn",
+                model: entity_type.model,
+                query: {
+                    where: {
+                        id: entity.id
+                    }
+                }
+            })
+        }
+    }
 })
+
+
+
+
