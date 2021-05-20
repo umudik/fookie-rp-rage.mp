@@ -1,9 +1,11 @@
-let FookieJS = require('../../../../html/api/src/index')
+let FookieJS = require('../../../../html/api/src/index');
+mp.api = new FookieJS();
 
-mp.api = new FookieJS()
-
-mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay').then(async () => {
-
+(async () => {
+    await mp.api.connect('mongodb://127.0.0.1/roleplay', {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    })
 
     mp.api.store.set("secret", "secret")
     mp.api.store.set("login", true)
@@ -12,31 +14,38 @@ mp.api.connect('postgres://postgres:123@127.0.0.1:5432/roleplay').then(async () 
     await mp.api.listen(7777)
 
 
+    mp.events.call("fookie_connected")
+})()
+
+
+
+
+mp.events.add("fookie_connected", async () => {
     mp.api.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
     mp.api.store.set('afters', mp.api.store.get('afters').concat(["rage_mp_sync"]))
-
-
-    mp.events.addProc('apiProc', async (player, payload) => {
-        payload = JSON.parse(payload)
-        console.log(`Model: ${payload.model} | Method: ${payload.method} `);
-        let _payload = {
-            user: { system: true },
-            method: payload.method || "",
-            body: payload.body || {},
-            model: payload.model || "",
-            query: payload.query || {},
-            token: payload.token || "",
-            options: payload.options || {},
-        }
-
-        console.log("--------- REQUEST ---------");
-        console.log(payload);
-        console.log("----------- END -----------");
-        await mp.api.run(_payload)
-        return JSON.stringify(_payload.response)
-    })
-    mp.events.call("fookie_connected")
 })
+
+mp.events.addProc('apiProc', async (player, payload) => {
+    payload = JSON.parse(payload)
+    console.log(`Model: ${payload.model} | Method: ${payload.method} `);
+    let _payload = {
+        user: { system: true },
+        method: payload.method || "",
+        body: payload.body || {},
+        model: payload.model || "",
+        query: payload.query || {},
+        token: payload.token || "",
+        options: payload.options || {},
+    }
+
+    console.log("--------- REQUEST ---------");
+    console.log(payload);
+    console.log("----------- END -----------");
+    await mp.api.run(_payload)
+    return JSON.stringify(_payload.response)
+})
+
+
 
 
 mp.events.addCommand("pos", (player) => {

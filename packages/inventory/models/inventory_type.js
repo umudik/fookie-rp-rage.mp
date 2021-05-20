@@ -18,12 +18,12 @@ module.exports = {
         },
         slotSize: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number"
         },
         maxWeight: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number"
         },
     },

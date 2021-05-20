@@ -14,7 +14,7 @@ mp.game.calcDist = function calcDist(v1, v2) {
     }
 
 }
-mp.game.getClosest = function() {
+mp.game.getClosest = function () {
     let c_v = null
     let c_o = null
     let c_p = null
@@ -67,18 +67,18 @@ mp.game.keys = {
     left: 0x25,
     y: 0x59,
 }
-mp.keys.bind(mp.game.keys.up, true, function() {
+mp.keys.bind(mp.game.keys.up, true, function () {
     if (active)
         index++
 })
-mp.keys.bind(mp.game.keys.down, true, function() {
+mp.keys.bind(mp.game.keys.down, true, function () {
     if (active)
         index--
 })
-mp.keys.bind(mp.game.keys.y, true, function() {
+mp.keys.bind(mp.game.keys.y, true, function () {
     active = !active
 })
-mp.keys.bind(mp.game.keys.enter, true, function() {
+mp.keys.bind(mp.game.keys.enter, true, function () {
     if (active) {
         mp.events.callRemote('interact', JSON.stringify({
             type: menu,
@@ -156,7 +156,7 @@ function drawMenu(obj) {
 function drawTag(obj) {
     try {
         if (!mp.players.local.vehicle)
-            mp.game.graphics.drawText("o", [obj.position.x, obj.position.y, obj.position.z], (active) ? tagOpt2 : tagOpt)
+            mp.game.graphics.drawText((active) ? "o" : "x", [obj.position.x, obj.position.y, obj.position.z], (active) ? tagOpt2 : tagOpt)
     } catch (error) {
 
     }
@@ -188,17 +188,3 @@ setInterval(() => {
         }
     }
 }, 500);
-
-mp.events.add('playerLogin', (data) => {
-    faction = data.faction
-    mp.gui.chat.push("faction " + faction)
-    mp.console.logInfo(data, false, false);
-    if (faction == "Pd") {
-        events.player.push("Kelepçele")
-    } else if (faction == "Fd") {
-        events.player.push("İyileştir")
-    } else if (faction == "Mekanik") {
-        events.vehicle.push("Modifiye")
-        events.vehicle.push("Tamir")
-    }
-})

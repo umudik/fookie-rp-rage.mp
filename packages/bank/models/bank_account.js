@@ -7,7 +7,7 @@ module.exports = {
         },
         number: {
             required:true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         inventory: {

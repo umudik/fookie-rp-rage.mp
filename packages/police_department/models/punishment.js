@@ -7,7 +7,7 @@ module.exports = {
             relation: "punishment_type",
         },
         amount: {
-            type: "integer",
+            type: "number",
             input: "number"
         },
         description: {

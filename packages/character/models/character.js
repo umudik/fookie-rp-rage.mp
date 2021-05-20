@@ -13,11 +13,11 @@ module.exports = {
             relation: "inventory"
         },
         hunger: {
-            type: "integer",
+            type: "number",
             input: "number"
         },
         thirst: {
-            type: "integer",
+            type: "number",
             input: "number"
         },
         dimension: {
@@ -25,7 +25,7 @@ module.exports = {
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

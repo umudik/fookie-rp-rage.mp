@@ -1,6 +1,5 @@
 module.exports = async function (payload) {
     if (payload.method == "post") {
-        console.log(1);
         payload.ctx.run({
             user: { system: true },
             method: "spawn",

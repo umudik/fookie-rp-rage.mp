@@ -11,7 +11,6 @@ module.exports = {
         },
         type: {
             required: true,
-            type: "integer",
             relation: "shop_type",
         },
         open: {
@@ -23,7 +22,7 @@ module.exports = {
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

@@ -28,7 +28,6 @@ mp.events.add("fookie_connected", async function () {
 
 
         model.methods.set("spawn", async function (payload) {
-            console.log(payload.type, "type");
             let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
             entity.setVariable("fookieID", payload.target.position.id)
 
@@ -70,37 +69,21 @@ mp.events.add("fookie_connected", async function () {
 
 
 
-mp.events.add("fookie_connected", async function () {
-    mp.api.modify("set_type", async function (payload) {
-        let id = payload.target[payload.model.name + "_type"]
-        console.log(payload.model.name, "idididdd");
-        let res = await mp.api.run({
-            user: { system: true },
-            model: payload.model.name + "_type",
-            method: "get",
-            query: { where: { id } }
-        })
-        payload.type = res.data
-
+mp.api.modify("set_type", async function (payload) {
+    let id = payload.target[payload.model.name + "_type"]
+    let res = await mp.api.run({
+        user: { system: true },
+        model: payload.model.name + "_type",
+        method: "get",
+        query: { where: { id } }
     })
+    payload.type = res.data
 
-    mp.api.rule("need_type", async function (payload) {
-
-        return typeof payload.type == "object"
-    })
 })
 
-
-
-
-
-
-
-
-
-
-
-
+mp.api.rule("need_type", async function (payload) {
+    return typeof payload.type == "object"
+})
 
 mp.events.add("fookie_connected", async function () {
     let res = await mp.api.run({

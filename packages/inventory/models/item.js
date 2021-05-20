@@ -12,16 +12,16 @@ module.exports = {
         },
         slot: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         amount: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         data: {
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

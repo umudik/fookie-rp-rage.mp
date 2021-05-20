@@ -17,7 +17,7 @@ module.exports = {
             input: "text"
         },
         data: {
-            type: "jsonb",
+            type: "object",
             input: "json"
         },
         spawnAtStart: {
@@ -29,7 +29,7 @@ module.exports = {
             input: "boolean"
         },
         syncRate: {
-            type: "integer",
+            type: "number",
             input: "number"
         },
     },

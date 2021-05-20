@@ -3,7 +3,7 @@ module.exports = {
     display: "id",
     schema: {
         type: {
-            type: "integer",
+            type: "number",
             relation: "example",
         },
     },

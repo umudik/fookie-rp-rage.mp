@@ -15,7 +15,7 @@ module.exports = {
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

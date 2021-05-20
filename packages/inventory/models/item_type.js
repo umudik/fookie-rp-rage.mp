@@ -28,7 +28,7 @@ module.exports = {
         },
         stack_size: {
             require: true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         desc: {

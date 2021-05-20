@@ -9,7 +9,7 @@ module.exports = {
             relation: "item_type"
         },
         amount: {
-            type: "integer",
+            type: "number",
             input: "number"
         }
     },
