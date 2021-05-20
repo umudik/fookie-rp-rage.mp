@@ -1,11 +1,10 @@
-const entity = require("./models/entity.js")
 
-mp.api.model(require("./models/entity_type.js"))
-mp.api.model(require("./models/entity.js"))
-mp.api.effect("rage_mp_entity_sync", require("./effects/rage_mp_entity_sync.js"))
+
+
 
 // SPAWN METHOD
 mp.events.add("fookie_connected", async function () {
+    /*
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",
@@ -64,6 +63,7 @@ mp.events.add("fookie_connected", async function () {
             }
         })
     }
+    */
 })
 
 
@@ -84,8 +84,9 @@ mp.api.modify("set_type", async function (payload) {
 mp.api.rule("need_type", async function (payload) {
     return typeof payload.type == "object"
 })
-
+/*
 mp.events.add("fookie_connected", async function () {
+    
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",
@@ -117,7 +118,7 @@ mp.events.add("fookie_connected", async function () {
         }
     }
 })
-
+*/
 
 
 

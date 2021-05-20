@@ -1,1 +1,0 @@
-mp.api.model(require("./models/interaction_menu.js"))
