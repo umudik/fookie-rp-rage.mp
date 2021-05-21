@@ -25,11 +25,9 @@ let FookieJS = require('../../../../html/api/src/index');
     await mp.api.model(require("../inventory/models/inventory_type"))
     await mp.api.model(require("../inventory/models/item_type"))
     await mp.api.model(require("../inventory/models/item"))
-
     await mp.api.model(require("../interaction_menu/models/interaction_menu.js"))
     await mp.api.model(require("../entity/models/entity_type.js"))
     await mp.api.model(require("../entity/models/entity.js"))
-
     await mp.api.model(require("../drop/models/drop"))
     await mp.api.model(require("../drop/models/drop_type"))
     await mp.api.model(require("../crafting/models/craft"))

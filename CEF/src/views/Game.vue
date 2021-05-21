@@ -3,7 +3,7 @@
         <div v-for="(menu, i) in $store.state.menus" :key="i">
             <game-inventory
                 v-if="menu.type == 'inventory'"
-                :selectedId="menu.id"
+                :selectedId="menu._id"
             />
         </div>
     </div>

@@ -34,10 +34,10 @@
                                         ]
                                     }}
                                 </v-card-title>
-                                <v-card-text> ID:{{ task.id }} </v-card-text>
+                                <v-card-text> ID:{{ task._id }} </v-card-text>
                                 <v-card-actions class="m-2">
-                                    <fookie-edit :Model="Model" :id="task.id" />
-                                    <fookie-delete :Model="Model" :id="task.id" />
+                                    <fookie-edit :Model="Model" :id="task._id" />
+                                    <fookie-delete :Model="Model" :id="task._id" />
                                 </v-card-actions>
                             </v-card>
                         </div>

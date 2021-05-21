@@ -203,7 +203,7 @@ export default {
     computed: {},
     mounted: async function () {
         if (this.selectedId) {
-            this.body = this.model.pool.find((m) => m.id === this.selectedId);
+            this.body = this.model.pool.find((m) => m._id === this.selectedId);
             this.constBody = JSON.parse(JSON.stringify(this.body));
         }
     },
@@ -219,9 +219,13 @@ export default {
 
             // string to number parser
             for (let key of Object.keys(body))
-                if (["integer", "float"].includes(this.model.schema[key].type))
+                if (
+                    ["integer", "number", "float"].includes(
+                        this.model.schema[key].type
+                    )
+                )
                     body[key] = parseInt(body[key]);
-
+            console.log(body);
             await this.$store.dispatch("api", {
                 method: "post",
                 model,
@@ -232,11 +236,15 @@ export default {
             this.dialog = false;
             let body = this.patchBody;
             let model = this.model.name;
-            let id = this.selectedId;
+            let _id = this.selectedId;
 
             // string to number parser
             for (let key of Object.keys(body))
-                if (["integer", "float"].includes(this.model.schema[key].type))
+                if (
+                    ["integer", "number", "float"].includes(
+                        this.model.schema[key].type
+                    )
+                )
                     body[key] = parseInt(body[key]);
 
             await this.$store.dispatch("api", {
@@ -245,7 +253,7 @@ export default {
                 body,
                 query: {
                     where: {
-                        id,
+                        _id,
                     },
                 },
             });

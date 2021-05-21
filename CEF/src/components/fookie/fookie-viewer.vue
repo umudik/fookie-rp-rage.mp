@@ -83,11 +83,11 @@
                             <v-btn-toggle mandatory dark>
                                 <fookie-post
                                     :model="model"
-                                    :selectedId="item.id"
+                                    :selectedId="item._id"
                                 />
                                 <fookie-delete
                                     :model="model"
-                                    :selectedId="item.id"
+                                    :selectedId="item._id"
                                 />
                             </v-btn-toggle>
                         </v-card-actions>
@@ -143,7 +143,7 @@ export default {
             if (typeof this.model.schema[key].relation === "string") {
                 let maybe = this.$store.state[
                     this.model.schema[key].relation
-                ].pool.find((i) => i.id === item[key]);
+                ].pool.find((i) => i._id === item[key]);
                 if (!maybe) return "-";
                 return maybe[
                     this.$store.state[this.model.schema[key].relation].display

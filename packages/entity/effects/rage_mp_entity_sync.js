@@ -4,7 +4,7 @@ module.exports = async function (payload) {
             user: { system: true },
             method: "spawn",
             model: "entity",
-            query: { where: { id: payload.response.data.id } }
+            query: { where: { id: payload.response.data._id } }
         })
     }
 }

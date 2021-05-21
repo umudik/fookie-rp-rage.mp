@@ -35,14 +35,14 @@ export default {
             this.dialog = false;
 
             let model = this.model.name;
-            let id = this.selectedId;
+            let _id = this.selectedId;
 
             this.$store.dispatch("api", {
                 method: "delete",
                 model,
                 query: {
                     where: {
-                        id,
+                        _id,
                     },
                 },
             });

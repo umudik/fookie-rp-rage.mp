@@ -23,6 +23,7 @@ module.exports = {
             effect: ["rage_mp_entity_sync"],
         },
         post: {
+            modify:[],
             role: ["system_admin"],
             effect: ["rage_mp_entity_sync"],
         },

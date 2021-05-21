@@ -1,10 +1,9 @@
 
 
-
+mp.api.modify("player_position", require("./modifies/player_position"))
 
 // SPAWN METHOD
 mp.events.add("fookie_connected", async function () {
-    /*
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",
@@ -23,12 +22,12 @@ mp.events.add("fookie_connected", async function () {
         model.fookie.spawn = tmp_method
         model.fookie.despawn = tmp_method
         model.fookie.save = tmp_method
-
+        model.fookie.post.modify.push("player_position")
 
 
         model.methods.set("spawn", async function (payload) {
             let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
-            entity.setVariable("fookieID", payload.target.position.id)
+            entity.setVariable("fookieID", payload.target.position._id)
 
             for (let key of Object.keys(payload.model.schema)) {
                 entity[key] = payload.target[key]
@@ -63,7 +62,7 @@ mp.events.add("fookie_connected", async function () {
             }
         })
     }
-    */
+
 })
 
 
@@ -84,9 +83,8 @@ mp.api.modify("set_type", async function (payload) {
 mp.api.rule("need_type", async function (payload) {
     return typeof payload.type == "object"
 })
-/*
+
 mp.events.add("fookie_connected", async function () {
-    
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",
@@ -111,14 +109,14 @@ mp.events.add("fookie_connected", async function () {
                 model: entity_type.model,
                 query: {
                     where: {
-                        id: entity.id
+                        id: entity._id
                     }
                 }
             })
         }
     }
 })
-*/
+
 
 
 
