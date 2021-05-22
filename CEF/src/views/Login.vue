@@ -24,7 +24,6 @@ export default {
                 model: "system_user",
                 body,
             });
-            console.log(res);
             localStorage.setItem("token", res);
             this.$router.push({ name: "game" });
         },

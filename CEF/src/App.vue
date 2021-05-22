@@ -10,7 +10,12 @@ export default {
     data() {
         return {};
     },
-    mounted: async function () {},
+    mounted: async function () {
+        console.log(this.$route.name);
+        if (this.$route.name == "home") {
+            this.$router.push({ name: "login" });
+        }
+    },
 };
 </script>
 

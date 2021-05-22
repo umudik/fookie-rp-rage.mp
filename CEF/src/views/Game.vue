@@ -6,11 +6,11 @@
             <v-icon @click="$router.push({ name: 'game' })">mdi-play</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
             <v-icon @click="$router.push({ name: 'setting' })">mdi-cog</v-icon>
-            <v-icon @click="$router.push({ name: 'settings' })"
+            <v-icon @click="$router.push({ name: 'home' })"
                 >mdi-account</v-icon
             >
-            <v-icon @click="$router.push({ name: 'web' })">mdi-web</v-icon>
-            <v-icon @click="$router.push({ name: 'help' })">mdi-help</v-icon>
+            <v-icon @click="$router.push({ name: 'home' })">mdi-web</v-icon>
+            <v-icon @click="$router.push({ name: 'home' })">mdi-help</v-icon>
             <span>12:30</span>
 
             <v-avatar

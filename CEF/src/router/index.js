@@ -63,17 +63,14 @@ const router = new VueRouter({
 
 
 
-router.beforeEach((to, from, next) => {
+router.afterEach((to, from, next) => {
     if (to.matched.some(record => record.meta.auth)) {
         if (localStorage.getItem('token') == null) {
             next({
-                path: '/login',
+                name: 'login',
             })
-        } else {
-            next()
         }
-    } else {
-        next()
     }
+    next()
 })
 export default router;

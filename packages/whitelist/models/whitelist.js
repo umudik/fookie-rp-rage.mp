@@ -10,6 +10,9 @@ module.exports = {
             type: "string",
             relation: "text",
         },
+        system_user: {
+            relation: "system_user"
+        }
     },
     fookie: {
         get: {
