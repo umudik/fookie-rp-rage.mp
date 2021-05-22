@@ -21,10 +21,10 @@ module.exports = {
             input: "number"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {
-            required: true,
             type: "object",
             input: "json",
         },

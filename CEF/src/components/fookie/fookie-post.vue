@@ -149,7 +149,7 @@
                     :items="relationModel(field.relation).pool"
                     :label="i"
                     clearable
-                    item-value="id"
+                    item-value="_id"
                     prepend-icon="mdi-relation-one-to-one"
                 ></v-autocomplete>
                 <v-text-field

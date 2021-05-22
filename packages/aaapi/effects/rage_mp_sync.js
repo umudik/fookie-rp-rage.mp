@@ -1,5 +1,5 @@
 module.exports = async (payload) => {
-    /*
+
     console.log(payload.model.name);
     payload.model = payload.model.name
     payload.res = undefined
@@ -10,5 +10,5 @@ module.exports = async (payload) => {
             player.call("apiSync", [JSON.stringify(payload)])
         }
     );
-    */
+
 }

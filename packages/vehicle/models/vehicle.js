@@ -13,6 +13,7 @@ module.exports = {
             relation: "inventory"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {

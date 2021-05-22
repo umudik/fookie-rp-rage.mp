@@ -69,12 +69,13 @@ mp.events.add("fookie_connected", async function () {
 
 
 mp.api.modify("set_type", async function (payload) {
-    let id = payload.target[payload.model.name + "_type"]
+    console.log(payload.target);
+    let _id = payload.target[payload.model.name + "_type"]
     let res = await mp.api.run({
         user: { system: true },
         model: payload.model.name + "_type",
         method: "get",
-        query: { where: { id } }
+        query: { where: { _id } }
     })
     payload.type = res.data
 
@@ -109,7 +110,7 @@ mp.events.add("fookie_connected", async function () {
                 model: entity_type.model,
                 query: {
                     where: {
-                        id: entity._id
+                        _id: entity._id
                     }
                 }
             })

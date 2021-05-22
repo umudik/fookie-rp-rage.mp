@@ -3,6 +3,7 @@ module.exports = {
     display: "name",
     schema: {
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {

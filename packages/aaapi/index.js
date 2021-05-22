@@ -3,12 +3,12 @@ let FookieJS = require('../../../../html/api/src/index');
 
 (async () => {
     mp.api = new FookieJS();
-    await mp.api.connect('mongodb://localhost:27017/roleplay', {
+    await mp.api.connect('mongodb://127.0.0.1:27017/roleplay', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
 
-
+    console.log(1);
     await mp.api.model(require("../bank/models/atm.js"))
     await mp.api.model(require("../bank/models/atm_type.js"))
     await mp.api.model(require("../bank/models/bank.js"))
@@ -68,22 +68,13 @@ mp.events.add("fookie_connected", async () => {
 
 mp.events.addProc('apiProc', async (player, payload) => {
     payload = JSON.parse(payload)
-    console.log(`Model: ${payload.model} | Method: ${payload.method} `);
-    let _payload = {
-        user: { system: true },
-        method: payload.method || "",
-        body: payload.body || {},
-        model: payload.model || "",
-        query: payload.query || {},
-        token: payload.token || "",
-        options: payload.options || {},
-    }
+    payload.user = player
 
     console.log("--------- REQUEST ---------");
-    console.log(payload);
+    await mp.api.run(payload)
     console.log("----------- END -----------");
-    await mp.api.run(_payload)
-    return JSON.stringify(_payload.response)
+    return JSON.stringify(payload.response)
+
 })
 
 

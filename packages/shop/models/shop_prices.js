@@ -7,6 +7,7 @@ module.exports = {
             relation: "shop"
         },
         price: {
+            type:"number",
             input: "number"
         },
         item: {

@@ -18,6 +18,7 @@ module.exports = {
             input: "boolean"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {

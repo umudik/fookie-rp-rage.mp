@@ -10,6 +10,7 @@ module.exports = {
             relation: "bank"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {
