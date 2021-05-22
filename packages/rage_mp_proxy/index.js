@@ -52,7 +52,6 @@ let properties = [
 
 for (let p of properties) {
     mp.Vehicle.prototype["_" + p.key] = null
-    console.log("vehicle", " | ", p.key);
     Object.defineProperty(mp.Vehicle.prototype, p.key, {
         get() {
             return this["_" + p.key]
@@ -72,7 +71,6 @@ for (let p of properties) {
 //-------------------VEHİCLE COLOR------------------------
 
 mp.Vehicle.prototype["_color1"] = [0, 0, 0]
-console.log("vehicle", " | ", "colo1r");
 Object.defineProperty(mp.Vehicle.prototype, "color1", {
     get() {
         return this["_color1"]
@@ -85,7 +83,6 @@ Object.defineProperty(mp.Vehicle.prototype, "color1", {
 
 
 mp.Vehicle.prototype["_color2"] = [0, 0, 0]
-console.log("vehicle", " | ", "color2");
 Object.defineProperty(mp.Vehicle.prototype, "color2", {
     get() {
         return this["_color2"]
@@ -151,7 +148,6 @@ let player_props = [
 for (let p of player_props) {
 
     mp.Player.prototype["_" + p.key] = null
-    console.log("player", " | ", p.key);
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
             return this["_" + p.key]
@@ -197,7 +193,6 @@ let player_customs = [
 for (let p of player_customs) {
 
     mp.Player.prototype["_" + p.key] = null
-    console.log("player", " | ", p.key);
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
             return this["_" + p.key]

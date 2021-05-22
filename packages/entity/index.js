@@ -10,7 +10,6 @@ mp.events.add("fookie_connected", async function () {
         method: "getAll"
     })
     entity_types = res.data
-
     for (let entity_type of entity_types) {
         let model = mp.api.models.get(entity_type.model)
 
@@ -69,7 +68,6 @@ mp.events.add("fookie_connected", async function () {
 
 
 mp.api.modify("set_type", async function (payload) {
-    console.log(payload.target);
     let _id = payload.target[payload.model.name + "_type"]
     let res = await mp.api.run({
         user: { system: true },

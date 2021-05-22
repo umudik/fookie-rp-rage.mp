@@ -8,11 +8,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         logs: [],
+        token: null,
         baseURL: "http://localhost:7777",
-        inGame: true,
+        inGame: false,
         system_model: {
             pool: [],
-            display: "_id",
+            display: "name",
             name: "system_model",
             schema: {}
         },
@@ -74,7 +75,7 @@ export default new Vuex.Store({
             } else {
                 payload.response = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
-                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGE3ZTJkYzMzZGVhNTM5NTgyODk3MzQiLCJpYXQiOjE2MjE2MTU0NTR9.mUAFKNBrb_VPOsjfvwSOOQorf6lJbMyJoM-OA3C8JFs"
+                        token: localStorage.getItem("token")
                     }
                 })
             }

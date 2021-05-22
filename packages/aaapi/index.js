@@ -7,34 +7,38 @@ let FookieJS = require('../../../../html/api/src/index');
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
+    await mp.api.listen(7777)
+    mp.events.call("fookie_connected")
+})()
 
-    console.log(1);
-    await mp.api.model(require("../bank/models/atm.js"))
-    await mp.api.model(require("../bank/models/atm_type.js"))
-    await mp.api.model(require("../bank/models/bank.js"))
-    await mp.api.model(require("../bank/models/bank_account.js"))
-    await mp.api.model(require("../vehicle/models/vehicle.js"))
-    await mp.api.model(require("../vehicle/models/vehicle_type.js"))
 
-    await mp.api.model(require("../shop/models/shop.js"))
-    await mp.api.model(require("../shop/models/shop_type.js"))
-    await mp.api.model(require("../shop/models/shop_prices.js"))
-    await mp.api.model(require("../pd/models/punishment"))
-    await mp.api.model(require("../pd/models/punishment_type"))
-    await mp.api.model(require("../inventory/models/inventory"))
-    await mp.api.model(require("../inventory/models/inventory_type"))
-    await mp.api.model(require("../inventory/models/item_type"))
-    await mp.api.model(require("../inventory/models/item"))
-    await mp.api.model(require("../interaction_menu/models/interaction_menu.js"))
-    await mp.api.model(require("../entity/models/entity_type.js"))
-    await mp.api.model(require("../entity/models/entity.js"))
-    await mp.api.model(require("../drop/models/drop"))
-    await mp.api.model(require("../drop/models/drop_type"))
-    await mp.api.model(require("../crafting/models/craft"))
-    await mp.api.model(require("../crafting/models/craft_in"))
-    await mp.api.model(require("../crafting/models/craft_out"))
-    await mp.api.model(require("../character/models/character.js"))
 
+
+mp.events.add("fookie_connected", async () => {
+    mp.api.model(require("../bank/models/atm.js"))
+    mp.api.model(require("../bank/models/atm_type.js"))
+    mp.api.model(require("../bank/models/bank.js"))
+    mp.api.model(require("../bank/models/bank_account.js"))
+    mp.api.model(require("../vehicle/models/vehicle.js"))
+    mp.api.model(require("../vehicle/models/vehicle_type.js"))
+    mp.api.model(require("../shop/models/shop.js"))
+    mp.api.model(require("../shop/models/shop_type.js"))
+    mp.api.model(require("../shop/models/shop_prices.js"))
+    mp.api.model(require("../pd/models/punishment"))
+    mp.api.model(require("../pd/models/punishment_type"))
+    mp.api.model(require("../inventory/models/inventory"))
+    mp.api.model(require("../inventory/models/inventory_type"))
+    mp.api.model(require("../inventory/models/item_type"))
+    mp.api.model(require("../inventory/models/item"))
+    mp.api.model(require("../interaction_menu/models/interaction_menu.js"))
+    mp.api.model(require("../entity/models/entity_type.js"))
+    mp.api.model(require("../entity/models/entity.js"))
+    mp.api.model(require("../drop/models/drop"))
+    mp.api.model(require("../drop/models/drop_type"))
+    mp.api.model(require("../crafting/models/craft"))
+    mp.api.model(require("../crafting/models/craft_in"))
+    mp.api.model(require("../crafting/models/craft_out"))
+    mp.api.model(require("../character/models/character.js"))
     mp.api.store.set("secret", "secret")
     mp.api.store.set("login", true)
     mp.api.store.set("register", true)
@@ -49,27 +53,11 @@ let FookieJS = require('../../../../html/api/src/index');
     mp.api.effect("item_in", require('../inventory/effects/item_in'))
     mp.api.effect("item_out", require('../inventory/effects/item_out'))
 
-
-
-    await mp.api.listen(7777)
-    mp.events.call("fookie_connected")
-})()
-
-
-
-
-mp.events.add("fookie_connected", async () => {
-
-
-
-
-
 })
 
 mp.events.addProc('apiProc', async (player, payload) => {
     payload = JSON.parse(payload)
     payload.user = player
-
     console.log("--------- REQUEST ---------");
     await mp.api.run(payload)
     console.log("----------- END -----------");
@@ -85,11 +73,11 @@ mp.events.addCommand("pos", (player) => {
 })
 
 mp.events.addCommand('v', (player) => {
-    mp.vehicles.new(mp.joaat("formula"), player.position)
+    mp.vehicles.new(mp.joaat("openwheel1"), player.position)
 })
 
 mp.events.addCommand('v2', (player) => {
-    mp.vehicles.new(mp.joaat("turismor"), player.position)
+    mp.vehicles.new(mp.joaat("vstr"), player.position)
 })
 
 
