@@ -9,7 +9,6 @@
         :sort-desc="sortDesc"
         disable-pagination
         hide-default-footer
-        class="pt-2"
         no-data-text="İçerik bulunamadı"
         no-results-text="Aramanızla eşleşen içerik yok"
     >
