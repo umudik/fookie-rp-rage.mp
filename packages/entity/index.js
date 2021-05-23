@@ -23,23 +23,18 @@ mp.events.add("fookie_connected", async function () {
         model.fookie.save = tmp_method
         model.fookie.post.modify.push("player_position")
 
-        model.methods.set("spawn", async function (payload) {
-            let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
-            entity.setVariable("fookieID", payload.target.position._id)
 
-            for (let key of Object.keys(payload.model.schema)) {
-                entity[key] = payload.target[key]
-            }
-        })
+        model.fookie.delete.effect.push("rage_mp_entity_sync")
+        model.fookie.post.effect.push("rage_mp_entity_sync")
+        model.fookie.patch.effect.push("rage_mp_entity_sync")
+        model.fookie.spawn.effect.push("rage_mp_entity_sync")
+        model.fookie.despawn.effect.push("rage_mp_entity_sync")
 
-        model.methods.set("despawn", async function (payload) {
-            if (mp[entity_type.pool].exists(payload.target.fookieID)) {
-                let entity = mp[entity_type.pool].at(payload.target.fookieID)
-                entity.destroy();
-            }
 
-        })
+        model.methods.set("spawn", async function (payload) { })
 
+        model.methods.set("despawn", async function (payload) { })
+        
         model.methods.set("save", async function (payload) {
             if (mp[entity_type.pool].exists(payload.target.fookieID)) {
                 let entity = mp[entity_type.pool].at(payload.target.fookieID)
@@ -86,7 +81,8 @@ mp.events.add("fookie_connected", async function () {
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",
-        method: "getAll"
+        method: "getAll",
+        query: { where: { spawnAtStart: true } }
     })
     entity_types = res.data
 

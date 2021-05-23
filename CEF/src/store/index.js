@@ -37,7 +37,7 @@ export default new Vuex.Store({
             state[payload.model].pool.push(payload.response.data);
         },
         post(state, payload) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.query.where._id);
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.response.data._id);
             state[payload.model].pool.push(payload.response.data);
         },
         remove(state, payload) {

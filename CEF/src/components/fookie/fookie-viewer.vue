@@ -53,7 +53,7 @@
             <v-row>
                 <v-col
                     v-for="item in props.items"
-                    :key="item"
+                    :key="'2'+item"
                     cols="12"
                     md="3"
                     sm="6"
@@ -67,8 +67,8 @@
 
                         <v-list dense>
                             <v-list-item
-                                v-for="(key, index) in keys"
-                                :key="index"
+                                v-for="(key) in keys"
+                                :key="'1'+key"
                             >
                                 <v-list-item-content>
                                     {{ key }}:

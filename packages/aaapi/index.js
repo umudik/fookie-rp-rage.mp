@@ -37,6 +37,7 @@ mp.events.add("fookie_connected", async () => {
     mp.api.model(require("../crafting/models/craft"))
     mp.api.model(require("../crafting/models/craft_in"))
     mp.api.model(require("../crafting/models/craft_out"))
+    mp.api.model(require("../crafting/models/crafting_table"))
     mp.api.model(require("../character/models/character.js"))
     mp.api.store.set("secret", "secret")
     mp.api.store.set("login", true)
@@ -63,9 +64,6 @@ mp.events.addProc('apiProc', async (player, payload) => {
     return JSON.stringify(payload.response)
 
 })
-
-
-
 
 mp.events.addCommand("pos", (player) => {
     player.outputChatBox(player.position + " -pos")

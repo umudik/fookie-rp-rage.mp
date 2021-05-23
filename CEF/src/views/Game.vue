@@ -45,7 +45,7 @@ export default {
     },
     mounted: async function () {
         this.$set(this.$store.state, "system_model", {
-            name: "sysmte_model",
+            name: "system_model",
             display: "name",
             schema: await this.$store.dispatch("api", {
                 method: "schema",

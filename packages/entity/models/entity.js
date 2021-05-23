@@ -3,7 +3,7 @@ module.exports = {
     display: "name",
     schema: {
         dimension: {
-            type:"number",
+            type: "number",
             input: "number"
         },
         position: {
@@ -21,12 +21,12 @@ module.exports = {
         },
         patch: {
             role: ["system_admin"],
-            effect: ["rage_mp_entity_sync"],
+            effect: [],
         },
         post: {
-            modify:[],
+            modify: [],
             role: ["system_admin"],
-            effect: ["rage_mp_entity_sync"],
+            effect: [],
         },
         delete: {
             role: ["system_admin"],
