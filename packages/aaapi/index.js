@@ -1,6 +1,5 @@
 let FookieJS = require('../../../../html/api/src/index');
 
-
 (async () => {
     mp.api = new FookieJS();
     await mp.api.connect('mongodb://127.0.0.1:27017/roleplay', {
@@ -57,7 +56,7 @@ mp.events.add("fookie_connected", async () => {
 
 mp.events.addProc('apiProc', async (player, payload) => {
     payload = JSON.parse(payload)
-    payload.user = player
+    payload.player = player
     console.log("--------- REQUEST ---------");
     await mp.api.run(payload)
     console.log("----------- END -----------");
@@ -70,6 +69,9 @@ mp.events.addProc('apiProc', async (player, payload) => {
 
 mp.events.addCommand("pos", (player) => {
     player.outputChatBox(player.position + " -pos")
+})
+mp.events.addCommand("dim", (player) => {
+    player.outputChatBox(player.dimension + " -dim")
 })
 
 mp.events.addCommand('v', (player) => {

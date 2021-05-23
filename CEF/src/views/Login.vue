@@ -1,10 +1,20 @@
 <template>
-    <div>
-        <form>
-            <v-text-field v-model="email" label="E-Mail"></v-text-field>
-            <v-text-field v-model="password" label="Password"></v-text-field>
-            <v-btn @click="login">Login </v-btn>
-        </form>
+    <div class="h-screen flex justify-center items-center">
+        <v-card width="500">
+            <v-card-title>Login</v-card-title>
+            <v-card-text>
+                <form>
+                    <v-text-field v-model="email" label="E-Mail"></v-text-field>
+                    <v-text-field
+                        v-model="password"
+                        label="Password"
+                    ></v-text-field>
+                </form>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn @click="login">Login </v-btn>
+            </v-card-actions>
+        </v-card>
     </div>
 </template>
 
@@ -24,8 +34,10 @@ export default {
                 model: "system_user",
                 body,
             });
-            localStorage.setItem("token", res);
-            this.$router.push({ name: "game" });
+            if (typeof res == "string") {
+                localStorage.setItem("token", res);
+                this.$router.push({ name: "game" });
+            }
         },
     },
 };

@@ -23,7 +23,6 @@ mp.events.add("fookie_connected", async function () {
         model.fookie.save = tmp_method
         model.fookie.post.modify.push("player_position")
 
-
         model.methods.set("spawn", async function (payload) {
             let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
             entity.setVariable("fookieID", payload.target.position._id)
