@@ -52,12 +52,5 @@ module.exports = {
         schema: {
             role: ["everybody"],
         },
-        spawn: {
-            rule: [],
-            effect: [],
-            modify: [],
-            filter:[],
-            role: ["system_admin"],
-        }
     }
 }

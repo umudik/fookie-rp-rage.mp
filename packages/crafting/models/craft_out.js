@@ -1,6 +1,6 @@
 module.exports = {
     name: 'craft_out',
-    display: "id",
+    display: "_id",
     schema: {
         craft: {
             relation: "craft"

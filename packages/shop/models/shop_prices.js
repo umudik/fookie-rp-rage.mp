@@ -1,6 +1,6 @@
 module.exports = {
     name: 'shop_prices',
-    display: "id",
+    display: "_id",
     schema: {
         shop: {
             required:true,

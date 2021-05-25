@@ -1,18 +1,6 @@
 <template>
     <div>
-        asdfasdf
-        <form>
-            <v-text-field
-                v-model="email"
-                label="Username"                
-            ></v-text-field>
-            <v-text-field
-                v-model="password"
-                label="Password"            
-            ></v-text-field>
-
-            <v-btn class="mr-4">Login </v-btn>
-        </form>
+        <game-inventory selectedId="60ac185476662021d45a3338"></game-inventory>
     </div>
 </template>
 
@@ -20,8 +8,7 @@
 export default {
     data() {
         return {
-            email: "",
-            password: "",
+            menus: ["inventory"],
         };
     },
 };

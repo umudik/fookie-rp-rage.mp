@@ -3,10 +3,12 @@ module.exports = {
     display: "name",
     schema: {
         name: {
-            relation: "faction",
+            type: "string",
+            input: "text",
         },
         level: {
-            relation: "character",
+            type: "number",
+            input: "number"
         },
         faction_type: {
             relation: "faction_type",

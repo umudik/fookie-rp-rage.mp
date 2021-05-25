@@ -1,6 +1,6 @@
 module.exports = {
     name: 'vehicle',
-    display: "id",
+    display: "_id",
     schema: {
         vehicle_type: { required: true, relation: "vehicle_type", },
         owner: { relation: "character" },

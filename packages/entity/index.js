@@ -10,6 +10,8 @@ mp.events.add("fookie_connected", async function () {
         method: "getAll"
     })
     entity_types = res.data
+
+
     for (let entity_type of entity_types) {
         let model = mp.api.models.get(entity_type.model)
 
@@ -17,12 +19,25 @@ mp.events.add("fookie_connected", async function () {
             modify: ["set_target", "set_type"],
             rule: ["need_target", "need_type"],
             role: ["system_admin"],
+            effect: [],
+            filter: [],
         }
-        model.fookie.spawn = tmp_method
-        model.fookie.despawn = tmp_method
-        model.fookie.save = tmp_method
+
+
+
+
+        model.fookie.spawn = JSON.parse(JSON.stringify(tmp_method))
+        model.fookie.despawn = JSON.parse(JSON.stringify(tmp_method))
+        model.fookie.save = JSON.parse(JSON.stringify(tmp_method))
         model.fookie.post.modify.push("player_position")
 
+        model.fookie.delete.modify.push("set_target", "set_type")
+        model.fookie.post.modify.push("set_target", "set_type")
+        model.fookie.patch.modify.push("set_target", "set_type")
+
+        model.fookie.delete.rule.push("need_target", "need_type")
+        model.fookie.post.rule.push("need_target", "need_type")
+        model.fookie.patch.rule.push("need_target", "need_type")
 
         model.fookie.delete.effect.push("rage_mp_entity_sync")
         model.fookie.post.effect.push("rage_mp_entity_sync")
@@ -30,11 +45,14 @@ mp.events.add("fookie_connected", async function () {
         model.fookie.spawn.effect.push("rage_mp_entity_sync")
         model.fookie.despawn.effect.push("rage_mp_entity_sync")
 
+        model.methods.set("spawn", async function (payload) {
+            return true
+        })
 
-        model.methods.set("spawn", async function (payload) { })
+        model.methods.set("despawn", async function (payload) {
+            return true
+        })
 
-        model.methods.set("despawn", async function (payload) { })
-        
         model.methods.set("save", async function (payload) {
             if (mp[entity_type.pool].exists(payload.target.fookieID)) {
                 let entity = mp[entity_type.pool].at(payload.target.fookieID)

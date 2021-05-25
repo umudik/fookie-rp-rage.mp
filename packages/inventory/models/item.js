@@ -1,6 +1,6 @@
 module.exports = {
     name: 'item',
-    display: "id",
+    display: "_id",
     schema: {
         item_type: {
             required: true,

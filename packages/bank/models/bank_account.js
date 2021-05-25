@@ -1,6 +1,6 @@
 module.exports = {
     name: 'bank_account',
-    display: "id",
+    display: "_id",
     schema: {
         owner: {
             relation: "character",

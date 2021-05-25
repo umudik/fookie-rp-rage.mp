@@ -1,6 +1,6 @@
 module.exports = {
     name: 'shop',
-    display: "id",
+    display: "_id",
     schema: {
         inventory: {
             required: true,
@@ -45,13 +45,6 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
-        },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
         },
     }
 }

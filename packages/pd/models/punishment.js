@@ -1,6 +1,6 @@
 module.exports = {
     name: 'punishment',
-    display: "id",
+    display: "_id",
     schema: {
         punishment_type: {
             required: true,

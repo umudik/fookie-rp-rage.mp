@@ -1,6 +1,6 @@
 module.exports = {
     name: 'atm',
-    display: "id",
+    display: "_id",
     schema: {
         type: {
             required: true,

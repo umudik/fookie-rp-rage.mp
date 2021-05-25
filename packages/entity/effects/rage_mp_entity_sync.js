@@ -6,6 +6,7 @@ module.exports = async function (payload) {
         query: { where: { model: payload.model.name } }
     })
     let entity_type = res.data
+
     if (payload.method == "patch") {
         let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
         for (let f in payload.body) {
@@ -13,7 +14,7 @@ module.exports = async function (payload) {
         }
     }
     else if (payload.method == "spawn" || payload.method == "post") {
-        let entity = new mp[entity_type.pool](payload.type.joaat, payload.target.position)
+        let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
         entity.setVariable("fookieID", payload.target._id)
         for (let f in payload.body) {
             entity[f] = payload.body[f]

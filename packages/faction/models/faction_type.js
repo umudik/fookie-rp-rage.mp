@@ -1,10 +1,10 @@
 module.exports = {
-    name: 'example',
-    display: "id",
+    name: 'faction_type',
+    display: "name",
     schema: {
-        type: {
-            type: "number",
-            relation: "example",
+        name: {
+            type: "string",
+            input: "text",
         },
     },
     fookie: {

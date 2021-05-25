@@ -34,33 +34,5 @@ module.exports = {
         schema: {
             role: ["everybody"],
         },
-        spawn: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        save: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        find: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        despawn: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        }
     }
 }

@@ -1,7 +1,11 @@
 module.exports = {
     name: 'faction',
-    display: "id",
+    display: "name",
     schema: {
+        name: {
+            type: "string",
+            input: "text",
+        },
         faction_type: {
             relation: "faction_type",
         },

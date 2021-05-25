@@ -1,6 +1,6 @@
 module.exports = {
     name: 'drop',
-    display: "id",
+    display: "_id",
     schema: {
         type: {
             relation: "drop_type",

@@ -30,12 +30,5 @@ module.exports = {
         schema: {
             role: ["everybody"],
         },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
-        },
     }
 }

@@ -121,7 +121,7 @@ export default {
             }
         },
         keys() {
-            return ["id"].concat(Object.keys(this.model.schema));
+            return ["_id"].concat(Object.keys(this.model.schema));
         },
         numberOfPages() {
             return Math.ceil(this.items.length / this.itemsPerPage);
@@ -138,17 +138,17 @@ export default {
             this.itemsPerPage = number;
         },
         getContent(item, key) {
-            if (key == "id") return item[key];
+            if (key == "_id") return item[key];
             if (typeof this.model.schema[key].relation === "string") {
                 let maybe = this.$store.state[
                     this.model.schema[key].relation
-                ].pool.find((i) => i._id === item[key]);
+                ].pool.find((i) => i._id == item[key]);
                 if (!maybe) return "-";
                 return maybe[
                     this.$store.state[this.model.schema[key].relation].display
                 ];
             }
-            return item[key] || "-";
+            return item[key] || "--";
         },
     },
 };
