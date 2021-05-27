@@ -21,32 +21,34 @@
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
         </template>
-        <v-card>
+        <v-card :key="model">
             <v-card-title> Create {{ model.name }} </v-card-title>
-            <v-card-text v-for="(field, i) in model.schema" :key="field">
+            <v-card-text v-for="(field, i) in model.schema" :key="i">
                 <v-text-field
+                    outlined
                     v-if="field.input === 'text'"
                     v-model="body[i]"
                     :label="i"
-                    prepend-icon="mdi-text"
+                    append-icon="mdi-text"
                 ></v-text-field>
 
                 <v-text-field
+                    outlined
                     v-if="field.input === 'password'"
                     v-model="body[i]"
                     :append-icon="menus[i] ? 'mdi-eye' : 'mdi-eye-off'"
                     :label="i"
                     hint="At least 8 characters"
-                    prepend-icon="mdi-lock"
                     type="password"
                     @click:append="menus[i] = !menus[i]"
                 ></v-text-field>
 
                 <v-text-field
+                    outlined
                     v-if="field.input === 'number'"
                     v-model="body[i]"
                     :label="i"
-                    prepend-icon="mdi-numeric"
+                    append-icon="mdi-numeric"
                     type="number"
                 ></v-text-field>
 
@@ -62,11 +64,12 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                            outlined
                             v-model="body[i]"
                             v-bind="attrs"
                             v-on="on"
                             :label="i"
-                            prepend-icon="mdi-clock-time-four-outline"
+                            append-icon="mdi-clock-time-four-outline"
                             readonly
                         ></v-text-field>
                     </template>
@@ -87,12 +90,13 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                            outlined
                             v-model="body[i]"
                             v-bind="attrs"
                             v-on="on"
                             :background-color="body[i] ? body[i].hexa : ''"
                             :label="i"
-                            prepend-icon="mdi-calendar"
+                            append-icon="mdi-calendar"
                             readonly
                         ></v-text-field>
                     </template>
@@ -112,11 +116,12 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                            outlined
                             v-model="body[i]"
                             v-bind="attrs"
                             v-on="on"
                             :label="i"
-                            prepend-icon="mdi-calendar"
+                            append-icon="mdi-calendar"
                             readonly
                         ></v-text-field>
                     </template>
@@ -136,6 +141,7 @@
                 />
 
                 <v-switch
+                    outlined
                     v-if="field.input === 'boolean'"
                     v-model="body[i]"
                     :label="i"
@@ -150,14 +156,18 @@
                     :label="i"
                     clearable
                     item-value="_id"
-                    prepend-icon="mdi-relation-one-to-one"
+                    append-icon="mdi-relation-one-to-one"
+                    :search-input.sync="search[i]"
+                    outlined
                 ></v-autocomplete>
+
                 <v-text-field
+                    outlined
                     v-if="field.input === 'phone'"
                     v-mask="'+90 (###) ###-####'"
                     v-model="body[i]"
                     :label="i"
-                    prepend-icon="mdi-phone"
+                    append-icon="mdi-phone"
                 ></v-text-field>
             </v-card-text>
             <v-card-actions class="card-action">
@@ -191,6 +201,7 @@ export default {
     props: ["defaults", "model", "selectedId"],
     data() {
         return {
+            search: {},
             syncs: {},
             menus: {},
             body: {},
@@ -203,8 +214,8 @@ export default {
     mounted: async function () {
         if (this.selectedId) {
             this.body = this.model.pool.find((m) => m._id === this.selectedId);
-            this.constBody = JSON.parse(JSON.stringify(this.body));
         }
+        this.constBody = JSON.parse(JSON.stringify(this.body));
     },
     methods: {
         relationModel(model) {

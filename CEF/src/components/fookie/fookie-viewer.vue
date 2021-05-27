@@ -13,37 +13,18 @@
         no-results-text="Aramanızla eşleşen içerik yok"
     >
         <template v-slot:header>
-            <v-toolbar class="mb-1" color="blue darken-3" dark>
+            <v-toolbar class="mb-1">
                 <v-text-field
                     v-model="search"
                     clearable
                     flat
                     hide-details
-                    label="Ara..."
+                    label="Search"
                     prepend-inner-icon="mdi-magnify"
-                    solo-inverted
+                    solo
                 ></v-text-field>
                 <v-spacer></v-spacer>
-                <v-select
-                    v-model="sortBy"
-                    :items="['Tümü'].concat(keys)"
-                    flat
-                    hide-details
-                    label="Sırala"
-                    prepend-inner-icon="mdi-magnify"
-                    solo-inverted
-                ></v-select>
-                <template v-if="$vuetify.breakpoint.mdAndUp">
-                    <v-spacer></v-spacer>
-                    <v-btn-toggle v-model="sortDesc" mandatory>
-                        <v-btn :value="false" color="blue" depressed large>
-                            <v-icon>mdi-arrow-up</v-icon>
-                        </v-btn>
-                        <v-btn :value="true" color="blue" depressed large>
-                            <v-icon>mdi-arrow-down</v-icon>
-                        </v-btn>
-                    </v-btn-toggle>
-                </template>
+
                 <v-spacer></v-spacer>
                 <fookie-post :model="model" />
             </v-toolbar>
@@ -52,8 +33,8 @@
         <template v-slot:default="props">
             <v-row>
                 <v-col
-                    v-for="item in props.items"
-                    :key="'2'+item"
+                    v-for="(item, i) in props.items"
+                    :key="i"
                     cols="12"
                     md="3"
                     sm="6"
@@ -66,10 +47,7 @@
                         <v-divider></v-divider>
 
                         <v-list dense>
-                            <v-list-item
-                                v-for="(key) in keys"
-                                :key="'1'+key"
-                            >
+                            <v-list-item v-for="(key, i) in keys" :key="i">
                                 <v-list-item-content>
                                     {{ key }}:
                                 </v-list-item-content>
@@ -100,25 +78,19 @@
 
 <script>
 export default {
-    props: ["model"],
+    props: ["model", "query", "filters"],
     data() {
         return {
             itemsPerPageArray: [4, 8, 12],
             search: "",
             filter: {},
-            sortDesc: false,
             page: 1,
             itemsPerPage: 4,
-            sortBy: null,
         };
     },
     computed: {
         items() {
-            if (this.sortBy == null || this.sortBy == "Tümü") {
-                return this.model.pool;
-            } else {
-                return this.model.pool.filter((x) => x.status === this.sortBy);
-            }
+            return this.model.pool;
         },
         keys() {
             return ["_id"].concat(Object.keys(this.model.schema));

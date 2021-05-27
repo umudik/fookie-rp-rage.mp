@@ -9,12 +9,16 @@
                     <v-list-item-subtitle> Admin Panel </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
-
             <v-divider></v-divider>
-            <v-list>
+            <v-list
+                v-if="
+                    Array.isArray(menus) &&
+                    Array.isArray($store.state.system_submenu.pool)
+                "
+            >
                 <v-list-group
-                    v-for="(menu, i) in $store.state.system_menu.pool"
-                    :key="i"
+                    v-for="(menu, i) in menus"
+                    :key="'a_' + i"
                     :prepend-icon="menu.icon ? 'mdi-' + menu.icon : 'mdi-tag'"
                 >
                     <template v-slot:activator>
@@ -22,12 +26,8 @@
                     </template>
 
                     <v-list-item
-                        v-for="(
-                            sub, i
-                        ) in $store.state.system_submenu.pool.filter(
-                            (s) => s.system_menu == menu._id
-                        )"
-                        :key="i"
+                        v-for="(sub, i) in submenu(menu)"
+                        :key="'b_' + i"
                         link
                         class="ml-5"
                         @click="
@@ -57,8 +57,8 @@
             <v-divider></v-divider>
 
             <v-list-item
-                v-for="model in $store.state.system_model.pool"
-                :key="'3' + model"
+                v-for="(model, i) in $store.state.system_model.pool"
+                :key="'c_' + i"
                 link
                 dense
                 @click="selected = model.name"
@@ -104,6 +104,22 @@ export default {
     methods: {
         findItem(model, id) {
             return this.$store.state[model].pool.find((i) => i._id == id);
+        },
+        submenu(menu) {
+            if (Array.isArray(this.$store.state.system_submenu)) {
+                this.$store.state.system_submenu.filter(
+                    (s) => s.system_menu == menu._id
+                );
+            } else {
+                return [];
+            }
+        },
+    },
+    computed: {
+        menus() {
+            if (Array.isArray(this.$store.state.system_menu.pool))
+                return this.$store.state.system_menu.pool;
+            else return [];
         },
     },
 };

@@ -40,7 +40,7 @@ module.exports = {
         },
         post: {
             modify: [],
-            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight",],
+            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
             role: ["system_admin"],
             effect: ["item_in"],
         },

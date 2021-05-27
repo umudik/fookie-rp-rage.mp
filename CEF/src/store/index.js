@@ -4,7 +4,6 @@ import axios from "axios"
 Vue.use(Vuex);
 
 /* eslint-disable */
-
 export default new Vuex.Store({
     state: {
         logs: [],
@@ -25,7 +24,6 @@ export default new Vuex.Store({
         menus: [
             { type: "inventory", _id: 1 },
         ],
-        token: null,
     },
     mutations: {
         getAll(state, payload) {
