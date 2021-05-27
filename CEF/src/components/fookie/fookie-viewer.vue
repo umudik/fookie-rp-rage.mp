@@ -2,15 +2,9 @@
 <template>
     <v-data-iterator
         :items="items"
-        :items-per-page.sync="itemsPerPage"
-        :page.sync="page"
         :search="search"
-        sort-by="createdAt"
-        :sort-desc="sortDesc"
         disable-pagination
         hide-default-footer
-        no-data-text="İçerik bulunamadı"
-        no-results-text="Aramanızla eşleşen içerik yok"
     >
         <template v-slot:header>
             <v-toolbar class="mb-1">
@@ -40,9 +34,7 @@
                     sm="6"
                 >
                     <v-card>
-                        <v-card-title class="subheading font-weight-bold">{{
-                            item.name
-                        }}</v-card-title>
+                        <v-card-title>{{ item[model.display] }}</v-card-title>
 
                         <v-divider></v-divider>
 
@@ -100,15 +92,6 @@ export default {
         },
     },
     methods: {
-        nextPage() {
-            if (this.page + 1 <= this.numberOfPages) this.page += 1;
-        },
-        formerPage() {
-            if (this.page - 1 >= 1) this.page -= 1;
-        },
-        updateItemsPerPage(number) {
-            this.itemsPerPage = number;
-        },
         getContent(item, key) {
             if (key == "_id") return item[key];
             if (typeof this.model.schema[key].relation === "string") {

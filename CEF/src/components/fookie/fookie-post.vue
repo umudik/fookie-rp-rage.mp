@@ -160,15 +160,6 @@
                     :search-input.sync="search[i]"
                     outlined
                 ></v-autocomplete>
-
-                <v-text-field
-                    outlined
-                    v-if="field.input === 'phone'"
-                    v-mask="'+90 (###) ###-####'"
-                    v-model="body[i]"
-                    :label="i"
-                    append-icon="mdi-phone"
-                ></v-text-field>
             </v-card-text>
             <v-card-actions class="card-action">
                 <v-btn
@@ -218,6 +209,9 @@ export default {
         this.constBody = JSON.parse(JSON.stringify(this.body));
     },
     methods: {
+        chng(e) {
+            console.log(e, 1);
+        },
         relationModel(model) {
             return this.$store.state[model];
         },
@@ -285,11 +279,23 @@ export default {
                 }
             },
         },
+        search: {
+            deep: true,
+            handler(newVal, oldVal) {
+                console.log(newVal);
+                let keys = Object.keys(newVal);
+                for (let key of keys) {
+                    if (newVal[key] != oldVal[key]) {
+                        console.info(key);
+                    }
+                }
+            },
+        },
     },
 };
 </script>
 
-<style lang='scss' scoped>
+<style scoped>
 .ql-editor {
     min-height: 300px;
 }
