@@ -6,8 +6,9 @@
                 v-if="!selectedId"
                 v-bind="attrs"
                 v-on="on"
-                color="info"
+                color="green"
                 dark
+                fab
             >
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
