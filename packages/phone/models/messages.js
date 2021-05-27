@@ -1,22 +1,16 @@
 module.exports = {
-    name: 'punishment',
-    display: "id",
+    name: 'message',
+    display: "_id",
     schema: {
-        punishment_type: {
-            required: true,
-            relation: "punishment_type",
+        sender: {
+            relation: "character",
         },
-        amount: {
-            type: "integer",
-            input: "number"
+        target: {
+            relation: "character",
         },
-        description: {
-            required: true,
+        message: {
             type: "string",
-            input: "rich",
-        },
-        character: {
-            relation: "character"
+            input: "texg"
         }
     },
     fookie: {

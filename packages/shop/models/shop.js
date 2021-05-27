@@ -1,6 +1,6 @@
 module.exports = {
     name: 'shop',
-    display: "id",
+    display: "_id",
     schema: {
         inventory: {
             required: true,
@@ -11,7 +11,6 @@ module.exports = {
         },
         type: {
             required: true,
-            type: "integer",
             relation: "shop_type",
         },
         open: {
@@ -19,11 +18,12 @@ module.exports = {
             input: "boolean"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },
@@ -45,13 +45,6 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
-        },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
         },
     }
 }

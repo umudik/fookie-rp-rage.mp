@@ -5,41 +5,71 @@ import Setting from "../views/Setting.vue";
 import View from "../views/View.vue";
 import ApiSetting from "../views/ApiSetting.vue";
 import Game from "../views/Game.vue";
+import Hud from "../views/Hud.vue";
+import App from "../App.vue";
 
 Vue.use(VueRouter);
 
-const routes = [{
-    path: "login",
-    name: "login",
-    component: Login,
-},
+const routes = [
+    {
+        path: "/",
+        name: "home",
+        component: App,
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: Login,
+    },
+    {
+        path: "/game",
+        name: "game",
+        component: Game,
+        meta: {
+            auth: true
+        },
+        children: [
+            {
+                path: "view",
+                name: "view",
+                component: View,
+            },
+            {
+                path: "hud",
+                name: "hud",
+                component: Hud,
+            },
+            {
+                path: "api",
+                name: "api",
+                component: ApiSetting,
+            },
+            {
+                path: "setting",
+                name: "setting",
+                component: Setting,
+            }
+        ]
+    },
 
-{
-    path: "game",
-    name: "game",
-    component: Game,
-},
-{
-    path: "View",
-    name: "View",
-    component: View,
-},
-{
-    path: "api",
-    name: "api",
-    component: ApiSetting,
-},
-{
-    path: "setting",
-    name: "setting",
-    component: Setting,
-}
 ]
+
 
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
-    routes
+    routes,
 });
 
+
+
+router.afterEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.auth)) {
+        if (localStorage.getItem('token') == null) {
+            next({
+                name: 'login',
+            })
+        }
+    }
+})
 export default router;

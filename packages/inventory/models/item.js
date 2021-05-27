@@ -1,6 +1,6 @@
 module.exports = {
     name: 'item',
-    display: "id",
+    display: "_id",
     schema: {
         item_type: {
             required: true,
@@ -12,16 +12,16 @@ module.exports = {
         },
         slot: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         amount: {
             required: true,
-            type: "integer",
+            type: "number",
             input: "number",
         },
         data: {
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },
@@ -40,7 +40,7 @@ module.exports = {
         },
         post: {
             modify: [],
-            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight",],
+            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
             role: ["system_admin"],
             effect: ["item_in"],
         },

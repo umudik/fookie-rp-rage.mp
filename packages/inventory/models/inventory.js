@@ -1,6 +1,6 @@
 module.exports = {
     name: 'inventory',
-    display: "id",
+    display: "_id",
     schema: {
         inventory_type: {
             required:true,

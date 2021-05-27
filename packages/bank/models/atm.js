@@ -1,6 +1,6 @@
 module.exports = {
     name: 'atm',
-    display: "id",
+    display: "_id",
     schema: {
         type: {
             required: true,
@@ -10,11 +10,12 @@ module.exports = {
             relation: "bank"
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

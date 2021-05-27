@@ -1,30 +1,21 @@
 module.exports = {
-    name: 'inventory_type',
-    display: "name",
+    name: 'yellowpages',
+    display: "_id",
     schema: {
-        name: {
-            required: true,
+        account: {
+            relation: "account",
+        },
+        title: {
             type: "string",
             input: "text"
         },
-        entity_type: {
-            required: true,
-            relation: "entity_type"
-        },
-        field: {
-            required: true,
+        content: {
             type: "string",
             input: "text"
         },
-        slotSize: {
-            required: true,
-            type: "number",
-            input: "number"
-        },
-        maxWeight: {
-            required: true,
-            type: "number",
-            input: "number"
+        image: {
+            type: "string",
+            input: "text"
         },
     },
     fookie: {

@@ -1,31 +1,24 @@
 module.exports = {
-    name: 'inventory_type',
-    display: "name",
+    name: 'phone',
+    display: "_id",
     schema: {
-        name: {
-            required: true,
+        type: {
+            relation: "item",
+        },
+        bg_image: {
             type: "string",
             input: "text"
         },
-        entity_type: {
-            required: true,
-            relation: "entity_type"
-        },
-        field: {
-            required: true,
+        ringtone: {
             type: "string",
             input: "text"
         },
-        slotSize: {
-            required: true,
+        zoom: {
             type: "number",
-            input: "number"
-        },
-        maxWeight: {
-            required: true,
-            type: "number",
-            input: "number"
-        },
+            input: "range",
+            min: 0,
+            max: 100
+        }
     },
     fookie: {
         get: {

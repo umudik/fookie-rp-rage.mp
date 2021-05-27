@@ -29,7 +29,7 @@ module.exports = async function (payload) {
             user: { system: true },
             model: modelName,
             method: "get",
-            query: { where: { field: inventory.id } }
+            query: { where: { field: inventory._id } }
         })
 
         let model = res.data

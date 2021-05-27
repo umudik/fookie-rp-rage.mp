@@ -1,30 +1,22 @@
 module.exports = {
-    name: 'inventory_type',
+    name: 'crafting_table',
     display: "name",
     schema: {
         name: {
-            required: true,
             type: "string",
             input: "text"
         },
-        entity_type: {
-            required: true,
-            relation: "entity_type"
-        },
-        field: {
-            required: true,
+        desc: {
             type: "string",
             input: "text"
         },
-        slotSize: {
-            required: true,
+        dimension: {
             type: "number",
             input: "number"
         },
-        maxWeight: {
-            required: true,
-            type: "number",
-            input: "number"
+        position: {
+            type: "object",
+            input: "json",
         },
     },
     fookie: {

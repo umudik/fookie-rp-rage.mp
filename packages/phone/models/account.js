@@ -1,10 +1,19 @@
 module.exports = {
-    name: 'example',
-    display: "id",
+    name: 'account',
+    display: "_id",
     schema: {
-        type: {
-            relation: "example",
+        email: {
+            type: "string",
+            type: "text"
         },
+        password: {
+            type: "string",
+            type: "password"
+        },
+        image: {
+            type: "string",
+            type: "text"
+        }
     },
     fookie: {
         get: {

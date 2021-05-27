@@ -4,17 +4,17 @@ import axios from "axios"
 Vue.use(Vuex);
 
 /* eslint-disable */
-
 export default new Vuex.Store({
     state: {
         logs: [],
+        token: null,
         baseURL: "http://localhost:7777",
-        inGame: true,
+        inGame: false,
         system_model: {
-            loading: true,
-            options: { schema: undefined, fookie: undefined },
-            deepData: [],
-            rawData: [],
+            pool: [],
+            display: "name",
+            name: "system_model",
+            schema: {}
         },
         snackbar: {
             text: "Ok",
@@ -22,9 +22,8 @@ export default new Vuex.Store({
             color: "success",
         },
         menus: [
-            { type: "inventory", id: 1 },
+            { type: "inventory", _id: 1 },
         ],
-        token: null,
     },
     mutations: {
         getAll(state, payload) {
@@ -32,17 +31,18 @@ export default new Vuex.Store({
         },
 
         get(state, payload) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.response.data.id);
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.response.data._id);
             state[payload.model].pool.push(payload.response.data);
         },
         post(state, payload) {
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.response.data._id);
             state[payload.model].pool.push(payload.response.data);
         },
         remove(state, payload) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.query.where.id);
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.query.where._id);
         },
         patch(state, payload) {
-            state[payload.model].pool = state[payload.model].pool.filter((i) => i.id != payload.response.data.id);
+            state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.response.data._id);
             state[payload.model].pool.push(payload.response.data);
         },
         schema(state, payload) {
@@ -65,6 +65,7 @@ export default new Vuex.Store({
     },
     actions: {
         api: async function (ctx, payload) {
+            payload.token = localStorage.getItem("token")
             ctx.commit("log", {
                 title: `REQUEST -> Method:${payload.method} | Model:${payload.model}`,
                 body: payload
@@ -74,7 +75,7 @@ export default new Vuex.Store({
             } else {
                 payload.response = await axios.post(ctx.state.baseURL, payload, {
                     headers: {
-                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIxMzY3MTA1fQ.E2vmVXMPxFk2MTh0j7Ype3wRfQd68ue3FxNnHSodTBE"
+                        token: localStorage.getItem("token")
                     }
                 })
             }

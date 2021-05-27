@@ -1,6 +1,6 @@
 module.exports = {
     name: 'member',
-    display: "id",
+    display: "_id",
     schema: {
         faction: {
             relation: "faction",

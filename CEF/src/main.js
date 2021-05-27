@@ -13,6 +13,7 @@ import field from './components/fookie/fookie-field.vue'
 import card from './components/fookie/fookie-card.vue'
 import inventory from './components/game/inventory/inventory.vue'
 import item from './components/game/inventory/item.vue'
+import phone from './components/game/phone/phone.vue'
 
 
 Vue.component('fookie-delete', deletee)
@@ -23,6 +24,7 @@ Vue.component('fookie-field', field)
 Vue.component('fookie-card', card)
 Vue.component('game-inventory', inventory)
 Vue.component('game-item', item)
+Vue.component('game-phone', phone)
 
 
 import VJsoneditor from 'v-jsoneditor/src/index'

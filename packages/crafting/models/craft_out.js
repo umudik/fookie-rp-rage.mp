@@ -1,6 +1,6 @@
 module.exports = {
     name: 'craft_out',
-    display: "id",
+    display: "_id",
     schema: {
         craft: {
             relation: "craft"
@@ -9,7 +9,7 @@ module.exports = {
             relation: "item_type"
         },
         amount: {
-            type: "integer",
+            type: "number",
             input: "number"
         }
     },

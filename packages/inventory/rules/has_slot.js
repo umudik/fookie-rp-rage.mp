@@ -6,7 +6,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory",
         query: {
-            where: { id: item.inventory }
+            where: { _id: item.inventory }
         }
     })
     let inventory = res.data
@@ -16,7 +16,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory_type",
         query: {
-            where: { id: inventory.inventory_type }
+            where: { _id: inventory.inventory_type }
         }
     })
     let inventory_type = res.data

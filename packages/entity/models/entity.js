@@ -3,11 +3,12 @@ module.exports = {
     display: "name",
     schema: {
         dimension: {
+            type: "number",
             input: "number"
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },
@@ -20,11 +21,12 @@ module.exports = {
         },
         patch: {
             role: ["system_admin"],
-            effect: ["rage_mp_entity_sync"],
+            effect: [],
         },
         post: {
+            modify: [],
             role: ["system_admin"],
-            effect: ["rage_mp_entity_sync"],
+            effect: [],
         },
         delete: {
             role: ["system_admin"],
@@ -32,33 +34,5 @@ module.exports = {
         schema: {
             role: ["everybody"],
         },
-        spawn: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        save: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        find: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        },
-        despawn: {
-            rule: [],
-            effect: [],
-            modify: ["set_target"],
-            filter: [],
-            role: ["system_admin"],
-        }
     }
 }

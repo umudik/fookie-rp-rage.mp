@@ -51,8 +51,7 @@ let properties = [
 
 
 for (let p of properties) {
-    mp.Vehicle.prototype["_" + p.key] = null
-    console.log("vehicle", " | ", p.key);
+    mp.Vehicle.prototype["_" + p.key] = -1
     Object.defineProperty(mp.Vehicle.prototype, p.key, {
         get() {
             return this["_" + p.key]
@@ -72,7 +71,6 @@ for (let p of properties) {
 //-------------------VEHİCLE COLOR------------------------
 
 mp.Vehicle.prototype["_color1"] = [0, 0, 0]
-console.log("vehicle", " | ", "colo1r");
 Object.defineProperty(mp.Vehicle.prototype, "color1", {
     get() {
         return this["_color1"]
@@ -85,7 +83,6 @@ Object.defineProperty(mp.Vehicle.prototype, "color1", {
 
 
 mp.Vehicle.prototype["_color2"] = [0, 0, 0]
-console.log("vehicle", " | ", "color2");
 Object.defineProperty(mp.Vehicle.prototype, "color2", {
     get() {
         return this["_color2"]
@@ -151,7 +148,6 @@ let player_props = [
 for (let p of player_props) {
 
     mp.Player.prototype["_" + p.key] = null
-    console.log("player", " | ", p.key);
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
             return this["_" + p.key]
@@ -165,7 +161,7 @@ for (let p of player_props) {
 
 //--------------------Customization-----------------
 let player_customs = [
-    { key: "customization_gender", type: 0, min: 0, max: 255 },
+    { key: "customization_gender", min: 0, max: 255 },
     { key: "customization_mother_blend", min: 0, max: 255 },
     { key: "customization_father_blend", min: 0, max: 255 },
     { key: "customization_f_blend_shape", min: 0, max: 255 },
@@ -197,7 +193,6 @@ let player_customs = [
 for (let p of player_customs) {
 
     mp.Player.prototype["_" + p.key] = null
-    console.log("player", " | ", p.key);
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
             return this["_" + p.key]
@@ -205,40 +200,40 @@ for (let p of player_customs) {
         set({ drawable, texture }) {
             this["_" + p.key] = { drawable, texture }
             this.setCustomization(
-                this["_gender"],
-                this["_mother_blend"],
-                this["_father_blend"],
+                this["customization_gender"],
+                this["customization_mother_blend"],
+                this["customization_father_blend"],
                 0,
-                this["_mother_blend"],
-                this["_father_blend"],
+                this["customization_mother_blend"],
+                this["customization_father_blend"],
                 0,
-                this["_f_blend_shape"],
-                this["_f_blend_skin"],
+                this["customization_f_blend_shape"],
+                this["customization_f_blend_skin"],
                 0,
                 1,
-                this["_hair_color"],
-                this["_hair_highlight"],
+                this["customization_hair_color"],
+                this["customization_hair_highlight"],
                 [
-                    this["_nose_width"],
-                    this["_nose_height"],
-                    this["_nose_length"],
-                    this["_nose_bridge"],
-                    this["_nose_tip"],
-                    this["_nose_bridge_shift"],
-                    this["_brow_height"],
-                    this["_brow_width"],
-                    this["_c_bone_height"],
-                    this["_c_bone_width"],
-                    this["_cheek_width"],
-                    this["_eyes"],
-                    this["_lips"],
-                    this["_jaw_width"],
-                    this["_jaw_height"],
-                    this["_chin_length"],
-                    this["_chin_pos"],
-                    this["_chin_width"],
-                    this["_chin_shape"],
-                    this["_neck_width"]
+                    this["customization_nose_width"],
+                    this["customization_nose_height"],
+                    this["customization_nose_length"],
+                    this["customization_nose_bridge"],
+                    this["customization_nose_tip"],
+                    this["customization_nose_bridge_shift"],
+                    this["customization_brow_height"],
+                    this["customization_brow_width"],
+                    this["customization_c_bone_height"],
+                    this["customization_c_bone_width"],
+                    this["customization_cheek_width"],
+                    this["customization_eyes"],
+                    this["customization_lips"],
+                    this["customization_jaw_width"],
+                    this["customization_jaw_height"],
+                    this["customization_chin_length"],
+                    this["customization_chin_pos"],
+                    this["customization_chin_width"],
+                    this["customization_chin_shape"],
+                    this["customization_neck_width"]
                 ]
             );
         }

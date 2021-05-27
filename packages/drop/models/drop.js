@@ -1,6 +1,6 @@
 module.exports = {
     name: 'drop',
-    display: "id",
+    display: "_id",
     schema: {
         type: {
             relation: "drop_type",
@@ -11,11 +11,12 @@ module.exports = {
             relation: "inventory",
         },
         dimension: {
+            type:"number",
             input: "number"
         },
         position: {
             required: true,
-            type: "jsonb",
+            type: "object",
             input: "json",
         },
     },

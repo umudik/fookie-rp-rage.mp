@@ -1,31 +1,23 @@
 module.exports = {
-    name: 'inventory_type',
-    display: "name",
+    name: 'punishment',
+    display: "_id",
     schema: {
-        name: {
+        punishment_type: {
             required: true,
-            type: "string",
-            input: "text"
+            relation: "punishment_type",
         },
-        entity_type: {
-            required: true,
-            relation: "entity_type"
-        },
-        field: {
-            required: true,
-            type: "string",
-            input: "text"
-        },
-        slotSize: {
-            required: true,
+        amount: {
             type: "number",
             input: "number"
         },
-        maxWeight: {
+        description: {
             required: true,
-            type: "number",
-            input: "number"
+            type: "string",
+            input: "rich",
         },
+        character: {
+            relation: "character"
+        }
     },
     fookie: {
         get: {

@@ -1,25 +1,60 @@
 module.exports = {
     name: 'vehicle',
-    display: "id",
+    display: "_id",
     schema: {
-        vehicle_type: {
-            required: true,
-            relation: "vehicle_type",
-        },
-        owner: {
-            relation: "character"
-        },
-        inventory: {
-            relation: "inventory"
-        },
-        dimension: {
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "jsonb",
-            input: "json",
-        },
+        vehicle_type: { required: true, relation: "vehicle_type", },
+        owner: { relation: "character" },
+        inventory: { relation: "inventory" },
+        dimension: { type: "number", input: "number" },
+        position: { required: true, type: "object", input: "json", },
+        mod_spoiler: { type: "number", input: "number" },
+        mod_front_bumper: { type: "number", input: "number" },
+        mod_rear_bumper: { type: "number", input: "number" },
+        mod_side_skirt: { type: "number", input: "number" },
+        mod_exhaust: { type: "number", input: "number" },
+        mod_frame: { type: "number", input: "number" },
+        mod_grille: { type: "number", input: "number" },
+        mod_hood: { type: "number", input: "number" },
+        mod_fender: { type: "number", input: "number" },
+        mod_right_fender: { type: "number", input: "number" },
+        mod_roof: { type: "number", input: "number" },
+        mod_engine: { type: "number", input: "number" },
+        mod_brake: { type: "number", input: "number" },
+        mod_transmission: { type: "number", input: "number" },
+        mod_horn: { type: "number", input: "number" },
+        mod_suspension: { type: "number", input: "number" },
+        mod_armor: { type: "number", input: "number" },
+        mod_turbo: { type: "number", input: "number" },
+        mod_xenon: { type: "number", input: "number" },
+        mod_front_wheels: { type: "number", input: "number" },
+        mod_back_wheels: { type: "number", input: "number" },
+        mod_plate_holder: { type: "number", input: "number" },
+        mod_vanity_plate: { type: "number", input: "number" },
+        mod_trim_design: { type: "number", input: "number" },
+        mod_ornament: { type: "number", input: "number" },
+        mod_dial_design: { type: "number", input: "number" },
+        mod_steering_wheel: { type: "number", input: "number" },
+        mod_shift_lever: { type: "number", input: "number" },
+        mod_plaques: { type: "number", input: "number" },
+        mod_speakers: { type: "number", input: "number" },
+        mod_trunk: { type: "number", input: "number" },
+        mod_hydraulic: { type: "number", input: "number" },
+        mod_engine_block: { type: "number", input: "number" },
+        mod_boost: { type: "number", input: "number" },
+        mod_struts: { type: "number", input: "number" },
+        mod_arch_cover: { type: "number", input: "number" },
+        mod_aerial: { type: "number", input: "number" },
+        mod_trim: { type: "number", input: "number" },
+        mod_tank: { type: "number", input: "number" },
+        mod_windows: { type: "number", input: "number" },
+        mod_unknown: { type: "number", input: "number" },
+        mod_livery: { type: "number", input: "number" },
+        mod_plate: { type: "number", input: "number" },
+        mod_window_tint: { type: "number", input: "number" },
+        color1: { type: "object", input: "json" },
+        color2: { type: "object", input: "json" },
+        locked: { type: "boolean", input: "boolean" },
+        alarm: { type: "boolean", input: "boolean" }
     },
     fookie: {
         get: {
@@ -39,13 +74,6 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
-        },
-        spawn: {
-            rule: [],
-            role: [],
-            effect: [],
-            modify: [],
-            filter: [],
         },
     }
 }

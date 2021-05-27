@@ -8,4 +8,5 @@ module.exports = async (payload) => {
             player.call("apiSync", [JSON.stringify(payload)])
         }
     );
+
 }

@@ -1,18 +1,10 @@
 module.exports = {
-    name: 'whitelist',
-    display: "rgscId",
+    name: 'example',
+    display: "_id",
     schema: {
-        rgscId: {
-            type: "string",
-            input: "text",
+        type: {
+            relation: "example",
         },
-        socialClub: {
-            type: "string",
-            input: "text",
-        },
-        system_user: {
-            relation: "system_user"
-        }
     },
     fookie: {
         get: {

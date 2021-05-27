@@ -17,7 +17,7 @@ module.exports = async function (payload) {
             method: "get",
             model: "item_type",
             query: {
-                where: { id: item.item_type }
+                where: { _id: item.item_type }
             }
         })
 
@@ -30,7 +30,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "item_type",
         query: {
-            where: { id: payload.target.item_type }
+            where: { _id: payload.target.item_type }
         }
     })
 
@@ -44,7 +44,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory",
         query: {
-            where: { id: payload.target.inventory }
+            where: { _id: payload.target.inventory }
         }
     })
 
@@ -55,7 +55,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory_type",
         query: {
-            where: { id: inventory.inventory_type }
+            where: { _id: inventory.inventory_type }
         }
     })
     let inventory_type = res.data

@@ -1,12 +1,13 @@
 module.exports = {
     name: 'shop_prices',
-    display: "id",
+    display: "_id",
     schema: {
         shop: {
             required:true,
             relation: "shop"
         },
         price: {
+            type:"number",
             input: "number"
         },
         item: {
