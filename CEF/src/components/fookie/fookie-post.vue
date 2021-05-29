@@ -22,9 +22,12 @@
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
         </template>
-        <v-card :key="model">
+        <v-card>
             <v-card-title> Create {{ model.name }} </v-card-title>
-            <v-card-text v-for="(field, i) in model.schema" :key="i">
+            <v-card-text
+                v-for="(field, i) in model.schema"
+                :key="JSON.stringify(field)"
+            >
                 <v-text-field
                     outlined
                     v-if="field.input === 'text'"
@@ -210,9 +213,6 @@ export default {
         this.constBody = JSON.parse(JSON.stringify(this.body));
     },
     methods: {
-        chng(e) {
-            console.log(e, 1);
-        },
         relationModel(model) {
             return this.$store.state[model];
         },

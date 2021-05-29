@@ -11,9 +11,23 @@ export default {
         return {};
     },
     mounted: async function () {
-        console.log(this.$route.name);
         if (this.$route.name == "home") {
             this.$router.push({ name: "login" });
+        }
+        let pool = await this.$store.dispatch("api", {
+            attributes: "name display schema",
+            method: "getAll",
+            model: "system_model",
+        });
+
+        for (let model of pool) {
+            console.log(model);
+            this.$set(this.$store.state, pool.name, {
+                name: model.name,
+                display: model.display,
+                schema: model.schema,
+                pool: [],
+            });
         }
     },
 };

@@ -16,6 +16,18 @@ export default new Vuex.Store({
             name: "system_model",
             schema: {}
         },
+        system_menu: {
+            pool: [],
+            display: "name",
+            name: "system_menu",
+            schema: {}
+        },
+        system_submenu: {
+            pool: [],
+            display: "name",
+            name: "system_submenu",
+            schema: {}
+        },
         snackbar: {
             text: "Ok",
             opened: false,

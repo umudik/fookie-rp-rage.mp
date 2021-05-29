@@ -25,7 +25,7 @@ Vue.component('fookie-card', card)
 Vue.component('game-inventory', inventory)
 Vue.component('game-item', item)
 Vue.component('game-phone', phone)
-
+import fookie from "./plugins/fookie_mixin.js";
 
 import VJsoneditor from 'v-jsoneditor/src/index'
 
@@ -34,6 +34,7 @@ Vue.use(VJsoneditor)
 Vue.config.productionTip = false;
 
 const app = new Vue({
+    mixins: [fookie],
     router,
     store,
     vuetify,

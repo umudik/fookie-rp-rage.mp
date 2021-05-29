@@ -10,15 +10,10 @@
                 </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list
-                v-if="
-                    Array.isArray(menus) &&
-                    Array.isArray($store.state.system_submenu.pool)
-                "
-            >
+            <v-list>
                 <v-list-group
-                    v-for="(menu, i) in menus"
-                    :key="'a_' + i"
+                    v-for="menu in menus"
+                    :key="menu"
                     :prepend-icon="menu.icon ? 'mdi-' + menu.icon : 'mdi-tag'"
                 >
                     <template v-slot:activator>
@@ -26,23 +21,22 @@
                     </template>
 
                     <v-list-item
-                        v-for="(sub, i) in submenu(menu)"
-                        :key="'b_' + i"
+                        v-for="sub in $store.state.system_submenu.pool.filter(
+                            (s) => s.system_menu == menu._id
+                        )"
+                        :key="sub"
                         link
                         class="ml-5"
                         @click="
-                            selected = findItem(
-                                'system_model',
-                                sub.system_model
-                            ).name
+                            selected = $store.state[model.name].pool.find(
+                                (i) => i._id == id
+                            )
                         "
                     >
                         <v-list-item-icon>
                             <v-icon>mdi-circle-small</v-icon>
                         </v-list-item-icon>
-                        <v-list-item-title>{{
-                            findItem("system_model", sub.system_model).name
-                        }}</v-list-item-title>
+                        <v-list-item-title>{{ sub.name }}</v-list-item-title>
                     </v-list-item>
                 </v-list-group>
             </v-list>
@@ -71,6 +65,7 @@
                 </v-list-item-title>
             </v-list-item>
         </v-navigation-drawer>
+        {{ selected }}
         <fookie-viewer :model="$store.state[selected]"></fookie-viewer>
     </div>
 </template>
@@ -85,41 +80,20 @@ export default {
     mounted: async function () {
         for (let model of this.$store.state["system_model"].pool) {
             if (model.name != "system_model") {
-                this.$set(this.$store.state, model.name, {
-                    name: model.name,
-                    display: model.display,
-                    schema: this.$store.dispatch("api", {
-                        method: "schema",
-                        model: model.name,
-                    }),
-                    fookie: model.fookie,
-                    pool: this.$store.dispatch("api", {
+                this.$store.state[model.name].pool = this.$store.dispatch(
+                    "api",
+                    {
                         method: "getAll",
                         model: model.name,
-                    }),
-                });
+                    }
+                );
             }
         }
     },
-    methods: {
-        findItem(model, id) {
-            return this.$store.state[model].pool.find((i) => i._id == id);
-        },
-        submenu(menu) {
-            if (Array.isArray(this.$store.state.system_submenu)) {
-                this.$store.state.system_submenu.filter(
-                    (s) => s.system_menu == menu._id
-                );
-            } else {
-                return [];
-            }
-        },
-    },
+    methods: {},
     computed: {
         menus() {
-            if (Array.isArray(this.$store.state.system_menu.pool))
-                return this.$store.state.system_menu.pool;
-            else return [];
+            return this.$store.state.system_menu.pool;
         },
     },
 };
