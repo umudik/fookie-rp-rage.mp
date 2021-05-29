@@ -25,10 +25,6 @@ mp.events.add("fookie_connected", async () => {
     mp.api.model(require("../shop/models/shop_prices.js"))
     mp.api.model(require("../pd/models/punishment"))
     mp.api.model(require("../pd/models/punishment_type"))
-    mp.api.model(require("../inventory/models/inventory"))
-    mp.api.model(require("../inventory/models/inventory_type"))
-    mp.api.model(require("../inventory/models/item_type"))
-    mp.api.model(require("../inventory/models/item"))
     mp.api.model(require("../interaction_menu/models/interaction_menu.js"))
     mp.api.model(require("../entity/models/entity_type.js"))
     mp.api.model(require("../entity/models/entity.js"))
@@ -46,12 +42,7 @@ mp.events.add("fookie_connected", async () => {
     mp.api.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
     mp.api.store.set('afters', mp.api.store.get('afters').concat(["rage_mp_sync"]))
     mp.api.effect("rage_mp_entity_sync", require("../entity/effects/rage_mp_entity_sync.js"))
-    mp.api.rule("has_slot", require("../inventory/rules/has_slot.js"))
-    mp.api.rule("check_weight", require("../inventory/rules/check_weight.js"))
-    mp.api.rule("openable", require("../inventory/rules/openable.js"))
-    mp.api.rule("is_slot_avaible", require("../inventory/rules/is_slot_avaible.js"))
-    mp.api.effect("item_in", require('../inventory/effects/item_in'))
-    mp.api.effect("item_out", require('../inventory/effects/item_out'))
+
 
 })
 

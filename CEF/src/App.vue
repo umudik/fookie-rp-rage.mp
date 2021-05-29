@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="$store.state.system_loaded">
         <router-view></router-view>
     </div>
 </template>
@@ -14,21 +14,29 @@ export default {
         if (this.$route.name == "home") {
             this.$router.push({ name: "login" });
         }
-        let pool = await this.$store.dispatch("api", {
-            attributes: "name display schema",
+        await this.$store.dispatch("api", {
             method: "getAll",
             model: "system_model",
         });
+        for (let model of this.$store.state.system_model.pool) {
+            console.info(model);
+            if (model.name != "system_model") {
+                this.$set(this.$store.state, model.name, {
+                    _id: model._id,
+                    name: model.name,
+                    display: "",
+                    schema: {},
+                    fookie: {},
+                    pool: [],
+                });
 
-        for (let model of pool) {
-            console.log(model);
-            this.$set(this.$store.state, pool.name, {
-                name: model.name,
-                display: model.display,
-                schema: model.schema,
-                pool: [],
-            });
+                await this.$store.dispatch("api", {
+                    method: "schema",
+                    model: model.name,
+                });
+            }
         }
+        this.$store.state.system_loaded = true;
     },
 };
 </script>

@@ -13,7 +13,7 @@
             <v-list>
                 <v-list-group
                     v-for="menu in menus"
-                    :key="menu"
+                    :key="JSON.stringify(menu) + Math.random()"
                     :prepend-icon="menu.icon ? 'mdi-' + menu.icon : 'mdi-tag'"
                 >
                     <template v-slot:activator>
@@ -24,7 +24,7 @@
                         v-for="sub in $store.state.system_submenu.pool.filter(
                             (s) => s.system_menu == menu._id
                         )"
-                        :key="sub"
+                        :key="JSON.stringify(sub) + Math.random()"
                         link
                         class="ml-5"
                         @click="
@@ -51,8 +51,8 @@
             <v-divider></v-divider>
 
             <v-list-item
-                v-for="(model, i) in $store.state.system_model.pool"
-                :key="'c_' + i"
+                v-for="model in $store.state.system_model.pool"
+                :key="JSON.stringify(model) + Math.random()"
                 link
                 dense
                 @click="selected = model.name"
@@ -65,7 +65,6 @@
                 </v-list-item-title>
             </v-list-item>
         </v-navigation-drawer>
-        {{ selected }}
         <fookie-viewer :model="$store.state[selected]"></fookie-viewer>
     </div>
 </template>
@@ -78,16 +77,17 @@ export default {
         };
     },
     mounted: async function () {
-        for (let model of this.$store.state["system_model"].pool) {
-            if (model.name != "system_model") {
-                this.$store.state[model.name].pool = this.$store.dispatch(
-                    "api",
-                    {
-                        method: "getAll",
-                        model: model.name,
-                    }
-                );
-            }
+        console.log(this.$store.state.system_model.pool);
+
+        for (let model of this.$store.state.system_model.pool) {
+            console.log(model.name);
+            this.$store.state[model.name].pool = await this.$store.dispatch(
+                "api",
+                {
+                    method: "getAll",
+                    model: model.name,
+                }
+            );
         }
     },
     methods: {},

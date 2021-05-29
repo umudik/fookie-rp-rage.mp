@@ -1,8 +1,6 @@
 
 <template>
     <div>
-        <div class="text-3xl">{{ model.name }}</div>
-
         <v-toolbar class="my-3">
             <v-text-field
                 v-model="search"
@@ -13,6 +11,8 @@
                 prepend-inner-icon="mdi-magnify"
                 solo
             ></v-text-field>
+
+            <v-toolbar-title>{{ model.name }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <fookie-post :model="model" />
         </v-toolbar>
@@ -31,7 +31,7 @@
                         md="3"
                         sm="6"
                     >
-                        <v-card >
+                        <v-card>
                             <v-card-title>{{
                                 item[model.display]
                             }}</v-card-title>
@@ -91,9 +91,6 @@ export default {
         keys() {
             return ["_id"].concat(Object.keys(this.model.schema));
         },
-        numberOfPages() {
-            return Math.ceil(this.items.length / this.itemsPerPage);
-        },
     },
     methods: {
         getContent(item, key) {
@@ -112,9 +109,6 @@ export default {
     },
 };
 </script>
-
-
-
 
 <style lang="scss">
 .card-action {

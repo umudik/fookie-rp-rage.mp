@@ -9,9 +9,12 @@ module.exports = async function (payload) {
 
     if (payload.method == "patch") {
         let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
-        for (let f in payload.body) {
-            entity[f] = payload.body[f]
+        if (entity && mp[entity_type.pool].exists(entity.id)) {
+            for (let f in payload.body) {
+                entity[f] = payload.body[f]
+            }
         }
+
     }
     else if (payload.method == "spawn" || payload.method == "post") {
         let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
@@ -21,8 +24,8 @@ module.exports = async function (payload) {
         }
     }
     else if (payload.method == "delete" || payload.method == "despawn") {
-        if (mp[entity_type.pool].exists(payload.target.fookieID)) {
-            let entity = mp[entity_type.pool].at(payload.target.fookieID)
+        let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
+        if (entity && mp[entity_type.pool].exists(entity.id)) {
             entity.destroy();
         }
     }

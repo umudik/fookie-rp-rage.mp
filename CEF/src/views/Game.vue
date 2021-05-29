@@ -1,7 +1,6 @@
 <template>
     <v-app style="background-color: transparent">
-        <v-system-bar dark app height="30" lights-out>
-            <v-system-bar-title>RP</v-system-bar-title>
+        <v-system-bar dark app height="30" lights-out>           
             <v-spacer></v-spacer>
             <v-icon @click="$router.push({ name: 'game' })">mdi-play</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
