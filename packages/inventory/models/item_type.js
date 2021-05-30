@@ -26,11 +26,6 @@ module.exports = {
             type: "boolean",
             input: "boolean",
         },
-        stack_size: {
-            require: true,
-            type: "number",
-            input: "number",
-        },
         desc: {
             type: "string",
             input: "text",

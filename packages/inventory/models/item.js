@@ -34,15 +34,15 @@ module.exports = {
         },
         patch: {
             modify: [],
-            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
+            rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible",],
             role: ["system_admin"],
-            effect: ["item_amount_fixer", "item_out", "item_in"],
+            effect: ["item_out", "item_in"],
         },
         post: {
             modify: [],
-            rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
+            rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", ,],
             role: ["system_admin"],
-            effect: ["item_amount_fixer", "item_in"],
+            effect: ["item_in"],
         },
         delete: {
             modify: [],

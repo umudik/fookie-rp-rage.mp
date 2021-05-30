@@ -1,5 +1,8 @@
 
 
+
+// FOR WHAT ???
+// usage -> vehicle.mod_horn = 3 // works well 
 //-------------------VEHİCLE MODIFY------------------------
 
 let properties = [
