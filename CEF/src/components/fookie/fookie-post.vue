@@ -1,6 +1,6 @@
 
 <template>
-    <v-dialog v-model="dialog" elevation="3" width="700" >
+    <v-dialog v-model="dialog" elevation="3" width="700">
         <template v-slot:activator="{ on, attrs }">
             <v-btn
                 v-if="!selectedId"
@@ -24,10 +24,7 @@
         </template>
         <v-card>
             <v-card-title> {{ model.name }} </v-card-title>
-            <v-card-text
-                v-for="(field, i) in model.schema"
-                :key="JSON.stringify(field) + Math.random()"
-            >
+            <v-card-text v-for="(field, i) in model.schema" :key="i">
                 <v-text-field
                     outlined
                     v-if="field.input === 'text'"
@@ -131,9 +128,13 @@
                     </template>
                     <v-date-picker v-model="body[i]" scrollable></v-date-picker>
                 </v-menu>
-                <div v-if="field.input === 'rich'">
-                    <quill-editor ref="myQuillEditor" v-model="body[i]" />
-                </div>
+
+                <v-textarea
+                    outlined
+                    v-if="field.input == 'rich'"
+                    v-model="body[i]"
+                    :label="i"
+                ></v-textarea>
 
                 <div v-if="field.input === 'json'">{{ i }}</div>
                 <v-jsoneditor
@@ -187,12 +188,7 @@
 
 
 <script>
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import { quillEditor } from "vue-quill-editor";
-
 export default {
-    components: { quillEditor },
     props: ["defaults", "model", "selectedId"],
     data() {
         return {

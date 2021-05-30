@@ -25,8 +25,8 @@
             <template v-slot:default="props">
                 <v-row>
                     <v-col
-                        v-for="item in props.items"
-                        :key="JSON.stringify(item)"
+                        v-for="(item, i) in props.items"
+                        :key="i"
                         cols="12"
                         md="3"
                         sm="6"
@@ -42,10 +42,7 @@
                             <v-divider></v-divider>
 
                             <v-list dense>
-                                <v-list-item
-                                    v-for="key in keys"
-                                    :key="JSON.stringify(key)"
-                                >
+                                <v-list-item v-for="(key, i) in keys" :key="i">
                                     <v-list-item-content>
                                         {{ key }}:
                                     </v-list-item-content>

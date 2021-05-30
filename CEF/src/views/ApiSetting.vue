@@ -12,8 +12,8 @@
             <v-divider></v-divider>
             <v-list>
                 <v-list-group
-                    v-for="menu in menus"
-                    :key="JSON.stringify(menu) + Math.random()"
+                    v-for="(menu, i) in menus"
+                    :key="i"
                     :prepend-icon="menu.icon ? 'mdi-' + menu.icon : 'mdi-tag'"
                 >
                     <template v-slot:activator>
@@ -21,10 +21,12 @@
                     </template>
 
                     <v-list-item
-                        v-for="sub in $store.state.system_submenu.pool.filter(
+                        v-for="(
+                            sub, j
+                        ) in $store.state.system_submenu.pool.filter(
                             (s) => s.system_menu == menu._id
                         )"
-                        :key="JSON.stringify(sub) + Math.random()"
+                        :key="j"
                         link
                         class="ml-5"
                         @click="
@@ -59,8 +61,8 @@
             <v-divider></v-divider>
 
             <v-list-item
-                v-for="model in $store.state.system_model.pool"
-                :key="JSON.stringify(model) + Math.random()"
+                v-for="(model, k) in $store.state.system_model.pool"
+                :key="k"
                 link
                 dense
                 @click="selected = model.name"

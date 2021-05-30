@@ -3,10 +3,7 @@
     <v-dialog v-model="dialog" elevation="3" width="700">
         <v-card>
             <v-card-title> Create {{ model.name }} </v-card-title>
-            <v-card-text
-                v-for="(field, i) in model.schema"
-                :key="JSON.stringify(field)"
-            >
+            <v-card-text v-for="(field, i) in model.schema" :key="i">
                 <v-text-field
                     outlined
                     v-if="field.input === 'text'"

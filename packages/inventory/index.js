@@ -12,89 +12,13 @@ mp.events.add("fookie_connected", async () => {
 
 
 
-    mp.api.rule("valid_item_move_body", async function (payload) {
-
-        let amount = payload.body.amount
-        let slot = payload.body.slot
-        let other = payload.body.other
-
-        let postable = mp.api.run({
-            user: { system: true },
-            model: "item",
-            method: "test",
-            options: {
-                method: "post"
-            },
-            body: {
-                item_type: payload.target.item_type,
-                data: payload.target.data,
-                inventory: other,
-                slot: slot,
-                amount
-            }
-        })
+    mp.api.rule("valid_item_move_body", require("./rules/valid_item_move_body.js"))
+    mp.api.effect("item_amount_fixer", require("./effects/item_amount_fixer.js"))
 
 
-        let deletable = mp.api.run({
-            user: { system: true },
-            model: "item",
-            method: "test",
-            options: {
-                method: "patch"
-            },
-            body: {
-                inventory: payload.target.inventory,
-                slot: payload.target.slot,
-                amount: payload.target.amount - amount
-            }
-        })
-
-        if (postable.data && deletable.data) {
-            mp.api.run({
-                user: { system: true },
-                model: "item",
-                method: "post",
-                body: {
-                    item_type: payload.target.item_type,
-                    data: payload.target.data,
-                    inventory: other,
-                    slot: slot,
-                    amount
-                }
-            })
-            mp.api.run({
-                user: { system: true },
-                model: "item",
-                method: "patch",
-                body: {
-                    inventory: payload.target.inventory,
-                    slot: payload.target.slot,
-                    amount: payload.target.amount - amount
-                }
-            })
-
-
-        }
-    })
-    mp.api.effect("item_amount_fixer", async function (payload) {
-        if (payload.target.amount == 0) {
-            mp.api.run({
-                user: { system: true },
-                method: "delete",
-                model: "item",
-                query: {
-                    where: {
-                        _id:payload.target._id
-                    }
-                }
-            })
-        }
-
-        console.log("item fixer");
-    })
     let item_model = mp.api.models.get("item")
     item_model.methods.set("move", (payload) => {
-
+        console.log("move");
     })
 })
 
