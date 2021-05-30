@@ -33,8 +33,8 @@ Vue.use(VJsoneditor)
 
 Vue.config.productionTip = false;
 
+Vue.mixin(fookie)
 const app = new Vue({
-    mixins: [fookie],
     router,
     store,
     vuetify,

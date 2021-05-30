@@ -9,12 +9,12 @@ export default {
                 let maybe = this.$store.state[
                     model.schema[key].relation
                 ].pool.find((i) => i._id == item[key]);
-                if (!maybe) return "-";
+                if (!maybe) return "empty";
                 return maybe[
                     this.$store.state[model.schema[key].relation].display
                 ];
             }
-            return item[key] || "--";
+            return item[key] || "empty";
         },
     }
 }

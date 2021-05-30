@@ -42,8 +42,6 @@ mp.events.add("fookie_connected", async () => {
     mp.api.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
     mp.api.store.set('afters', mp.api.store.get('afters').concat(["rage_mp_sync"]))
     mp.api.effect("rage_mp_entity_sync", require("../entity/effects/rage_mp_entity_sync.js"))
-
-
 })
 
 mp.events.addProc('apiProc', async (player, payload) => {
@@ -53,12 +51,12 @@ mp.events.addProc('apiProc', async (player, payload) => {
     await mp.api.run(payload)
     console.log("----------- END -----------");
     return JSON.stringify(payload.response)
-
 })
 
 mp.events.addCommand("pos", (player) => {
     player.outputChatBox(player.position + " -pos")
 })
+
 mp.events.addCommand("dim", (player) => {
     player.outputChatBox(player.dimension + " -dim")
 })

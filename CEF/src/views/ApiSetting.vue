@@ -28,15 +28,23 @@
                         link
                         class="ml-5"
                         @click="
-                            selected = $store.state[model.name].pool.find(
-                                (i) => i._id == id
+                            selected = content(
+                                $store.state.system_submenu,
+                                sub,
+                                'system_model'
                             )
                         "
                     >
                         <v-list-item-icon>
                             <v-icon>mdi-circle-small</v-icon>
                         </v-list-item-icon>
-                        <v-list-item-title>{{ sub.name }}</v-list-item-title>
+                        <v-list-item-title>{{
+                            content(
+                                $store.state.system_submenu,
+                                sub,
+                                "system_model"
+                            )
+                        }}</v-list-item-title>
                     </v-list-item>
                 </v-list-group>
             </v-list>

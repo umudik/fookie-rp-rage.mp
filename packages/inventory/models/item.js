@@ -36,13 +36,13 @@ module.exports = {
             modify: [],
             rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
             role: ["system_admin"],
-            effect: ["item_out", "item_in"],
+            effect: ["item_amount_fixer", "item_out", "item_in"],
         },
         post: {
             modify: [],
             rule: ["openable", "has_slot", "is_slot_avaible", "check_weight"],
             role: ["system_admin"],
-            effect: ["item_in"],
+            effect: ["item_amount_fixer", "item_in"],
         },
         delete: {
             modify: [],
@@ -52,6 +52,13 @@ module.exports = {
         },
         schema: {
             role: ["everybody"],
+        },
+        move: {
+            modify: [],
+            filter: [],
+            rule: ["valid_item_move_body"],
+            role: [],
+            effect: [],
         }
     }
 }

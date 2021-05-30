@@ -58,10 +58,15 @@ export default new Vuex.Store({
             state[payload.model].pool = state[payload.model].pool.filter((i) => i._id != payload.response.data._id);
             state[payload.model].pool.push(payload.response.data);
         },
-        schema(state, payload) {          
+        schema(state, payload) {
             state[payload.model].schema = payload.response.data.schema
             state[payload.model].display = payload.response.data.display
             state[payload.model].fookie = payload.response.data.fookie
+        },
+        login(state, payload) {
+            state[payload.model].token = payload
+            localStorage.setItem("token", payload)
+
         },
         log(state, payload) {
             state.logs.push({

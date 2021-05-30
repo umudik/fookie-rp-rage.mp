@@ -14,20 +14,36 @@ mp.api.helpers.getEmptyDimension = function () {
 
 
 mp.events.add("playerJoin", async (player) => {
-  player.dimension = 0 //mp.api.helpers.getEmptyDimension()
+  player.dimension = mp.api.helpers.getEmptyDimension()
   console.log(player.rgscId);
   let res = await mp.api.run({
     user: { system: true },
-    method: "count",
+    method: "get",
     model: "whitelist",
     query: {
       where: {
-        system_user: player._id
+        rgscId: player.rgscId
       }
     }
   })
-  if (res.data > 0 || true) {
-    player.call("api", ["st"])
+  console.log(res);
+  let whiteListed = res.data
+  if (whiteListed) {
+    player.dimension = 0
+    let res = await mp.api.run({
+      user: { system: true },
+      method: "get",
+      model: "system_user",
+      query: {
+        where: {
+          _id: whiteListed.system_user
+        }
+      }
+    })
+    console.log(res);
+    let user = res.data
+    player.setVariable("user", user)
+    player.call("commit", [obj])
   } else {
     player.kick("visit www.fookierp.com")
   }

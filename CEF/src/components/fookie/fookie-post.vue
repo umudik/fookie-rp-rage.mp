@@ -1,6 +1,6 @@
 
 <template>
-    <v-dialog v-model="dialog" elevation="3" width="700">
+    <v-dialog v-model="dialog" elevation="3" width="700" >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
                 v-if="!selectedId"
@@ -23,10 +23,10 @@
             </v-btn>
         </template>
         <v-card>
-            <v-card-title> Create {{ model.name }} </v-card-title>
+            <v-card-title> {{ model.name }} </v-card-title>
             <v-card-text
                 v-for="(field, i) in model.schema"
-                :key="JSON.stringify(field)"
+                :key="JSON.stringify(field) + Math.random()"
             >
                 <v-text-field
                     outlined
@@ -217,8 +217,6 @@ export default {
             return this.$store.state[model];
         },
         create: async function () {
-            this.dialog = false;
-
             let body = this.body;
             let model = this.model.name;
 
@@ -237,7 +235,6 @@ export default {
             });
         },
         edit: async function () {
-            this.dialog = false;
             let body = this.patchBody;
             let model = this.model.name;
             let _id = this.selectedId;
@@ -283,7 +280,6 @@ export default {
         search: {
             deep: true,
             handler(newVal, oldVal) {
-                console.log(newVal);
                 let keys = Object.keys(newVal);
                 for (let key of keys) {
                     if (newVal[key] != oldVal[key]) {
@@ -298,7 +294,7 @@ export default {
 
 <style scoped>
 .ql-editor {
-    min-height: 300px;
+    height: 300px;
 }
 .card-action {
     flex-direction: row-reverse;

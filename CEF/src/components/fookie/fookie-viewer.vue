@@ -31,7 +31,10 @@
                         md="3"
                         sm="6"
                     >
-                        <v-card>
+                        <v-card
+                            style="max-height: 720px"
+                            class="overflow-scroll"
+                        >
                             <v-card-title>{{
                                 item[model.display]
                             }}</v-card-title>
