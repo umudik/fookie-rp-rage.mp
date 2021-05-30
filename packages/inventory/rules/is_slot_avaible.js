@@ -6,7 +6,8 @@ module.exports = async function (payload) {
         query: {
             where: {
                 inventory: payload.target.inventory,
-                slot: payload.target.slot
+                slot: payload.target.slot,
+                item_type:payload.target.item_type,
             }
         }
     })
