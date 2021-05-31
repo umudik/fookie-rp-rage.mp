@@ -33,19 +33,19 @@ module.exports = {
             role: ["everybody"],
         },
         patch: {
-            modify: [],
+            modify: ["set_type","set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible",],
             role: ["system_admin"],
             effect: ["item_out", "item_in"],
         },
         post: {
-            modify: [],
+            modify: ["set_type","set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", ,],
             role: ["system_admin"],
             effect: ["item_in"],
         },
         delete: {
-            modify: [],
+            modify: ["set_type","set_inventory_and_type"],    
             rule: [],
             role: ["system_admin"],
             effect: ["item_out"],
@@ -54,7 +54,6 @@ module.exports = {
             role: ["everybody"],
         },
         move: {
-            modify: [],
             filter: [],
             rule: ["valid_item_move_body"],
             role: [],
