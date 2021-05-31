@@ -6,28 +6,30 @@
             class="flex overflow-scroll flex-wrap border"
             color="green lighten-2"
         >
-            <draggable
-                v-model="list"
-                v-bind="dragOptions"
-                @start="drag = true"
-                @end="drag = false"
+            <transition-group
+                type="transition"
+                name="flip-list"
+                class="d-flex gap-1 justify-start flex-wrap"
             >
-                <transition-group
-                    type="transition"
-                    :name="!drag ? 'flip-list' : null"
-                    class="d-flex gap-1 justify-start flex-wrap"
+                <draggable
+                    v-for="i in 5"
+                    :key="i + '_item'"
+                    class="border h-16 w-16"
+                    v-bind="{
+                        animation: 200,
+                        group: 'item',
+                        disabled: false,
+                    }"
+                    @change="log"
                 >
-                    <v-sheet
-                        height="50"
-                        width="50"
-                        v-for="i in list"
-                        :key="i"
-                        class="m-1"
+                    <div
+                        v-if="list[i - 1]"
+                        class="h-16 w-16 border-2 border-red-600"
                     >
-                        <div class="border">{{ i }}</div>
-                    </v-sheet>
-                </transition-group>
-            </draggable>
+                        {{ list[i - 1] }}
+                    </div>
+                </draggable>
+            </transition-group>
         </v-sheet>
         {{ list }}
     </div>
@@ -38,29 +40,7 @@ import draggable from "vuedraggable";
 export default {
     data() {
         return {
-            list: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                4,
-                4,
-                4,
-                4,
-                5,
-                8,
-                9,
-                6,
-                2,
-                1,
-                0,
-                2,
-                5,
-                7,
-                8,
-                3,
-            ],
+            list: [1, 2, 3],
             drag: false,
         };
     },
@@ -74,13 +54,13 @@ export default {
                 (i) => i.inventory == this.selectedId
             );
         },
-        dragOptions() {
-            return {
-                animation: 200,
-                group: "description",
-                disabled: false,
-                ghostClass: "ghost",
-            };
+    },
+    methods: {
+        onMoveCallback(evt) {
+            console.log(evt);
+        },
+        log(e) {
+            window.console.log(e);
         },
     },
 };
