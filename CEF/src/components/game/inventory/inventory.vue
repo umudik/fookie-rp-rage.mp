@@ -12,15 +12,15 @@
                 class="d-flex gap-1 justify-start flex-wrap"
             >
                 <draggable
+                    @start="log"
+                    @end="log"
                     v-for="i in 5"
                     :key="i + '_item'"
                     class="border h-16 w-16"
                     v-bind="{
-                        animation: 200,
-                        group: 'item',
-                        disabled: false,
+                        animation: 300,
+                        group: selectedId,
                     }"
-                    @change="log"
                 >
                     <div
                         v-if="list[i - 1]"
@@ -38,10 +38,15 @@
 <script>
 import draggable from "vuedraggable";
 export default {
+    methods: {
+        onMoveCallback(evt) {
+            console.log(evt);
+            return true;
+        },
+    },
     data() {
         return {
             list: [1, 2, 3],
-            drag: false,
         };
     },
     components: {
@@ -53,14 +58,6 @@ export default {
             return this.$store.state.item.pool.filter(
                 (i) => i.inventory == this.selectedId
             );
-        },
-    },
-    methods: {
-        onMoveCallback(evt) {
-            console.log(evt);
-        },
-        log(e) {
-            window.console.log(e);
         },
     },
 };
