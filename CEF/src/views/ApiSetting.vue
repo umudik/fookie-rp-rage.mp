@@ -87,10 +87,7 @@ export default {
         };
     },
     mounted: async function () {
-        console.log(this.$store.state.system_model.pool);
-
-        for (let model of this.$store.state.system_model.pool) {
-            console.log(model.name);
+        for (let model of this.$store.state.system_model.pool) {      
             this.$store.state[model.name].pool = await this.$store.dispatch(
                 "api",
                 {

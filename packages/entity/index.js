@@ -4,6 +4,11 @@ mp.api.modify("player_position", require("./modifies/player_position"))
 
 // SPAWN METHOD
 mp.events.add("fookie_connected", async function () {
+    await mp.api.mixin(require("./models/entity.js"))
+    await mp.api.effect("rage_mp_entity_sync", require("./effects/rage_mp_entity_sync.js"))
+    await mp.api.model(require("./models/entity_type.js"))
+
+
     let res = await mp.api.run({
         user: { system: true },
         model: "entity_type",

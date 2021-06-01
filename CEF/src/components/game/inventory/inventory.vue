@@ -6,30 +6,28 @@
             class="flex overflow-scroll flex-wrap border"
             color="green lighten-2"
         >
-            <transition-group
-                type="transition"
-                name="flip-list"
-                class="d-flex gap-1 justify-start flex-wrap"
+            <draggable
+                class="border"
+                v-bind="{
+                    animation: 350,
+                    group: 'item',
+                }"
+                v-model="items"  
             >
-                <draggable
-                    @start="log"
-                    @end="log"
-                    v-for="i in 5"
-                    :key="i + '_item'"
-                    class="border h-16 w-16"
-                    v-bind="{
-                        animation: 300,
-                        group: selectedId,
-                    }"
+                <transition-group
+                    type="transition"
+                    name="flip-list"
+                    class="d-flex gap-1 justify-start flex-wrap"
                 >
                     <div
-                        v-if="list[i - 1]"
+                        v-for="i in items"
+                        :key="i + '_item'"
                         class="h-16 w-16 border-2 border-red-600"
                     >
                         {{ list[i - 1] }}
                     </div>
-                </draggable>
-            </transition-group>
+                </transition-group>
+            </draggable>
         </v-sheet>
         {{ list }}
     </div>
@@ -39,15 +37,13 @@
 import draggable from "vuedraggable";
 export default {
     methods: {
-        onMoveCallback(evt) {
-            console.log(evt);
-            return true;
+        onUnpublishedChange(evt) {
+            console.info(evt);
+            return false;
         },
     },
     data() {
-        return {
-            list: [1, 2, 3],
-        };
+        return {};
     },
     components: {
         draggable,

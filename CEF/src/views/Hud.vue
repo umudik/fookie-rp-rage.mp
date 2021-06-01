@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-wrap gap-4">
-        <game-inventory selectedId="60ac185476662021d45a3338"></game-inventory>
-        <game-inventory selectedId="60ac185476662021asdasdd45a3338"></game-inventory>
+        <game-inventory selectedId="60b396bac0ecdf0b54d6669f"></game-inventory>
+        <game-inventory selectedId="60b396bac0ecdf0b54d6669f"></game-inventory>
     </div>
 </template>
 

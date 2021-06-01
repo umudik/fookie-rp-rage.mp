@@ -259,7 +259,6 @@ export default {
         search: {
             deep: true,
             handler(newVal, oldVal) {
-                console.log(newVal);
                 let keys = Object.keys(newVal);
                 for (let key of keys) {
                     if (newVal[key] != oldVal[key]) {

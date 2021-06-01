@@ -67,6 +67,7 @@ mp.game.keys = {
     left: 0x25,
     y: 0x59,
 }
+let methods = ["tes1", "test2", "test3"]
 mp.keys.bind(mp.game.keys.up, true, function () {
     if (active)
         index++
@@ -75,9 +76,18 @@ mp.keys.bind(mp.game.keys.down, true, function () {
     if (active)
         index--
 })
-mp.keys.bind(mp.game.keys.y, true, function () {
+
+mp.keys.bind(mp.game.keys.y, true, async function () {
+    let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
+        model: "interaction_menu",
+        method: "getAll"
+    }))
+    res = JSON.parse(res)
+    mp.gui.chat.push(`response: ${res.data}`);
+    methods = res.data
     active = !active
 })
+
 mp.keys.bind(mp.game.keys.enter, true, function () {
     if (active) {
         mp.events.callRemote('interact', JSON.stringify({
@@ -90,13 +100,7 @@ mp.keys.bind(mp.game.keys.enter, true, function () {
 
 
 
-let events = {
-    vehicle: ["Motor", "Envanter"],
-    player: ["Envanter", "Kelepçele", "Kelepçe Çöz"],
-    object: ["Envanter"],
-    chest: ["Aç", "Taşı", "Kilit Kır"],
-    race: ["Katıl", "Başlat", "İptal Et"]
-}
+
 
 let w = 0.14
 let active = false
@@ -135,16 +139,11 @@ var tagOpt2 = {
 
 function drawMenu(obj) {
     try {
-        if (obj.type == 'object') {
-            obj.type = obj.getVariable('gametype')
-        }
-
-        for (let i in events[obj.type]) {
-            let menu = events[obj.type]
-            if (index > menu.length - 1) index = menu.length - 1
+        for (let i in methods) {
+            if (index > methods.length - 1) index = methods.length - 1
             if (index < 0) index = 0
             let dist = mp.game.calcDist(obj.position, pos)
-            mp.game.graphics.drawText(menu[i], [obj.position.x, obj.position.y, obj.position.z + 0.8 + (i * w)], (i == index) ? c2 : c1);
+            mp.game.graphics.drawText(methods[i].label, [obj.position.x, obj.position.y, obj.position.z + 0.8 + (i * w)], (i == index) ? c2 : c1);
 
         }
     } catch (error) {
@@ -155,8 +154,7 @@ function drawMenu(obj) {
 
 function drawTag(obj) {
     try {
-        if (!mp.players.local.vehicle)
-            mp.game.graphics.drawText((active) ? "o" : "x", [obj.position.x, obj.position.y, obj.position.z], (active) ? tagOpt2 : tagOpt)
+        mp.game.graphics.drawText((active) ? "x" : "o", [obj.position.x, obj.position.y, obj.position.z], (active) ? tagOpt2 : tagOpt)
     } catch (error) {
 
     }
@@ -177,12 +175,10 @@ setInterval(() => {
     c_obj = mp.game.getClosest()
     if (c_obj != null) {
         pos = mp.players.local.position
-        if (mp.game.calcDist(c_obj.position, pos) < 4) {
+        if (mp.game.calcDist(c_obj.position, pos) < 2) {
             menu = c_obj.type
 
         } else {
-            // mp.events.call('closeUi')
-
             active = false
             c_obj = null
         }

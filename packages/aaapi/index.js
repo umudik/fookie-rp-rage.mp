@@ -15,6 +15,7 @@ let FookieJS = require('../../../../html/api/src/index');
 
 
 mp.events.add("fookie_connected", async () => {
+    mp.api.mixin("entity", (require("../entity/mixin/entity.js"))
     mp.api.model(require("../bank/models/atm.js"))
     mp.api.model(require("../bank/models/atm_type.js"))
     mp.api.model(require("../bank/models/bank.js"))
@@ -27,8 +28,7 @@ mp.events.add("fookie_connected", async () => {
     mp.api.model(require("../pd/models/punishment"))
     mp.api.model(require("../pd/models/punishment_type"))
     mp.api.model(require("../interaction_menu/models/interaction_menu.js"))
-    mp.api.model(require("../entity/models/entity_type.js"))
-    mp.api.model(require("../entity/models/entity.js"))
+
     mp.api.model(require("../drop/models/drop"))
     mp.api.model(require("../drop/models/drop_type"))
     mp.api.model(require("../crafting/models/craft"))
@@ -42,7 +42,7 @@ mp.events.add("fookie_connected", async () => {
     mp.api.effect(require("../vehicle/effects/vehicle_sync.js"))
     mp.api.effect("rage_mp_sync", require('./effects/rage_mp_sync'))
     mp.api.store.set('afters', mp.api.store.get('afters').concat(["rage_mp_sync"]))
-    mp.api.effect("rage_mp_entity_sync", require("../entity/effects/rage_mp_entity_sync.js"))
+
 })
 
 mp.events.addProc('apiProc', async (player, payload) => {

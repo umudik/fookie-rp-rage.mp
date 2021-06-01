@@ -19,7 +19,6 @@ export default {
             model: "system_model",
         });
         for (let model of this.$store.state.system_model.pool) {
-            console.info(model);
             if (model.name != "system_model") {
                 this.$set(this.$store.state, model.name, {
                     _id: model._id,
