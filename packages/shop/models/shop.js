@@ -1,4 +1,5 @@
 module.exports = {
+    mixin: ["entity"],
     name: 'shop',
     display: "_id",
     schema: {
@@ -9,22 +10,13 @@ module.exports = {
         owner: {
             relation: "character"
         },
-        type: {
+        shop_type: {
             required: true,
             relation: "shop_type",
         },
         open: {
             type: "boolean",
             input: "boolean"
-        },
-        dimension: {
-            type:"number",
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "object",
-            input: "json",
         },
     },
     fookie: {

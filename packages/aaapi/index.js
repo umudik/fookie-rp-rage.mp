@@ -15,7 +15,7 @@ let FookieJS = require('../../../../html/api/src/index');
 
 
 mp.events.add("fookie_connected", async () => {
-    mp.api.mixin("entity", (require("../entity/mixin/entity.js"))
+    mp.api.mixin("entity", require("../entity/mixin/entity.js"))
     mp.api.model(require("../bank/models/atm.js"))
     mp.api.model(require("../bank/models/atm_type.js"))
     mp.api.model(require("../bank/models/bank.js"))
@@ -48,9 +48,7 @@ mp.events.add("fookie_connected", async () => {
 mp.events.addProc('apiProc', async (player, payload) => {
     payload = JSON.parse(payload)
     payload.player = player
-    console.log("--------- REQUEST ---------");
     await mp.api.run(payload)
-    console.log("----------- END -----------");
     return JSON.stringify(payload.response)
 })
 

@@ -1,4 +1,5 @@
 module.exports = {
+    mixin:["entity"],
     name: 'drop',
     display: "_id",
     schema: {
@@ -9,15 +10,6 @@ module.exports = {
         inventory: {
             required:true,
             relation: "inventory",
-        },
-        dimension: {
-            type:"number",
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "object",
-            input: "json",
         },
     },
     fookie: {

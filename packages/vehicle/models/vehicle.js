@@ -1,12 +1,11 @@
 module.exports = {
+    mixin: ["entity"],
     name: 'vehicle',
     display: "_id",
     schema: {
         vehicle_type: { required: true, relation: "vehicle_type", },
         owner: { relation: "character" },
         inventory: { relation: "inventory" },
-        dimension: { type: "number", input: "number" },
-        position: { required: true, type: "object", input: "json", },
         mod_spoiler: { type: "number", input: "number" },
         mod_front_bumper: { type: "number", input: "number" },
         mod_rear_bumper: { type: "number", input: "number" },

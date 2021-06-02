@@ -83,7 +83,6 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
         method: "getAll"
     }))
     res = JSON.parse(res)
-    mp.gui.chat.push(`response: ${res.data}`);
     methods = res.data
     active = !active
 })

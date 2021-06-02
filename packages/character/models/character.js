@@ -1,4 +1,5 @@
 module.exports = {
+    mixin:["entity"],
     name: 'character',
     display: "name",
     schema: {
@@ -19,14 +20,6 @@ module.exports = {
         thirst: {
             type: "number",
             input: "number"
-        },
-        dimension: {
-            type: "number",
-            input: "number"
-        },
-        position: {
-            type: "object",
-            input: "json",
         },
         customization_gender: { type: "number", input: "number" },
         customization_mother_blend: { type: "number", input: "number" },

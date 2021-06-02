@@ -1,4 +1,5 @@
 module.exports = {
+    mixin:["entity"],
     name: 'atm',
     display: "_id",
     schema: {
@@ -8,15 +9,6 @@ module.exports = {
         },
         bank: {
             relation: "bank"
-        },
-        dimension: {
-            type:"number",
-            input: "number"
-        },
-        position: {
-            required: true,
-            type: "object",
-            input: "json",
         },
     },
     fookie: {

@@ -26,7 +26,6 @@ mp.events.add("playerJoin", async (player) => {
       }
     }
   })
-  console.log(res);
   let whiteListed = res.data
   if (whiteListed) {
     player.dimension = 0
@@ -40,10 +39,10 @@ mp.events.add("playerJoin", async (player) => {
         }
       }
     })
-    console.log(res);
     let user = res.data
+
     player.setVariable("user", user)
-    player.call("commit", [obj])
+    player.call("commit", ["obj"])
   } else {
     player.kick("visit www.fookierp.com")
   }

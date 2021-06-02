@@ -1,4 +1,5 @@
 module.exports = {
+    mixin:["entity"],
     name: 'crafting_table',
     display: "name",
     schema: {
@@ -9,14 +10,6 @@ module.exports = {
         desc: {
             type: "string",
             input: "text"
-        },
-        dimension: {
-            type: "number",
-            input: "number"
-        },
-        position: {
-            type: "object",
-            input: "json",
         },
     },
     fookie: {
