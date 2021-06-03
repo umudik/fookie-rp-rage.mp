@@ -3,13 +3,18 @@ module.exports = {
     display: "joaat",
     schema: {
         joaat: {
-            required:true,
+            required: true,
             type: "string",
             input: "text"
         },
+        maxFuel: {
+            required: true,
+            type: "number",
+            input: "number",
+            default: 100,
+        },
     },
     fookie: {
-
         get: {
             role: ["everybody"],
         },

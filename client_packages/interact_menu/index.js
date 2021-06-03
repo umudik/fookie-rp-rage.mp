@@ -87,12 +87,17 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
     active = !active
 })
 
-mp.keys.bind(mp.game.keys.enter, true, function () {
+mp.keys.bind(mp.game.keys.enter, true, async function () {
     if (active) {
-        mp.events.callRemote('interact', JSON.stringify({
-            type: menu,
-            action: events[menu][index],
-            id: c_obj.remoteId
+        mp.events.callRemoteProc("apiProc", JSON.stringify({
+            model: "interaction_menu",
+            method: "do",
+            body: {
+                entity_type: c_obj.getVariable("entity_type"),
+                fookieID: c_obj.getVariable("fookieID"),
+                method: methods[index]
+
+            }
         }))
     }
 })
@@ -103,7 +108,7 @@ mp.keys.bind(mp.game.keys.enter, true, function () {
 
 let w = 0.14
 let active = false
-let menu = null
+let entity_type = null
 let c_obj = null
 let index = 0
 
@@ -175,7 +180,7 @@ setInterval(() => {
     if (c_obj != null) {
         pos = mp.players.local.position
         if (mp.game.calcDist(c_obj.position, pos) < 2) {
-            menu = c_obj.type
+            entity_type = c_obj.entity_type
 
         } else {
             active = false

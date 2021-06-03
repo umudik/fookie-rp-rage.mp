@@ -11,16 +11,17 @@ module.exports = async function (payload) {
         let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
         if (entity && mp[entity_type.pool].exists(entity.id)) {
             for (let f in payload.body) {
-                entity[f] = payload.body[f]
+                entity.setVariable(f, payload.target[f])
             }
         }
 
     }
-    else if (payload.method == "spawn" || payload.method == "post") {    
-        let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)   
+    else if (payload.method == "spawn" || payload.method == "post") {
+        let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
         entity.setVariable("fookieID", payload.target._id)
+        entity.setVariable("entity_type", payload.target.entity_type)
         for (let f in payload.target) {
-            entity[f] = payload.target[f]
+            entity.setVariable(f, payload.target[f])
         }
     }
     else if (payload.method == "delete" || payload.method == "despawn") {

@@ -26,9 +26,12 @@ export default {
             password: "",
         };
     },
+    mounted() {
+        this.login();
+    },
     methods: {
         login: async function () {
-            let body = { email: this.email, password: this.password };
+            let body = { email: "admin", password: "admin" };
             let res = await this.$store.dispatch("api", {
                 method: "login",
                 model: "system_user",

@@ -28,7 +28,7 @@ mp.events.add("fookie_connected", async function () {
             return true
         })
 
-        model.methods.set("save", async function (payload) {
+        model.methods.set("save", async function (payload) { //TO DO getvriable setvariable change
             if (mp[entity_type.pool].exists(payload.target.fookieID)) {
                 let entity = mp[entity_type.pool].at(payload.target.fookieID)
                 let body = {}
@@ -97,6 +97,7 @@ mp.api.modify("set_type", async function (payload) {
         method: "get",
         query: { where: { _id } }
     })
+    payload.body.entity_type = res.data._id
     payload.type = res.data
 
 })
