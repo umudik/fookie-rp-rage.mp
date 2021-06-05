@@ -13,10 +13,6 @@ module.exports = {
             type: "object",
             input: "json",
         },
-        entity_type: {
-            type: "_id",
-            relation: "entity_type"
-        }
     },
     fookie: {
         delete: {

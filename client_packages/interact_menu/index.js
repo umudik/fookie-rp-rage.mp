@@ -78,16 +78,23 @@ mp.keys.bind(mp.game.keys.down, true, function () {
 })
 
 mp.keys.bind(mp.game.keys.y, true, async function () {
-    let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
-        model: "interaction_menu",
-        method: "getAll"
-    }))
-    res = JSON.parse(res)
-    methods = res.data
-    active = !active
+    if (c_obj) {
+        let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
+            model: "interaction_menu",
+            method: "getAll",
+            query: {
+                where: {
+                    entity_type: c_obj.getVariable("entity_type"),
+                }
+            }
+        }))
+        res = JSON.parse(res)
+        methods = res.data
+        active = !active
+    }
 })
 
-mp.keys.bind(mp.game.keys.enter, true, async function () {
+mp.keys.bind(mp.game.keys.enter, true, function () {
     if (active) {
         mp.events.callRemoteProc("apiProc", JSON.stringify({
             model: "interaction_menu",
@@ -95,8 +102,7 @@ mp.keys.bind(mp.game.keys.enter, true, async function () {
             body: {
                 entity_type: c_obj.getVariable("entity_type"),
                 fookieID: c_obj.getVariable("fookieID"),
-                method: methods[index]
-
+                interaction_menu: methods[index]._id
             }
         }))
     }
@@ -179,7 +185,7 @@ setInterval(() => {
     c_obj = mp.game.getClosest()
     if (c_obj != null) {
         pos = mp.players.local.position
-        if (mp.game.calcDist(c_obj.position, pos) < 2) {
+        if (mp.game.calcDist(c_obj.position, pos) < 4) {
             entity_type = c_obj.entity_type
 
         } else {

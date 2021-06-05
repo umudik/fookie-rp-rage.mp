@@ -98,6 +98,18 @@ Object.defineProperty(mp.Vehicle.prototype, "color2", {
 
 
 
+mp.Vehicle.prototype["_ragemp_engine"] = false
+Object.defineProperty(mp.Vehicle.prototype, "ragemp_engine", {
+    get() {
+        return this["_ragemp_engine"]
+    },
+    set(modIndex) {
+        this["_ragemp_engine"] = modIndex
+        this.engine = modIndex
+    }
+})
+
+
 
 mp.events.addCommand("veh_color", (player) => {
     if (player.vehicle) {

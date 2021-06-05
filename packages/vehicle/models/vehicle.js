@@ -54,7 +54,8 @@ module.exports = {
         color1: { type: "object", input: "json" },
         color2: { type: "object", input: "json" },
         locked: { type: "boolean", input: "boolean" },
-        alarm: { type: "boolean", input: "boolean" }
+        alarm: { type: "boolean", input: "boolean" },
+        ragemp_engine: { type: "boolean", input: "boolean" },
     },
     fookie: {
         get: {

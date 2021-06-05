@@ -97,7 +97,6 @@ mp.api.modify("set_type", async function (payload) {
         method: "get",
         query: { where: { _id } }
     })
-    payload.body.entity_type = res.data._id
     payload.type = res.data
 
 })

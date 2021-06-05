@@ -5,7 +5,15 @@ module.exports = {
         entity_type: {
             relation: "entity_type"
         },
+        type: {
+            type: "string",
+            input: "text"
+        },
         control: {
+            type: "string",
+            input: "text"
+        },
+        job: {
             type: "string",
             input: "text"
         },

@@ -15,6 +15,11 @@ let FookieJS = require('../../../../html/api/src/index');
 
 
 mp.events.add("fookie_connected", async () => {
+    mp.api.jobs = new Map()
+    mp.api.job = async function (name, job) {
+        this.jobs.set(name, job)
+    }
+    
     mp.api.mixin("entity", require("../entity/mixin/entity.js"))
     mp.api.model(require("../bank/models/atm.js"))
     mp.api.model(require("../bank/models/atm_type.js"))

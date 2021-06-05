@@ -197,6 +197,7 @@ export default {
     mounted: async function () {
         if (this.selectedId) {
             this.body = this.model.pool.find((m) => m._id == this.selectedId);
+            console.log(this.body);
         }
 
         if (typeof this.defaults == "object") {
