@@ -41,10 +41,10 @@ mp.events.add("fookie_connected", async function () {
             })
 
             let entity = res.data
-            mp.api.jobs.get(interaction_menu.job)({ entity })
+            mp.api.jobs.get(interaction_menu.job)({ entity, entity_type })
 
         } else if (interaction_menu.type == "menu") {
-
+             
         }
 
     })
@@ -62,14 +62,108 @@ mp.events.add("fookie_connected", async function () {
     })
 
 
-    mp.api.job("engine_off", function ({ entity }) {
+    mp.api.job("engine_off", function ({ entity, entity_type }) {
         mp.api.run({
             user: { system: true },
             method: "patch",
-            model: "vehicle",
+            model: entity_type.model,
             query: { where: { _id: entity._id } },
             body: {
                 ragemp_engine: false,
+            }
+        })
+    })
+
+
+    mp.api.job("x++", function ({ entity, entity_type }) {
+        console.log(entity);
+        console.log(entity_type);
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x + 0.1,
+                    y: entity.position.y,
+                    z: entity.position.z,
+                },
+            }
+        })
+    })
+    mp.api.job("x--", function ({ entity, entity_type }) {
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x - 0.1,
+                    y: entity.position.y,
+                    z: entity.position.z,
+                },
+            }
+        })
+    })
+    mp.api.job("y++", function ({ entity, entity_type }) {
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x,
+                    y: entity.position.y + 0.1,
+                    z: entity.position.z,
+                },
+            }
+        })
+    })
+    mp.api.job("y--", function ({ entity, entity_type }) {
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x,
+                    y: entity.position.y - 0.1,
+                    z: entity.position.z,
+                },
+            }
+        })
+    })
+    mp.api.job("z++", function ({ entity, entity_type }) {
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x,
+                    y: entity.position.y,
+                    z: entity.position.z + 0.1,
+                },
+            }
+        })
+    })
+    mp.api.job("z--", function ({ entity, entity_type }) {
+        mp.api.run({
+            user: { system: true },
+            method: "patch",
+            model: entity_type.model,
+            query: { where: { _id: entity._id } },
+            body: {
+                position: {
+                    x: entity.position.x,
+                    y: entity.position.y,
+                    z: entity.position.z - 0.1,
+                },
             }
         })
     })

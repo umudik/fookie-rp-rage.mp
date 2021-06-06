@@ -109,24 +109,7 @@ Object.defineProperty(mp.Vehicle.prototype, "ragemp_engine", {
     }
 })
 
-
-
-mp.events.addCommand("veh_color", (player) => {
-    if (player.vehicle) {
-        player.vehicle.color2 = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
-        player.vehicle.color1 = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
-    }
-})
-
-
-
-
-
-
-
-
 // ------------------------------------- PLAYER -----------------------------------------
-
 
 //------------------Clothes-----------------
 /*
@@ -161,7 +144,6 @@ let player_props = [
 ]
 
 for (let p of player_props) {
-
     mp.Player.prototype["_" + p.key] = null
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
@@ -206,7 +188,6 @@ let player_customs = [
 ]
 
 for (let p of player_customs) {
-
     mp.Player.prototype["_" + p.key] = null
     Object.defineProperty(mp.Player.prototype, p.key, {
         get() {
