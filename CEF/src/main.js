@@ -12,6 +12,7 @@ import fookiePost from './components/fookie/fookie-post.vue'
 import field from './components/fookie/fookie-field.vue'
 import card from './components/fookie/fookie-card.vue'
 import inventory from './components/game/inventory/inventory.vue'
+import move from './components/game/move/move.vue'
 import item from './components/game/inventory/item.vue'
 import phone from './components/game/phone/phone.vue'
 
@@ -23,6 +24,7 @@ Vue.component('fookie-filter', filter)
 Vue.component('fookie-field', field)
 Vue.component('fookie-card', card)
 Vue.component('game-inventory', inventory)
+Vue.component('game-move', move)
 Vue.component('game-item', item)
 Vue.component('game-phone', phone)
 import fookie from "./plugins/fookie_mixin.js";

@@ -12,7 +12,7 @@
                     animation: 350,
                     group: 'item',
                 }"
-                v-model="items"  
+                v-model="items"
             >
                 <transition-group
                     type="transition"
@@ -29,13 +29,13 @@
                 </transition-group>
             </draggable>
         </v-sheet>
-        {{ list }}
     </div>
 </template>
 
 <script>
 import draggable from "vuedraggable";
 export default {
+    props: ["selectedId"],
     methods: {
         onUnpublishedChange(evt) {
             console.info(evt);
@@ -48,7 +48,6 @@ export default {
     components: {
         draggable,
     },
-    props: ["selectedId"],
     computed: {
         items() {
             return this.$store.state.item.pool.filter(

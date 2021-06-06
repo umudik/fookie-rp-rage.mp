@@ -107,7 +107,12 @@ mp.keys.bind(mp.game.keys.enter, true, async function () {
         }))
         res = JSON.parse(res)
         if (res.data) {
-            mp.cef.execute(`app.$store.state.menus.push(${res.data})`)
+            let obj = {
+                type: methods[index].job,
+                selectedId: c_obj.getVariable("fookieID")
+            }
+
+            mp.cef.execute(`app.$store.state.menus.push(${JSON.stringify(obj)})`)
         }
     }
 })
