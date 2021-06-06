@@ -2,10 +2,10 @@
     <v-app style="background-color: transparent">
         <v-system-bar dark app height="30" lights-out>           
             <v-spacer></v-spacer>
-            <v-icon @click="$router.push({ name: 'game' })">mdi-play</v-icon>
+            <v-icon @click="$router.push({ name: 'hud' })">mdi-play</v-icon>
             <v-icon @click="$router.push({ name: 'api' })">mdi-home</v-icon>
             <v-icon @click="$router.push({ name: 'setting' })">mdi-cog</v-icon>
-            <v-icon @click="$router.push({ name: 'home' })">mdi-account</v-icon>
+            <v-icon @click="$router.push({ name: 'game' })">mdi-account</v-icon>
             <v-icon @click="$router.push({ name: 'home' })">mdi-web</v-icon>
             <v-icon @click="$router.push({ name: 'home' })">mdi-help</v-icon>
             <span>12:30</span>

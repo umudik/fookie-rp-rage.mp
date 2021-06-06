@@ -34,9 +34,7 @@ export default new Vuex.Store({
             opened: false,
             color: "success",
         },
-        menus: [
-            { type: "inventory", _id: 1 },
-        ],
+        menus: [],
     },
     mutations: {
         getAll(state, payload) {

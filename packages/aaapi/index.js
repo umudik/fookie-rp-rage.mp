@@ -26,12 +26,8 @@ mp.events.add("fookie_connected", async () => {
     mp.api.model(require("../bank/models/bank.js"))
     mp.api.model(require("../bank/models/bank_account.js"))
 
-    mp.api.model(require("../shop/models/shop.js"))
-    mp.api.model(require("../shop/models/shop_type.js"))
-    mp.api.model(require("../shop/models/shop_prices.js"))
     mp.api.model(require("../pd/models/punishment"))
     mp.api.model(require("../pd/models/punishment_type"))
-
 
     mp.api.model(require("../drop/models/drop"))
     mp.api.model(require("../drop/models/drop_type"))

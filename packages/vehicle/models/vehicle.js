@@ -6,7 +6,6 @@ module.exports = {
         vehicle_type: { required: true, relation: "vehicle_type", },
         owner: { relation: "character" },
         inventory: { relation: "inventory" },
-        fuel: { type: "number", input: "number" },
         mod_spoiler: { type: "number", input: "number", default: -1 },
         mod_front_bumper: { type: "number", input: "number", default: -1 },
         mod_rear_bumper: { type: "number", input: "number", default: -1 },
@@ -56,6 +55,7 @@ module.exports = {
         locked: { type: "boolean", input: "boolean", default: false },
         alarm: { type: "boolean", input: "boolean", default: false },
         ragemp_engine: { type: "boolean", input: "boolean", default: false },
+        ragemp_fuel: { type: "number", input: "number", default: 100 },
     },
     fookie: {
         get: {

@@ -104,8 +104,25 @@ Object.defineProperty(mp.Vehicle.prototype, "ragemp_engine", {
         return this["_ragemp_engine"]
     },
     set(modIndex) {
-        this["_ragemp_engine"] = modIndex
-        this.engine = modIndex
+        if (this.ragemp_fuel == 0) {
+            this["_ragemp_engine"] = false
+            this.engine = false
+        } else {
+            this["_ragemp_engine"] = modIndex
+            this.engine = modIndex
+        }
+
+    }
+})
+
+mp.Vehicle.prototype["_ragemp_fuel"] = 100
+Object.defineProperty(mp.Vehicle.prototype, "ragemp_fuel", {
+    get() {
+        return this["_ragemp_fuel"]
+    },
+    set(modIndex) {
+        if (modIndex == 0) { this.ragemp_engine = false }
+        this["_ragemp_fuel"] = modIndex
     }
 })
 

@@ -1,8 +1,9 @@
-let cef = new mp.browsers.new('http://localhost:8080')
-cef.execute(`app.$store.state.inGame = true;`)
+mp.cef = null
+mp.cef = new mp.browsers.new('http://localhost:8080')
+mp.cef.execute(`app.$store.state.inGame = true;`)
 
 mp.events.add('apiSync', (payload) => {
-    cef.execute(`app.$store.dispatch("apiSync",${payload})`)
+    mp.cef.execute(`app.$store.dispatch("apiSync",${payload})`)
 })
 
 mp.events.addProc('apiProc', async (payload) => {
@@ -10,7 +11,7 @@ mp.events.addProc('apiProc', async (payload) => {
 })
 
 mp.events.addProc('commit', async (payload) => {
-    cef.execute(`app.$store.commit("${payload.name}",${payload.payload})`)
+    mp.cef.execute(`app.$store.commit("${payload.name}",${payload.payload})`)
 })
 
 let cursor = false

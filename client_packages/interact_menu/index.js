@@ -94,9 +94,9 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
     }
 })
 
-mp.keys.bind(mp.game.keys.enter, true, function () {
+mp.keys.bind(mp.game.keys.enter, true, async function () {
     if (active) {
-        mp.events.callRemoteProc("apiProc", JSON.stringify({
+        let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
             model: "interaction_menu",
             method: "do",
             body: {
@@ -105,6 +105,10 @@ mp.keys.bind(mp.game.keys.enter, true, function () {
                 interaction_menu: methods[index]._id
             }
         }))
+        res = JSON.parse(res)
+        if (res.data) {
+            mp.cef.execute(`app.$store.state.menus.push(${res.data})`)
+        }
     }
 })
 

@@ -41,14 +41,16 @@ mp.events.add("fookie_connected", async function () {
             })
 
             let entity = res.data
-            mp.api.jobs.get(interaction_menu.job)({ entity, entity_type })
+            mp.api.jobs.get(interaction_menu.job)({ entity, entity_type, payload })
+
 
         } else if (interaction_menu.type == "menu") {
-             
+            return true
         }
 
-    })
 
+
+    })
     mp.api.job("engine_on", function ({ entity }) {
         mp.api.run({
             user: { system: true },

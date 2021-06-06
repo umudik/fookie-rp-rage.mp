@@ -2,12 +2,10 @@ mp.events.add('fookie_connected', async () => {
     await mp.api.model(require("./models/vehicle.js"))
     await mp.api.model(require("./models/vehicle_type.js"))
 
-    mp.api.routine("vehicle_fuel", 30 * 1000, async function (ctx) {
+    mp.api.routine("vehicle_fuel", 60 * 1000, async function (ctx) {
         mp.vehicles.forEach((vehicle) => {
-            let fuel = vehicle.getVariable("fuel")
-            if (fuel > 0) {
-                fuel--
-                vehicle.setVariable("fuel", fuel)
+            if (vehicle.ragemp_fuel > 0 && vehicle.ragemp_engine) {
+                vehicle.ragemp_fuel--
             }
         });
     })
@@ -20,5 +18,5 @@ mp.events.addCommand("veh_color", (player) => {
         player.vehicle.color1 = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
         player.vehicle.neonEnabled = true
     }
-   
+
 })
