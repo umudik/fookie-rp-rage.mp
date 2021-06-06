@@ -68,9 +68,6 @@ mp.events.addCommand('v', (player) => {
     mp.vehicles.new(mp.joaat("openwheel1"), player.position)
 })
 
-mp.events.addCommand('v2', (player) => {
-    mp.vehicles.new(mp.joaat("vstr"), player.position)
-})
 
 
 

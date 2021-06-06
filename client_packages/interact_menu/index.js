@@ -117,7 +117,7 @@ let active = false
 let entity_type = null
 let c_obj = null
 let index = 0
-
+let trashold = 3
 
 
 var c1 = {
@@ -185,7 +185,7 @@ setInterval(() => {
     c_obj = mp.game.getClosest()
     if (c_obj != null) {
         pos = mp.players.local.position
-        if (mp.game.calcDist(c_obj.position, pos) < 4) {
+        if (mp.game.calcDist(c_obj.position, pos) < trashold) {
             entity_type = c_obj.entity_type
 
         } else {

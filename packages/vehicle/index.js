@@ -12,3 +12,13 @@ mp.events.add('fookie_connected', async () => {
         });
     })
 })
+
+
+mp.events.addCommand("veh_color", (player) => {
+    if (player.vehicle) {
+        player.vehicle.color2 = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
+        player.vehicle.color1 = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]
+        player.vehicle.neonEnabled = true
+    }
+   
+})
