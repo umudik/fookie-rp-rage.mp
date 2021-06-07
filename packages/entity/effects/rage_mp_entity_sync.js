@@ -3,7 +3,7 @@ module.exports = async function (payload) {
         user: { system: true },
         method: "get",
         model: "entity_type",
-        query: { where: { model: payload.model.name } }
+        query: { where: { model: payload.model } }
     })
     let entity_type = res.data
 

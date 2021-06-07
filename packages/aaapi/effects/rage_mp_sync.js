@@ -1,5 +1,4 @@
 module.exports = async (payload) => {
-    payload.model = payload.model.name
     payload.res = undefined
     payload.req = undefined
     payload.ctx = undefined
