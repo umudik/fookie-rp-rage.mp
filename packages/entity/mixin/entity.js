@@ -7,11 +7,11 @@ module.exports = {
         position: {
             required: true,
             type: "object",
-            input: "json",
+            input: "object",
         },
         heading: {
             type: "object",
-            input: "json",
+            input: "object",
         },
     },
     fookie: {

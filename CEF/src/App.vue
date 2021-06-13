@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$store.state.system_loaded">
+    <div>
         <router-view></router-view>
     </div>
 </template>
@@ -23,7 +23,7 @@ export default {
                 this.$set(this.$store.state, model.name, {
                     _id: model._id,
                     name: model.name,
-                    display: "",
+                    display: model.display,
                     schema: {},
                     fookie: {},
                     pool: [],

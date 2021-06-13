@@ -18,7 +18,7 @@ module.exports = {
         },
         weight: {
             require: true,
-            type: "float",
+            type: "number",
             input: "number",
         },
         stackable: {

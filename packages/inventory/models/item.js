@@ -22,7 +22,7 @@ module.exports = {
         },
         data: {
             type: "object",
-            input: "json",
+            input: "object",
         },
     },
     fookie: {

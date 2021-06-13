@@ -73,6 +73,11 @@
                 <v-list-item-title>
                     {{ model.name }}
                 </v-list-item-title>
+                <v-list-item-action>
+                    <v-list-item-action-text>{{
+                        k + 1
+                    }}</v-list-item-action-text>
+                </v-list-item-action>
             </v-list-item>
         </v-navigation-drawer>
         <fookie-viewer :model="$store.state[selected]"></fookie-viewer>
@@ -87,7 +92,7 @@ export default {
         };
     },
     mounted: async function () {
-        for (let model of this.$store.state.system_model.pool) {      
+        for (let model of this.$store.state.system_model.pool) {
             this.$store.state[model.name].pool = await this.$store.dispatch(
                 "api",
                 {

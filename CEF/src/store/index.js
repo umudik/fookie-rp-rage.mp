@@ -115,8 +115,6 @@ export default new Vuex.Store({
                 })
                 ctx.commit("snackbar", { color: "error", text: `Status:${payload.response.status} | Method:${payload.method} | Model:${payload.model}` });
             }
-
-
         },
     },
     modules: {}

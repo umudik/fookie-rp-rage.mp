@@ -18,7 +18,7 @@ module.exports = {
         },
         data: {
             type: "object",
-            input: "json"
+            input: "object"
         },
         spawnAtStart: {
             type: "boolean",

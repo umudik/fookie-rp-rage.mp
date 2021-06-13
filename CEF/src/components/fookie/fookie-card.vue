@@ -111,9 +111,9 @@
                     <quill-editor ref="myQuillEditor" v-model="body[i]" />
                 </div>
 
-                <div v-if="field.input === 'json'">{{ i }}</div>
+                <div v-if="field.input === 'object'">{{ i }}</div>
                 <v-jsoneditor
-                    v-if="field.input === 'json'"
+                    v-if="field.input === 'object'"
                     v-model="body[i]"
                     :options="{ mode: 'code' }"
                     :plus="false"
