@@ -1,5 +1,5 @@
 //let FookieJS = require('fookie');
-let FookieJS = require('../../../../html/api/src/index');
+let FookieJS = require('../../../fookie');
 
 (async () => {
     mp.api = new FookieJS();
