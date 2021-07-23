@@ -10,7 +10,7 @@ module.exports = {
             relation: "object_type"
         },
     },
-    fookie: {
+    database:"mongodb",lifecycle: {
         get: {
             role: ["everybody"],
         },
@@ -18,13 +18,13 @@ module.exports = {
             role: ["everybody"],
         },
         patch: {
-            role: ["system_admin"],
+            role: ["admin"],
         },
         post: {
-            role: ["system_admin", "rage_mp_post"],
+            role: ["admin", "rage_mp_post"],
         },
         delete: {
-            role: ["system_admin"],
+            role: ["admin"],
         },
         schema: {
             role: ["everybody"],

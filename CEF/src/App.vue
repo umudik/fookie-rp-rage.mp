@@ -16,16 +16,16 @@ export default {
         }
         await this.$store.dispatch("api", {
             method: "getAll",
-            model: "system_model",
+            model: "model",
         });
-        for (let model of this.$store.state.system_model.pool) {
-            if (model.name != "system_model") {
+        for (let model of this.$store.state.model.pool) {
+            if (model.name != "model") {
                 this.$set(this.$store.state, model.name, {
                     _id: model._id,
                     name: model.name,
                     display: model.display,
                     schema: {},
-                    fookie: {},
+                    database:"mongodb",lifecycle: {},
                     pool: [],
                 });
 

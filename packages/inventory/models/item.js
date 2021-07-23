@@ -25,7 +25,7 @@ module.exports = {
             input: "object",
         },
     },
-    fookie: {
+    database:"mongodb",lifecycle: {
         get: {
             role: ["everybody"],
         },
@@ -35,19 +35,19 @@ module.exports = {
         patch: {
             modify: ["set_type","set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible",],
-            role: ["system_admin"],
+            role: ["admin"],
             effect: ["item_out", "item_in"],
         },
         post: {
             modify: ["set_type","set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", ,],
-            role: ["system_admin"],
+            role: ["admin"],
             effect: ["item_in"],
         },
         delete: {
             modify: ["set_type","set_inventory_and_type"],    
             rule: [],
-            role: ["system_admin"],
+            role: ["admin"],
             effect: ["item_out"],
         },
         schema: {

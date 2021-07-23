@@ -7,8 +7,8 @@ module.exports = {
             type: "string",
             input: "text"
         },
-        system_user: {
-            relation: "system_user"
+        user: {
+            relation: "user"
         },
         inventory: {
             relation: "inventory"
@@ -49,7 +49,7 @@ module.exports = {
         customization_chin_shape: { type: "number", input: "number" },
         customization_neck_width: { type: "number", input: "number" },
     },
-    fookie: {
+    database:"mongodb",lifecycle: {
         get: {
             role: ["everybody"],
         },
@@ -57,13 +57,13 @@ module.exports = {
             role: ["everybody"],
         },
         patch: {
-            role: ["system_admin"],
+            role: ["admin"],
         },
         post: {
-            role: ["system_admin"],
+            role: ["admin"],
         },
         delete: {
-            role: ["system_admin"],
+            role: ["admin"],
         },
         schema: {
             role: ["everybody"],

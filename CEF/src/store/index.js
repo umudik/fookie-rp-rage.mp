@@ -11,16 +11,16 @@ export default new Vuex.Store({
         token: null,
         baseURL: "http://localhost:7777",
         inGame: false,
-        system_model: {
+        model: {
             pool: [],
             display: "name",
-            name: "system_model",
+            name: "model",
             schema: {}
         },
-        system_menu: {
+        menu: {
             pool: [],
             display: "name",
-            name: "system_menu",
+            name: "menu",
             schema: {}
         },
         system_submenu: {

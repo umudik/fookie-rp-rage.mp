@@ -14,7 +14,7 @@ module.exports = {
             input: "object",
         },
     },
-    fookie: {
+    database:"mongodb",lifecycle: {
         delete: {
             effect: ["rage_mp_entity_sync"],
             rule: ["need_target", "need_type"],
@@ -33,21 +33,21 @@ module.exports = {
         spawn: {
             modify: ["set_target", "set_type"],
             rule: ["need_target", "need_type"],
-            role: ["system_admin"],         
+            role: ["admin"],         
             filter: [],
             effect: ["rage_mp_entity_sync"]
         },
         despawn: {
             modify: ["set_target", "set_type"],
             rule: ["need_target", "need_type"],
-            role: ["system_admin"],          
+            role: ["admin"],          
             filter: [],
             effect: ["rage_mp_entity_sync"]
         },
         save: {
             modify: ["set_target", "set_type"],
             rule: ["need_target", "need_type"],
-            role: ["system_admin"],
+            role: ["admin"],
             effect: [],
             filter: [],
         }

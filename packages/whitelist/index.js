@@ -32,10 +32,10 @@ mp.events.add("playerJoin", async (player) => {
     let res = await mp.api.run({
       user: { system: true },
       method: "get",
-      model: "system_user",
+      model: "user",
       query: {
         where: {
-          _id: whiteListed.system_user
+          _id: whiteListed.user
         }
       }
     })

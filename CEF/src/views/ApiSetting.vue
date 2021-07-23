@@ -24,7 +24,7 @@
                         v-for="(
                             sub, j
                         ) in $store.state.system_submenu.pool.filter(
-                            (s) => s.system_menu == menu._id
+                            (s) => s.menu == menu._id
                         )"
                         :key="j"
                         link
@@ -33,7 +33,7 @@
                             selected = content(
                                 $store.state.system_submenu,
                                 sub,
-                                'system_model'
+                                'model'
                             )
                         "
                     >
@@ -44,7 +44,7 @@
                             content(
                                 $store.state.system_submenu,
                                 sub,
-                                "system_model"
+                                "model"
                             )
                         }}</v-list-item-title>
                     </v-list-item>
@@ -61,7 +61,7 @@
             <v-divider></v-divider>
 
             <v-list-item
-                v-for="(model, k) in $store.state.system_model.pool"
+                v-for="(model, k) in $store.state.model.pool"
                 :key="k"
                 link
                 dense
@@ -88,11 +88,11 @@
 export default {
     data() {
         return {
-            selected: "system_model",
+            selected: "model",
         };
     },
     mounted: async function () {
-        for (let model of this.$store.state.system_model.pool) {
+        for (let model of this.$store.state.model.pool) {
             this.$store.state[model.name].pool = await this.$store.dispatch(
                 "api",
                 {
@@ -105,7 +105,7 @@ export default {
     methods: {},
     computed: {
         menus() {
-            return this.$store.state.system_menu.pool;
+            return this.$store.state.menu.pool;
         },
     },
 };

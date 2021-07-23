@@ -3,10 +3,10 @@ let FookieJS = require('../../../fookie');
 
 (async () => {
     mp.api = new FookieJS();
-    await mp.api.connect('mongodb://127.0.0.1:27017/roleplay', {
+    await mp.api.connect("mongodb",{url:'mongodb://localhost:27017/roleplay', options:{
         useNewUrlParser: true,
         useUnifiedTopology: true
-    })
+    }})
     await mp.api.listen(7777)
     mp.events.call("fookie_connected")
 })()

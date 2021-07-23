@@ -34,7 +34,7 @@ export default {
             let body = { email: "admin", password: "admin" };
             let res = await this.$store.dispatch("api", {
                 method: "login",
-                model: "system_user",
+                model: "user",
                 body,
             });
             if (typeof res == "string") {
