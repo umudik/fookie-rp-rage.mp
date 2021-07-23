@@ -1,6 +1,6 @@
 module.exports = async function (payload) {
     let res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "count",
         model: "item",
         query: {
@@ -16,7 +16,7 @@ module.exports = async function (payload) {
     } else {
         for (let i in payload.type.stack_size)
             res = await mp.api.run({
-                user: { system: true },
+                system: true ,
                 method: "count",
                 model: "item",
                 query: {

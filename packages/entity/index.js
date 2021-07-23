@@ -9,7 +9,7 @@ mp.events.add("fookie_connected", async function () {
 
 
     let res = await mp.api.run({
-        user: { system: true },
+        system:true,
         model: "entity_type",
         method: "getAll"
     })
@@ -39,7 +39,7 @@ mp.events.add("fookie_connected", async function () {
                 }
 
                 mp.api.run({
-                    user: { system: true },
+                    system: true ,
                     model: payload.model,
                     method: "patch",
                     body
@@ -51,7 +51,7 @@ mp.events.add("fookie_connected", async function () {
 
 
     res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         model: "entity_type",
         method: "getAll",
         query: { where: { spawnAtStart: true } }
@@ -61,7 +61,7 @@ mp.events.add("fookie_connected", async function () {
 
     for (let entity_type of entity_types) {
         let res = await mp.api.run({
-            user: { system: true },
+            system: true ,
             method: "getAll",
             model: entity_type.model,
 
@@ -71,7 +71,7 @@ mp.events.add("fookie_connected", async function () {
 
         for (let entity of allEntites) {
             mp.api.run({
-                user: { system: true },
+                system: true ,
                 method: "spawn",
                 model: entity_type.model,
                 query: {
@@ -91,7 +91,7 @@ mp.events.add("fookie_connected", async function () {
 mp.api.modify("set_type", async function (payload) {
     let _id = payload.target[payload.model + "_type"]
     let res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         model: payload.model + "_type",
         method: "get",
         query: { where: { _id } }

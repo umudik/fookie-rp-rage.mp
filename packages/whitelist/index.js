@@ -17,7 +17,7 @@ mp.events.add("playerJoin", async (player) => {
   player.dimension = mp.api.helpers.getEmptyDimension()
   console.log(player.rgscId);
   let res = await mp.api.run({
-    user: { system: true },
+    system: true ,
     method: "get",
     model: "whitelist",
     query: {
@@ -30,7 +30,7 @@ mp.events.add("playerJoin", async (player) => {
   if (whiteListed) {
     player.dimension = 0
     let res = await mp.api.run({
-      user: { system: true },
+      system: true ,
       method: "get",
       model: "user",
       query: {

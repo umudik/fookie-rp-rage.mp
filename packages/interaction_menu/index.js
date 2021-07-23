@@ -5,7 +5,7 @@ mp.events.add("fookie_connected", async function () {
     im.methods.set("do", async function (payload) {
         console.log(payload.body);
         let res = await payload.ctx.run({
-            user: { system: true },
+            system: true ,
             method: "get",
             model: "interaction_menu",
             query: {
@@ -18,7 +18,7 @@ mp.events.add("fookie_connected", async function () {
 
         if (interaction_menu.type == "patch") {
             res = await payload.ctx.run({
-                user: { system: true },
+                system: true ,
                 method: "get",
                 model: "entity_type",
                 query: {
@@ -30,7 +30,7 @@ mp.events.add("fookie_connected", async function () {
             let entity_type = res.data
 
             res = await payload.ctx.run({
-                user: { system: true },
+                system: true ,
                 method: "get",
                 model: entity_type.model,
                 query: {
@@ -53,7 +53,7 @@ mp.events.add("fookie_connected", async function () {
     })
     mp.api.job("engine_on", function ({ entity }) {
         mp.api.run({
-            user: { system: true },
+            system: true ,
             method: "patch",
             model: "vehicle",
             query: { where: { _id: entity._id } },
@@ -66,7 +66,7 @@ mp.events.add("fookie_connected", async function () {
 
     mp.api.job("engine_off", function ({ entity, entity_type }) {
         mp.api.run({
-            user: { system: true },
+            system: true ,
             method: "patch",
             model: entity_type.model,
             query: { where: { _id: entity._id } },
@@ -79,7 +79,7 @@ mp.events.add("fookie_connected", async function () {
 
     mp.api.job("move", function ({ entity, entity_type, payload }) {
         mp.api.run({
-            user: { system: true },
+            system: true ,
             method: "patch",
             model: entity_type.model,
             query: { where: { _id: entity._id } },

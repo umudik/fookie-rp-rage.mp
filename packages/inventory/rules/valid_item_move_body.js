@@ -5,7 +5,7 @@ module.exports = async function (payload) {
     let other = payload.body.other
 
     let postable = mp.api.run({
-        user: { system: true },
+        system: true ,
         model: "item",
         method: "test",
         options: {
@@ -22,7 +22,7 @@ module.exports = async function (payload) {
 
 
     let deletable = mp.api.run({
-        user: { system: true },
+        system: true ,
         model: "item",
         method: "test",
         options: {
@@ -37,7 +37,7 @@ module.exports = async function (payload) {
 
     if (postable.data && deletable.data) {
         mp.api.run({
-            user: { system: true },
+            system: true ,
             model: "item",
             method: "post",
             body: {
@@ -49,7 +49,7 @@ module.exports = async function (payload) {
             }
         })
         mp.api.run({
-            user: { system: true },
+            system: true ,
             model: "item",
             method: "patch",
             body: {

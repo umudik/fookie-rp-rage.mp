@@ -1,6 +1,6 @@
 module.exports = async function (payload) {
     let res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "get",
         model: "item",
         query: {
@@ -22,7 +22,7 @@ module.exports = async function (payload) {
             let avaibleSlots = []
             for (let i in payload.inventory_type.slotSize) {
                 let res = await mp.api.run({
-                    user: { system: true },
+                    system: true ,
                     method: "count",
                     model: "item",
                     query: {

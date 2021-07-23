@@ -1,6 +1,6 @@
 module.exports = async function (payload) {
     let res = await payload.ctx.run({
-        user: { system: true },
+        system: true ,
         method: "get",
         model: "entity_type",
         query: { where: { model: payload.model } }

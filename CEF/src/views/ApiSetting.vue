@@ -23,7 +23,7 @@
                     <v-list-item
                         v-for="(
                             sub, j
-                        ) in $store.state.system_submenu.pool.filter(
+                        ) in $store.state.submenu.pool.filter(
                             (s) => s.menu == menu._id
                         )"
                         :key="j"
@@ -31,7 +31,7 @@
                         class="ml-5"
                         @click="
                             selected = content(
-                                $store.state.system_submenu,
+                                $store.state.submenu,
                                 sub,
                                 'model'
                             )
@@ -42,7 +42,7 @@
                         </v-list-item-icon>
                         <v-list-item-title>{{
                             content(
-                                $store.state.system_submenu,
+                                $store.state.submenu,
                                 sub,
                                 "model"
                             )

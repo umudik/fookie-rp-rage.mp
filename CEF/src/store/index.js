@@ -23,10 +23,10 @@ export default new Vuex.Store({
             name: "menu",
             schema: {}
         },
-        system_submenu: {
+        submenu: {
             pool: [],
             display: "name",
-            name: "system_submenu",
+            name: "submenu",
             schema: {}
         },
         snackbar: {

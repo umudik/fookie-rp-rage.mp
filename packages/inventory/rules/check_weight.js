@@ -1,6 +1,6 @@
 module.exports = async function (payload) {
     let res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "getAll",
         model: "item",
         query: {
@@ -13,7 +13,7 @@ module.exports = async function (payload) {
 
     for (let item of items) {
         res = await mp.api.run({
-            user: { system: true },
+            system: true ,
             method: "get",
             model: "item_type",
             query: {
@@ -26,7 +26,7 @@ module.exports = async function (payload) {
     }
 
     res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "get",
         model: "item_type",
         query: {
@@ -40,7 +40,7 @@ module.exports = async function (payload) {
 
 
     res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "get",
         model: "inventory",
         query: {
@@ -51,7 +51,7 @@ module.exports = async function (payload) {
     let inventory = res.data
 
     res = await mp.api.run({
-        user: { system: true },
+        system: true ,
         method: "get",
         model: "inventory_type",
         query: {
