@@ -7,7 +7,7 @@ let FookieJS = require('../../../fookie');
         useNewUrlParser: true,
         useUnifiedTopology: true
     }})
-    await mp.api.listen(3000)
+    await mp.api.listen(2626)
     mp.events.call("fookie_connected")
 })()
 

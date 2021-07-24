@@ -9,7 +9,7 @@ export default new Vuex.Store({
         system_loaded: false,
         logs: [],
         token: null,
-        baseURL: "http://localhost:7777",
+        baseURL: "http://localhost:2626",
         inGame: false,
         model: {
             pool: [],
@@ -62,7 +62,7 @@ export default new Vuex.Store({
             state[payload.model].fookie = payload.response.data.fookie
         },
         login(state, payload) {
-            state[payload.model].token = payload
+            state.token = payload
             localStorage.setItem("token", payload)
 
         },
