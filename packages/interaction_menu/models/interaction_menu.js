@@ -22,7 +22,8 @@ module.exports = {
             input: "text"
         },
     },
-    database:"mongodb",lifecycle: {
+    database: "mongodb",
+    lifecycle: {
         get: {
             role: ["everybody"],
         },
