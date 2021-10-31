@@ -26,7 +26,7 @@ module.exports = async function (payload) {
         model: "item",
         method: "test",
         options: {
-            method: "patch"
+            method: "update"
         },
         body: {
             inventory: payload.target.inventory,
@@ -51,7 +51,7 @@ module.exports = async function (payload) {
         ctx.run({
             system: true,
             model: "item",
-            method: "patch",
+            method: "update",
             body: {
                 inventory: payload.target.inventory,
                 slot: payload.target.slot,

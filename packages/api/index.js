@@ -4,6 +4,7 @@ const fookie = require("../../../fookie");
 (async () => {
     await fookie.core()
     await fookie.init()
+
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
     await fookie.use(require("./user/export"))
@@ -17,20 +18,10 @@ const fookie = require("../../../fookie");
     await fookie.use(require("./faction/export"))
     await fookie.use(require("./house/export"))
     await fookie.use(require("./interaction_menu/export"))
-    /*
-
-  
-
-
-
- 
-
-    await fookie.use(require("./pd/export"))
+    await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
-   
-  
-  
-    */
+
+
 
 
     await fookie.listen(2626)

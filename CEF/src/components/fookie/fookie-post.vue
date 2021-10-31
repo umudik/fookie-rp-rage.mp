@@ -247,7 +247,7 @@ export default {
             }
 
             await this.$store.dispatch("api", {
-                method: "patch",
+                method: "update",
                 model,
                 body,
                 query: {

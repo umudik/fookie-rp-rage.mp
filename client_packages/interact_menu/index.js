@@ -101,7 +101,7 @@ mp.keys.bind(mp.game.keys.enter, true, async function () {
             method: "do",
             body: {
                 entity_type: c_obj.getVariable("entity_type"),
-                fookieID: c_obj.getVariable("fookieID"),
+                fookieId: c_obj.getVariable("fookieId"),
                 interaction_menu: methods[index]._id
             }
         }))
@@ -109,7 +109,7 @@ mp.keys.bind(mp.game.keys.enter, true, async function () {
         if (res.data) {
             let obj = {
                 type: methods[index].job,
-                selectedId: c_obj.getVariable("fookieID")
+                selectedId: c_obj.getVariable("fookieId")
             }
 
             mp.cef.execute(`app.$store.state.menus.push(${JSON.stringify(obj)})`)

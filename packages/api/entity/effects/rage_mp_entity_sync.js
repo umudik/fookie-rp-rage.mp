@@ -10,8 +10,8 @@ module.exports = async function (ctx) {
             })
             let entity_type = res.data
 
-            if (payload.method == "patch") {
-                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
+            if (payload.method == "update") {
+                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieId") == payload.target._id)
                 if (entity && mp[entity_type.pool].exists(entity.id)) {
                     for (let f in payload.body) {
                         entity[f] = payload.body[f]
@@ -21,7 +21,7 @@ module.exports = async function (ctx) {
             }
             else if (payload.method == "spawn" || payload.method == "create") {
                 let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
-                entity.setVariable("fookieID", payload.target._id)
+                entity.setVariable("fookieId", payload.target._id)
                 entity.setVariable("entity_type", entity_type._id)
 
                 for (let f in payload.target) {
@@ -29,7 +29,7 @@ module.exports = async function (ctx) {
                 }
             }
             else if (payload.method == "delete" || payload.method == "despawn") {
-                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieID") == payload.target._id)
+                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieId") == payload.target._id)
                 if (entity && mp[entity_type.pool].exists(entity.id)) {
                     entity.destroy();
                 }

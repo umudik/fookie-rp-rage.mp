@@ -1,23 +1,26 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'interaction_menu',
-        display: "tag",
+        name: 'phone',
+        display: "_id",
         database: "store",
         schema: {
-            entity_type: {
-                relation: "entity_type"
+            item: {
+                relation: "item",
             },
-            label: {
+            bg_image: {
                 type: "string",
                 input: "text"
             },
-            control: {
-                type: "function",
+            ringtone: {
+                type: "string",
                 input: "text"
             },
-            job: {
-                type: "function",
-            },
+            zoom: {
+                type: "number",
+                input: "range",
+                min: 0,
+                max: 100
+            }
         },
         lifecycle: {
             read: {
@@ -36,4 +39,3 @@ module.exports = async function (ctx) {
         }
     })
 }
-

@@ -1,24 +1,25 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'interaction_menu',
-        display: "tag",
-        database: "store",
+        name: 'yellowpages',
+        display: "_id",
         schema: {
-            entity_type: {
-                relation: "entity_type"
+            account: {
+                relation: "account",
             },
-            label: {
+            title: {
                 type: "string",
                 input: "text"
             },
-            control: {
-                type: "function",
+            content: {
+                type: "string",
                 input: "text"
             },
-            job: {
-                type: "function",
+            image: {
+                type: "string",
+                input: "text"
             },
         },
+        database: "store",
         lifecycle: {
             read: {
                 role: ["everybody"],
@@ -32,8 +33,6 @@ module.exports = async function (ctx) {
             delete: {
                 role: ["admin"],
             },
-
         }
     })
 }
-
