@@ -225,7 +225,7 @@ export default {
             }
 
             await this.$store.dispatch("api", {
-                method: "post",
+                method: "create",
                 model,
                 body,
             });

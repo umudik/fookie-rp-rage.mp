@@ -96,7 +96,7 @@ export default {
             this.$store.state[model.name].pool = await this.$store.dispatch(
                 "api",
                 {
-                    method: "getAll",
+                    method: "read",
                     model: model.name,
                 }
             );

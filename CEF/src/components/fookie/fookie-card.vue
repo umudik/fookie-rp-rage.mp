@@ -207,7 +207,7 @@ export default {
                 )
                     body[key] = parseInt(body[key]);
             await this.$store.dispatch("api", {
-                method: "post",
+                method: "create",
                 model,
                 body,
             });

@@ -1,10 +1,9 @@
 {
-	"maxplayers": 10,
-	"name": "Umudik base-mode",
-	"gamemode": "roleplay",
-	"stream-distance": 500.0,
-	"announce": false,
-	"csharp": "disabled",
-	"port": 22005,
-	"voice-chat": true
+	"maxplayers" : 100,
+	"name" : "RAGE:MP Unofficial server", 
+	"gamemode" : "freeroam", 
+	"stream-distance" : 500.0,
+	"announce" : false,
+	"csharp" : "disabled",
+	"port": 22005
 }

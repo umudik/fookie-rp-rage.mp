@@ -15,7 +15,7 @@ export default {
             this.$router.push({ name: "login" });
         }
         await this.$store.dispatch("api", {
-            method: "getAll",
+            method: "read",
             model: "model",
         });
         for (let model of this.$store.state.model.pool) {
@@ -25,7 +25,8 @@ export default {
                     name: model.name,
                     display: model.display,
                     schema: {},
-                    database:"mongodb",lifecycle: {},
+                    database:"mongodb",
+                    lifecycle: {},
                     pool: [],
                 });
 

@@ -81,7 +81,7 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
     if (c_obj) {
         let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
             model: "interaction_menu",
-            method: "getAll",
+            method: "read",
             query: {
                 where: {
                     entity_type: c_obj.getVariable("entity_type"),
