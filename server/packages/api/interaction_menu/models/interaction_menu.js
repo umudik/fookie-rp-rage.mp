@@ -10,12 +10,16 @@ module.exports = async function (ctx) {
                 type: "string",
                 input: "text"
             },
+            tag: {
+
+            },
             control: {
                 type: "function",
                 input: "text"
             },
             job: {
                 type: "function",
+                required: true,
             },
         },
         lifecycle: {
@@ -31,7 +35,6 @@ module.exports = async function (ctx) {
             delete: {
                 role: ["system"],
             },
-
         }
     })
 }

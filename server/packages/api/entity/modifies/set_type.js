@@ -7,7 +7,7 @@ module.exports = async function (ctx) {
                 token: true,
                 model: payload.model + "_type",
                 method: "get",
-                query: { where: { _id } }
+                query: { filter: { _id } }
             })
             payload.type = res.data
         }

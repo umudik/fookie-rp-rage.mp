@@ -3,9 +3,7 @@ services:
   server:
     restart: always
     env_file: .env
-    build:
-      context: .
-      dockerfile: Dockerfile.server
+    build: server
     tty: true
     ports:
       - "22005:22005/udp"

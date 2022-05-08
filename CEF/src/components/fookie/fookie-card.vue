@@ -218,7 +218,7 @@ export default {
         model,
         body,
         query: {
-          where: {
+          filter: {
             _id,
           },
         },

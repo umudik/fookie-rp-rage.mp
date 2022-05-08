@@ -4,7 +4,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory",
         query: {
-            where: { _id: payload.target.inventory }
+            filter: { _id: payload.target.inventory }
         }
     })
     let inventory = res1.data
@@ -14,7 +14,7 @@ module.exports = async function (payload) {
         method: "get",
         model: "inventory_type",
         query: {
-            where: { _id: inventory.inventory_type }
+            filter: { _id: inventory.inventory_type }
         }
     })
     let inventory_type = res1.data

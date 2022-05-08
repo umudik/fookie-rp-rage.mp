@@ -1,8 +1,9 @@
+const fookie = require("fookie");
 (async () => {
-    const fookie = require("../core");
+
     await fookie.init()
-    await fookie.use(require("../server"))
-    await fookie.use(require("../cache").client)
+    await fookie.use(require("fookie-server"))
+    await fookie.use(require("fookie-cache").client)
 
     await fookie.setting({
         name: "mongodb_connection",
@@ -10,7 +11,7 @@
             url: process.env.MONGO
         }
     })
-    await fookie.use(require("../databases").mongodb)
+    await fookie.use(require("fookie-databases").mongodb)
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
     await fookie.use(require("./user/export"))
@@ -27,23 +28,17 @@
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
 
-
-
-
     await fookie.listen(2626)
-
-
-
-
-    mp.events.addProc('apiProc', async (player, payload) => {
-        payload = JSON.parse(payload)
-        payload.player = player
-        await fookie.run(payload)
-        return JSON.stringify(payload.response)
-    })
 
     mp.events.call("fookie_connected")
 })()
+
+mp.events.addProc('apiProc', async (player, payload) => {
+    payload = JSON.parse(payload)
+    payload.player = player
+    await fookie.run(payload)
+    return JSON.stringify(payload.response)
+})
 
 
 mp.events.addCommand("pos", (player) => {

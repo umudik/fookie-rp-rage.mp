@@ -6,7 +6,7 @@ module.exports = async function (ctx) {
                 token: true,
                 method: "get",
                 model: "entity_type",
-                query: { where: { model: payload.model } }
+                query: { filter: { model: payload.model } }
             })
             let entity_type = res.data
 

@@ -4,7 +4,7 @@ module.exports = async function (payload) {
         method: "count",
         model: "item",
         query: {
-            where: {
+            filter: {
                 inventory: payload.target.inventory,
                 slot: payload.target.slot,
                 item_type: payload.target.item_type,
@@ -20,7 +20,7 @@ module.exports = async function (payload) {
                 method: "count",
                 model: "item",
                 query: {
-                    where: {
+                    filter: {
                         inventory: payload.target.inventory,
                         slot: i
                     }

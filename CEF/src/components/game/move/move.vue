@@ -39,7 +39,7 @@ export default {
           },
         },
         query: {
-          where: {
+          filter: {
             _id,
           },
         },

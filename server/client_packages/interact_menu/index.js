@@ -83,7 +83,7 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
             model: "interaction_menu",
             method: "read",
             query: {
-                where: {
+                filter: {
                     entity_type: c_obj.getVariable("entity_type"),
                 }
             }

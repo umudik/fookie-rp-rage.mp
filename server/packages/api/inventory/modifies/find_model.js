@@ -11,7 +11,7 @@ module.exports = async function (payload) {
             token: true,
             model: "inventory",
             method: "get",
-            query: { where: { id: target_inv_id } }
+            query: { filter: { id: target_inv_id } }
         })
         let inventory = res.data
 
@@ -19,7 +19,7 @@ module.exports = async function (payload) {
             token: true,
             model: "entity_type",
             method: "get",
-            query: { where: { id: inventory_type.entity_type } }
+            query: { filter: { id: inventory_type.entity_type } }
         })
         let entity_type = res.data
         let modelName = entity_type.model
@@ -29,7 +29,7 @@ module.exports = async function (payload) {
             token: true,
             model: modelName,
             method: "get",
-            query: { where: { field: inventory._id } }
+            query: { filter: { field: inventory._id } }
         })
 
         let model = res.data

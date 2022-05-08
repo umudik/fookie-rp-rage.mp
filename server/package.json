@@ -19,7 +19,10 @@
   "homepage": "https://github.com/umudik/fookie-rp-rage.mp#readme",
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "fookie": "^0.7.5",
+    "fookie": "^0.9.55",
+    "fookie-cache": "^0.1.0",
+    "fookie-databases": "^0.0.4",
+    "fookie-server": "^0.1.0",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
     "sha512": "^0.0.1"

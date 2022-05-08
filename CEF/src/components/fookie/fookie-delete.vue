@@ -41,7 +41,7 @@ export default {
                 method: "delete",
                 model,
                 query: {
-                    where: {
+                    filter: {
                         _id,
                     },
                 },
