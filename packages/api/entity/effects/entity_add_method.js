@@ -1,5 +1,5 @@
 module.exports = async function (ctx) {
-    await ctx.effect({
+    await ctx.lifecycle({
         name: "entity_add_method",
         function: async function (payload, ctx) {
 

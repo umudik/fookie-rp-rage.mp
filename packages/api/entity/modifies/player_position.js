@@ -1,5 +1,5 @@
 module.exports = async function (ctx) {
-    await ctx.modify({
+    await ctx.lifecycle({
         name: "player_position",
         function: async function (payload, ctx) {
             if (!payload.hasOwnProperty("player")) {

@@ -13,19 +13,16 @@ export default new Vuex.Store({
         inGame: false,
         model: {
             pool: [],
-            display: "name",
             name: "model",
             schema: {}
         },
         menu: {
             pool: [],
-            display: "name",
             name: "menu",
             schema: {}
         },
         submenu: {
             pool: [],
-            display: "name",
             name: "submenu",
             schema: {}
         },

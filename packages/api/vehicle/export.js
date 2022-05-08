@@ -2,13 +2,13 @@ module.exports = async function (ctx) {
     await ctx.use(require("./models/vehicle.js"))
     await ctx.use(require("./models/vehicle_type.js"))
 
-    ctx.routine("vehicle_fuel", 60 * 1000, async function (ctx) {
+    setInterval(() => {
         mp.vehicles.forEach((vehicle) => {
             if (vehicle.ragemp_fuel > 0 && vehicle.ragemp_engine) {
                 vehicle.ragemp_fuel--
             }
         });
-    })
+    }, 60 * 1000);
 }
 
 mp.events.addCommand("veh_color", (player) => {

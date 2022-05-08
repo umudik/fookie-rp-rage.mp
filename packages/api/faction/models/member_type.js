@@ -1,6 +1,5 @@
 module.exports = {
     name: 'member_type',
-    display: "name",
     schema: {
         name: {
             type: "string",
@@ -20,13 +19,13 @@ module.exports = {
             role: ["everybody"],
         },
         update: {
-            role: ["admin"],
+            role: ["system"],
         },
         create: {
-            role: ["admin"],
+            role: ["system"],
         },
         delete: {
-            role: ["admin"],
+            role: ["system"],
         },
 
     }

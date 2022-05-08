@@ -1,7 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'vehicle_type',
-        display: "joaat",
         database: "store",
         schema: {
             joaat: {
@@ -21,13 +20,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
-                role: ["admin"],
+                role: ["system"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
             schema: {
                 role: ["everybody"],

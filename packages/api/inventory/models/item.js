@@ -1,6 +1,5 @@
 module.exports = {
     name: 'item',
-    display: "_id",
     database: "store",
     schema: {
         item_type: {
@@ -33,19 +32,19 @@ module.exports = {
         update: {
             modify: ["set_type", "set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", "valid_item_move_body"],
-            role: ["admin"],
+            role: ["system"],
             effect: ["item_out", "item_in"],
         },
         create: {
             modify: ["set_type", "set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible"],
-            role: ["admin"],
+            role: ["system"],
             effect: ["item_in"],
         },
         delete: {
             modify: ["set_type", "set_inventory_and_type"],
             rule: [],
-            role: ["admin"],
+            role: ["system"],
             effect: ["item_out"],
         },
     }

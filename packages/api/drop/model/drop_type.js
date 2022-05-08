@@ -1,7 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'drop_type',
-        display: "joaat",
         schema: {
             joaat: {
                 required: true,
@@ -15,13 +14,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
-                role: ["admin"],
+                role: ["system"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
 
         }

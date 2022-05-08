@@ -1,6 +1,5 @@
 module.exports = {
     name: 'member',
-    display: "_id",
     schema: {
         faction: {
             relation: "faction",
@@ -18,13 +17,13 @@ module.exports = {
             role: ["everybody"],
         },
         update: {
-            role: ["admin"],
+            role: ["system"],
         },
         create: {
-            role: ["admin"],
+            role: ["system"],
         },
         delete: {
-            role: ["admin"],
+            role: ["system"],
         },
 
     }

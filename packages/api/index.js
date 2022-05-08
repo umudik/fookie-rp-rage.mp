@@ -1,10 +1,16 @@
-//let FookieJS = require('fookie');
-const fookie = require("../../../fookie");
-
 (async () => {
-    await fookie.core()
+    const fookie = require("../core");
     await fookie.init()
+    await fookie.use(require("../server"))
+    await fookie.use(require("../cache").client)
 
+    await fookie.setting({
+        name: "mongodb_connection",
+        value: {
+            url: process.env.MONGO
+        }
+    })
+    await fookie.use(require("../databases").mongodb)
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
     await fookie.use(require("./user/export"))

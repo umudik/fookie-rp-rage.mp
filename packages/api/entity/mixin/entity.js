@@ -36,21 +36,21 @@ module.exports = async function (ctx) {
                 spawn: {
                     modify: ["set_target", "set_type"],
                     rule: ["need_target", "need_type"],
-                    role: ["admin"],
+                    role: ["system"],
                     filter: [],
                     effect: ["rage_mp_entity_sync"]
                 },
                 despawn: {
                     modify: ["set_target", "set_type"],
                     rule: ["need_target", "need_type"],
-                    role: ["admin"],
+                    role: ["system"],
                     filter: [],
                     effect: ["rage_mp_entity_sync"]
                 },
                 save: {
                     modify: ["set_target", "set_type"],
                     rule: ["need_target", "need_type"],
-                    role: ["admin"],
+                    role: ["system"],
                     effect: [],
                     filter: [],
                 }

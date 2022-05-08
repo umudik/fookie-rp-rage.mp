@@ -1,7 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'account',
-        display: "_id",
         schema: {
             email: {
                 type: "string",
@@ -23,13 +22,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
-                role: ["admin"],
+                role: ["system"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
         }
     })

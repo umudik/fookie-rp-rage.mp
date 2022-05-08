@@ -1,9 +1,11 @@
-const sha512 = require("sha512");
+const sha256 = require("crypto-js/sha256");
 module.exports = async function (ctx) {
-  await ctx.modify({
+  await ctx.lifecycle({
     name: "hash_password",
-    function: async function (payload, ctx) {
-      payload.body.password = sha512(payload.body.password);
+    function: async function (payload, ctx, state) {
+      if (ctx.lodash.has(payload.body, "password")) {
+        payload.body.password = sha256(payload.body.password).toString();
+      }
     },
   });
 };

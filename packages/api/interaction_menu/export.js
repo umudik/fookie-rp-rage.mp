@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
     await ctx.use(require("./models/interaction_menu.js"))
 
     await ctx.run({
-        system: true,
+        token: true,
         model: "interaction_model",
         method: "create",
         body: {
@@ -13,7 +13,7 @@ module.exports = async function (ctx) {
             },
             job: async function (character, entity) {
                 ctx.run({
-                    system: true,
+                    token: true,
                     method: "update",
                     model: "vehicle",
                     query: { pk: entity.fookieId },
@@ -27,7 +27,7 @@ module.exports = async function (ctx) {
 
 
     await ctx.run({
-        system: true,
+        token: true,
         model: "interaction_model",
         method: "create",
         body: {
@@ -38,7 +38,7 @@ module.exports = async function (ctx) {
             },
             job: async function (player, entity) {
                 ctx.run({
-                    system: true,
+                    token: true,
                     method: "update",
                     model: entity.entity_type,
                     query: { pk: entity.fookieId },
@@ -59,7 +59,7 @@ mp.events.addCommand("veh_engine", (player) => {
 
 mp.events.add("interaction_menu_do", async function (player, entity, event) {
     let res = await payload.ctx.run({
-        system: true,
+        token: true,
         method: "read",
         model: "interaction_menu",
         query: {
@@ -69,7 +69,7 @@ mp.events.add("interaction_menu_do", async function (player, entity, event) {
     let interaction_menu = res.data[0]
 
     res = await payload.ctx.run({
-        system: true,
+        token: true,
         method: "read",
         model: "character",
         query: {

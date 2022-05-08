@@ -13,13 +13,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
                 role: ["admin", "rage_mp_post"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
 
         }

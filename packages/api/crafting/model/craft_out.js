@@ -1,7 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'craft_out',
-        display: "_id",
         database: "store",
         schema: {
             craft: {
@@ -20,13 +19,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
-                role: ["admin"],
+                role: ["system"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
 
         }

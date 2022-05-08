@@ -2,7 +2,6 @@ module.exports = async function (ctx) {
     await ctx.model({
         mixin: ["entity"],
         name: 'drop',
-        display: "_id",
         schema: {
             type: {
                 relation: "drop_type",
@@ -19,13 +18,13 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                role: ["admin"],
+                role: ["system"],
             },
             create: {
-                role: ["admin"],
+                role: ["system"],
             },
             delete: {
-                role: ["admin"],
+                role: ["system"],
             },
 
         }

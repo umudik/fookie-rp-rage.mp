@@ -5,7 +5,7 @@ module.exports = async function (payload) {
     let other = payload.body.other
 
     let postable = ctx.run({
-        system: true,
+        token: true,
         model: "item",
         method: "test",
         options: {
@@ -22,7 +22,7 @@ module.exports = async function (payload) {
 
 
     let deletable = ctx.run({
-        system: true,
+        token: true,
         model: "item",
         method: "test",
         options: {
@@ -37,7 +37,7 @@ module.exports = async function (payload) {
 
     if (postable.data && deletable.data) {
         ctx.run({
-            system: true,
+            token: true,
             model: "item",
             method: "create",
             body: {
@@ -49,7 +49,7 @@ module.exports = async function (payload) {
             }
         })
         ctx.run({
-            system: true,
+            token: true,
             model: "item",
             method: "update",
             body: {

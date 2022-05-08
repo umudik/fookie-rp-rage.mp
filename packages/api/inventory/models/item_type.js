@@ -1,6 +1,5 @@
 module.exports = {
     name: 'item_type',
-    display: "name",
     database: "store",
     schema: {
         name: {
@@ -44,13 +43,13 @@ module.exports = {
             role: ["everybody"],
         },
         update: {
-            role: ["admin"],
+            role: ["system"],
         },
         create: {
-            role: ["admin"],
+            role: ["system"],
         },
         delete: {
-            role: ["admin"],
+            role: ["system"],
         },
     }
 }

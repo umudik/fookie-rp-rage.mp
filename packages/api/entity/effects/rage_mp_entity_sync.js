@@ -1,9 +1,9 @@
 module.exports = async function (ctx) {
-    await ctx.effect({
+    await ctx.lifecycle({
         name: "rage_mp_entity_sync",
         function: async function (payload) {
             let res = await payload.ctx.run({
-                system: true,
+                token: true,
                 method: "get",
                 model: "entity_type",
                 query: { where: { model: payload.model } }

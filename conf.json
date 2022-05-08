@@ -1,5 +1,5 @@
 {
-	"maxplayers" : 100,
+	"maxplayers" : 20,
 	"name" : "RAGE:MP Unofficial server", 
 	"gamemode" : "freeroam", 
 	"stream-distance" : 500.0,

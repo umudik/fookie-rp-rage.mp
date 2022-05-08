@@ -1,4 +1,3 @@
-
 module.exports = async function (ctx) {
     await ctx.use(require("./mixin/entity"))
     await ctx.use(require("./models/entity_type"))
@@ -11,7 +10,7 @@ module.exports = async function (ctx) {
 
     // SPAWN ALL ENTITIES
     let res = await ctx.run({
-        system: true,
+        token: true,
         model: "entity_type",
         method: "read"
     })
@@ -19,7 +18,7 @@ module.exports = async function (ctx) {
 
     for (let entity_type of entity_types) {
         let res = await ctx.run({
-            system: true,
+            token: true,
             method: "read",
             model: entity_type.model,
 
@@ -29,11 +28,11 @@ module.exports = async function (ctx) {
 
         for (let entity of allEntites) {
             ctx.run({
-                system: true,
+                token: true,
                 model: entity_type.model,
                 method: "spawn",
                 query: {
-                    _id: entity._id
+                    pk: entity._id
                 }
             })
         }
