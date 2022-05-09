@@ -74,29 +74,13 @@
                     y: player.position.y,
                     z: player.position.z
                 },
-                dimension: player.dimension
+                dimension: player.dimension,
+                color1: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
+                color2: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
+                mod_spoiler: 3,
+                mod_front_bumper: 3,
             }
         })
-        setTimeout(async () => {
-            let res2 = await fookie.run({
-                token: true,
-                model: "vehicle",
-                method: "update",
-                query: {
-                    filter: {
-                        _id: res.data._id.toString()
-                    }
-                },
-                body: {
-                    color1: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
-                    color2: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
-                    mod_spoiler: 3,
-                    mod_front_bumper: 2
-                }
-            })
-        }, 3000);
-
-
     })
 
 

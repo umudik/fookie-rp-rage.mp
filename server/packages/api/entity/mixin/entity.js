@@ -7,6 +7,11 @@ module.exports = async function (ctx) {
                     type: "string",
                     required: true
                 },
+                spawned: {
+                    type: "boolean",
+                    required: true,
+                    default: true
+                },
                 dimension: {
                     type: "number",
                     input: "number"
@@ -35,6 +40,7 @@ module.exports = async function (ctx) {
                 update: {
                     effect: ["rage_mp_entity_sync"],
                     rule: ["need_type"],
+                    preRule: ["dont_spawn_twice"],
                     modify: ["set_type"]
                 },
                 spawn: {
