@@ -5,25 +5,23 @@ module.exports = async function (ctx) {
         schema: {
             name: {
                 type: "string",
-                input: "text"
+                unique: true,
+                required: true,
             },
             model: {
                 required: true,
+                unique: true,
                 type: "string",
-                input: "text"
             },
             pool: {
                 required: true,
                 type: "string",
-                input: "text"
             },
             data: {
                 type: "object",
-                input: "object"
             },
             spawnAtStart: {
                 type: "boolean",
-                input: "boolean"
             },
             syncInterval: {
                 type: "boolean",
@@ -52,4 +50,24 @@ module.exports = async function (ctx) {
             },
         }
     })
+
+
+
+    const entityTypes = [{
+        name: "Vehicle",
+        model: "vehicle",
+        pool: "vehicles",
+        spawnAtStart: true,
+        syncInterval: true,
+        syncRate: 1000,
+    }]
+
+    for (const e of entityTypes) {
+        await ctx.run({
+            token: true,
+            model: "entity_type",
+            method: "create",
+            body: e
+        })
+    }
 }

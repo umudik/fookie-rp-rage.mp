@@ -1,6 +1,7 @@
-const fookie = require("fookie");
-(async () => {
 
+(async () => {
+    const fookie = require("fookie");
+    require("dotenv").config();
     await fookie.init()
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
@@ -12,6 +13,7 @@ const fookie = require("fookie");
         }
     })
     await fookie.use(require("fookie-databases").mongodb)
+
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
     await fookie.use(require("./user/export"))
@@ -30,29 +32,73 @@ const fookie = require("fookie");
 
     await fookie.listen(2626)
 
-    mp.events.call("fookie_connected")
+    mp.events.call("fookie_connected", fookie)
+
+    mp.events.addProc('apiProc', async (player, payload) => {
+        payload = JSON.parse(payload)
+        await fookie.run(payload)
+        return JSON.stringify(payload.response)
+    })
+
+
+    mp.events.addCommand("pos", (player) => {
+        player.outputChatBox(player.position + " -pos")
+    })
+
+    mp.events.addCommand("dim", (player) => {
+        player.outputChatBox(player.dimension + " -dim")
+    })
+    mp.events.addCommand('i', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "interaction_menu",
+            method: "read",
+            query: {
+                filter: {
+                }
+            },
+        })
+        console.log(res);
+    })
+
+    mp.events.addCommand('v', async (player) => {
+        let vt = fookie.local.random("vehicle_type")
+        let res = await fookie.run({
+            token: true,
+            model: "vehicle",
+            method: "create",
+            body: {
+                type: vt.id,
+                position: {
+                    x: player.position.x,
+                    y: player.position.y,
+                    z: player.position.z
+                },
+                dimension: player.dimension
+            }
+        })
+        setTimeout(async () => {
+            let res2 = await fookie.run({
+                token: true,
+                model: "vehicle",
+                method: "update",
+                query: {
+                    filter: {
+                        _id: res.data._id.toString()
+                    }
+                },
+                body: {
+                    color1: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
+                    color2: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
+                    mod_spoiler: 3,
+                    mod_front_bumper: 2
+                }
+            })
+        }, 3000);
+
+
+    })
+
+
 })()
-
-mp.events.addProc('apiProc', async (player, payload) => {
-    payload = JSON.parse(payload)
-    payload.player = player
-    await fookie.run(payload)
-    return JSON.stringify(payload.response)
-})
-
-
-mp.events.addCommand("pos", (player) => {
-    player.outputChatBox(player.position + " -pos")
-})
-
-mp.events.addCommand("dim", (player) => {
-    player.outputChatBox(player.dimension + " -dim")
-})
-
-mp.events.addCommand('v', (player) => {
-    mp.vehicles.new(mp.joaat("openwheel1"), player.position)
-})
-
-
-
 

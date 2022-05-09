@@ -1,3 +1,39 @@
+
+let w = 0.14
+let active = false
+let entity_type = null
+let c_obj = null
+let index = 0
+let trashold = 3
+let menus = []
+
+let c1 = {
+    font: 0,
+    color: [255, 255, 255, 255],
+    scale: [0.3, 0.3],
+    outline: true,
+}
+let c2 = {
+    font: 0,
+    color: [255, 165, 1, 255],
+    scale: [0.37, 0.37],
+    outline: false,
+}
+
+let tagOpt = {
+    font: 0,
+    color: [255, 255, 255, 80],
+    scale: [0.3, 0.3],
+    outline: false,
+}
+
+let tagOpt2 = {
+    font: 0,
+    color: [255, 165, 1, 120],
+    scale: [0.3, 0.3],
+    outline: false,
+}
+
 mp.game.calcDist = function calcDist(v1, v2) {
     try {
         return mp.game.system.vdist(
@@ -59,7 +95,7 @@ mp.game.getClosest = function () {
 }
 
 
-mp.game.keys = {
+const keys = {
     enter: 0x0D,
     down: 0x28,
     rigth: 0x27,
@@ -67,17 +103,18 @@ mp.game.keys = {
     left: 0x25,
     y: 0x59,
 }
-let methods = ["tes1", "test2", "test3"]
-mp.keys.bind(mp.game.keys.up, true, function () {
+
+
+mp.keys.bind(keys.up, true, function () {
     if (active)
         index++
 })
-mp.keys.bind(mp.game.keys.down, true, function () {
+mp.keys.bind(keys.down, true, function () {
     if (active)
         index--
 })
 
-mp.keys.bind(mp.game.keys.y, true, async function () {
+mp.keys.bind(keys.y, true, async function () {
     if (c_obj) {
         let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
             model: "interaction_menu",
@@ -89,31 +126,20 @@ mp.keys.bind(mp.game.keys.y, true, async function () {
             }
         }))
         res = JSON.parse(res)
-        methods = res.data
+        menus = res.data
         active = !active
     }
 })
 
-mp.keys.bind(mp.game.keys.enter, true, async function () {
+mp.keys.bind(keys.enter, true, async function () {
     if (active) {
-        let res = await mp.events.callRemoteProc("apiProc", JSON.stringify({
-            model: "interaction_menu",
-            method: "do",
-            body: {
-                entity_type: c_obj.getVariable("entity_type"),
-                fookieId: c_obj.getVariable("fookieId"),
-                interaction_menu: methods[index]._id
-            }
-        }))
-        res = JSON.parse(res)
-        if (res.data) {
-            let obj = {
-                type: methods[index].job,
-                selectedId: c_obj.getVariable("fookieId")
-            }
+        await mp.events.callRemote("interaction_menu_do", JSON.stringify({
+            entity_type: c_obj.getVariable("entity_type"),
+            fookieId: c_obj.getVariable("fookieId"),
+            interaction_menu: menus[index].id
 
-            mp.cef.execute(`app.$store.state.menus.push(${JSON.stringify(obj)})`)
-        }
+        }))
+        active = false
     }
 })
 
@@ -121,48 +147,14 @@ mp.keys.bind(mp.game.keys.enter, true, async function () {
 
 
 
-let w = 0.14
-let active = false
-let entity_type = null
-let c_obj = null
-let index = 0
-let trashold = 3
-
-
-var c1 = {
-    font: 0,
-    color: [255, 255, 255, 255],
-    scale: [0.3, 0.3],
-    outline: true,
-}
-var c2 = {
-    font: 0,
-    color: [255, 165, 1, 255],
-    scale: [0.37, 0.37],
-    outline: false,
-}
-
-var tagOpt = {
-    font: 0,
-    color: [255, 255, 255, 80],
-    scale: [0.3, 0.3],
-    outline: false,
-}
-
-var tagOpt2 = {
-    font: 0,
-    color: [255, 165, 1, 120],
-    scale: [0.3, 0.3],
-    outline: false,
-}
 
 function drawMenu(obj) {
     try {
-        for (let i in methods) {
-            if (index > methods.length - 1) index = methods.length - 1
+        for (let i in menus) {
+            if (index > menus.length - 1) index = menus.length - 1
             if (index < 0) index = 0
             let dist = mp.game.calcDist(obj.position, pos)
-            mp.game.graphics.drawText(methods[i].label, [obj.position.x, obj.position.y, obj.position.z + 0.8 + (i * w)], (i == index) ? c2 : c1);
+            mp.game.graphics.drawText(menus[i].label, [obj.position.x, obj.position.y, obj.position.z + 0.8 + (i * w)], (i == index) ? c2 : c1);
 
         }
     } catch (error) {
@@ -183,13 +175,12 @@ function drawTag(obj) {
 mp.events.add('render', () => {
     if (active & c_obj != undefined) {
         drawMenu(c_obj)
-        drawTag(c_obj)
-    } else {
-        drawTag(c_obj)
-    }
+    } else { }
+    drawTag(c_obj)
 })
 
 mp.game.ui.setTextCentre(false);
+
 setInterval(() => {
     c_obj = mp.game.getClosest()
     if (c_obj != null) {
@@ -202,4 +193,4 @@ setInterval(() => {
             c_obj = null
         }
     }
-}, 500);
+}, 200);

@@ -5,7 +5,8 @@ module.exports = async function (ctx) {
         mixin: ["entity"],
         schema: {
             type: {
-                relation: "object_type"
+                type: "string",
+                required: true
             },
         },
         lifecycle: {

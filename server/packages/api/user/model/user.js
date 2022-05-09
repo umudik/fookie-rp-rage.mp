@@ -40,6 +40,6 @@ module.exports = async function (ctx) {
         preRule: ["has_password_email"],
       }
     },
-    mixin: ["cache"],
+    mixin: [],
   });
 };

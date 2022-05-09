@@ -3,6 +3,10 @@ module.exports = async function (ctx) {
         name: "entity",
         object: {
             schema: {
+                type: {
+                    type: "string",
+                    required: true
+                },
                 dimension: {
                     type: "number",
                     input: "number"
@@ -20,36 +24,36 @@ module.exports = async function (ctx) {
             lifecycle: {
                 delete: {
                     effect: ["rage_mp_entity_sync"],
-                    rule: ["need_target", "need_type"],
-                    modify: ["set_target", "set_type"]
+                    rule: ["need_type"],
+                    modify: ["set_type", "add_entities_to_state"]
                 },
                 create: {
                     effect: ["rage_mp_entity_sync"],
-                    rule: ["need_target", "need_type"],
-                    modify: ["entity_add_method", "set_target", "set_type", "player_position"]
+                    rule: ["need_type"],
+                    modify: ["set_type"]
                 },
                 update: {
                     effect: ["rage_mp_entity_sync"],
-                    rule: ["need_target", "need_type"],
-                    modify: ["set_target", "set_type"]
+                    rule: ["need_type"],
+                    modify: ["set_type"]
                 },
                 spawn: {
-                    modify: ["set_target", "set_type"],
-                    rule: ["need_target", "need_type"],
+                    modify: ["set_type"],
+                    rule: ["need_type"],
                     role: ["system"],
                     filter: [],
                     effect: ["rage_mp_entity_sync"]
                 },
                 despawn: {
-                    modify: ["set_target", "set_type"],
-                    rule: ["need_target", "need_type"],
+                    modify: ["set_type"],
+                    rule: ["need_type"],
                     role: ["system"],
                     filter: [],
                     effect: ["rage_mp_entity_sync"]
                 },
                 save: {
-                    modify: ["set_target", "set_type"],
-                    rule: ["need_target", "need_type"],
+                    modify: ["set_type"],
+                    rule: ["need_type"],
                     role: ["system"],
                     effect: [],
                     filter: [],

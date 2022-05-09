@@ -1,15 +1,14 @@
 module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "set_type",
-        function: async function (payload) {
-            let _id = payload.target[payload.model + "_type"]
-            let res = await ctx.run({
+        function: async function (payload, ctx, state) {
+            let et_res = await ctx.run({
                 token: true,
-                model: payload.model + "_type",
-                method: "get",
-                query: { filter: { _id } }
+                model: "entity_type",
+                method: "read",
+                query: { filter: { model: payload.model } }
             })
-            payload.type = res.data
+            state.entity_type = et_res.data[0]
         }
     })
 }

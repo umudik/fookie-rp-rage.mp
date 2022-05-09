@@ -14,7 +14,7 @@ module.exports = async function (payload) {
     if (res.data == 0) {
         return true
     } else {
-        for (let i in payload.type.stack_size)
+        for (let i in state.entity_type.stack_size)
             res = await ctx.run({
                 token: true,
                 method: "count",

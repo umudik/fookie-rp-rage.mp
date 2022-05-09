@@ -11,10 +11,6 @@ module.exports = async function (ctx) {
             owner: {
                 relation: "character"
             },
-            shop_type: {
-                required: true,
-                relation: "shop_type",
-            },
             open: {
                 type: "boolean",
                 input: "boolean"

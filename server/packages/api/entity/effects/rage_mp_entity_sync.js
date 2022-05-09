@@ -1,38 +1,51 @@
 module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "rage_mp_entity_sync",
-        function: async function (payload) {
-            let res = await payload.ctx.run({
-                token: true,
-                method: "get",
-                model: "entity_type",
-                query: { filter: { model: payload.model } }
-            })
-            let entity_type = res.data
+        function: async function (payload, ctx, state) {
 
             if (payload.method == "update") {
-                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieId") == payload.target._id)
-                if (entity && mp[entity_type.pool].exists(entity.id)) {
-                    for (let f in payload.body) {
-                        entity[f] = payload.body[f]
+                const entities_res = await ctx.run({
+                    token: true,
+                    model: payload.model,
+                    method: "read",
+                    query: payload.query
+                })
+
+                for (const entity of entities_res.data) {
+                    let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookieId") == entity._id.toString())
+                    if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
+                        for (let f in payload.body) {
+                            rage_entity[f] = payload.body[f]
+                        }
+                    }
+                }
+            }
+
+            else if (payload.method == "create") {
+                let type_res = await ctx.run({
+                    token: true,
+                    model: `${payload.model}_type`,
+                    method: "read",
+                    query: { filter: { pk: payload.body.type } }
+                })
+                const type = type_res.data[0]
+                let entity = mp[state.entity_type.pool].new(mp.joaat(type.joaat), payload.body.position)
+                entity.setVariable("fookieId", payload.response.data._id.toString())
+                entity.setVariable("fookie_type", `${payload.model}_type`)
+                entity.setVariable("entity_type", state.entity_type.model)
+
+                for (let f in payload.response.data) {
+                    entity[f] = payload.response.data[f]
+                }
+            }
+            else if (payload.method == "delete") {
+                for (let entity of state.deleteEntities) {
+                    let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookieId") == entity._id.toString())
+                    if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
+                        rage_entity.destroy();
                     }
                 }
 
-            }
-            else if (payload.method == "spawn" || payload.method == "create") {
-                let entity = mp[entity_type.pool].new(payload.type.joaat, payload.target.position)
-                entity.setVariable("fookieId", payload.target._id)
-                entity.setVariable("entity_type", entity_type._id)
-
-                for (let f in payload.target) {
-                    entity[f] = payload.target[f]
-                }
-            }
-            else if (payload.method == "delete" || payload.method == "despawn") {
-                let entity = mp[entity_type.pool].toArray().find(e => e.getVariable("fookieId") == payload.target._id)
-                if (entity && mp[entity_type.pool].exists(entity.id)) {
-                    entity.destroy();
-                }
             }
 
         }

@@ -6,7 +6,6 @@ module.exports = async function (ctx) {
         try {
           state.user = jwt.verify(payload.token, process.env.SYSTEM_TOKEN);
         } catch (error) {
-          console.log("Invalid token");
         }
       }
     }

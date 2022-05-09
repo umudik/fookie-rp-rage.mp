@@ -3,10 +3,6 @@ module.exports = async function (ctx) {
         mixin: ["entity"],
         name: 'drop',
         schema: {
-            type: {
-                relation: "drop_type",
-                required: true,
-            },
             inventory: {
                 required: true,
                 relation: "inventory",

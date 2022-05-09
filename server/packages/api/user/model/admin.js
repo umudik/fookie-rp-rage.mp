@@ -25,6 +25,6 @@ module.exports = async function (ctx) {
         role: ["system"],
       },
     },
-    mixin: ["cache"],
+    mixin: [],
   });
 };

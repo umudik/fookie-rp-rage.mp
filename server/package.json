@@ -19,12 +19,17 @@
   "homepage": "https://github.com/umudik/fookie-rp-rage.mp#readme",
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "dotenv": "^16.0.0",
     "fookie": "^0.9.55",
     "fookie-cache": "^0.1.0",
-    "fookie-databases": "^0.0.4",
+    "fookie-databases": "^0.0.5",
     "fookie-server": "^0.1.0",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "sha512": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#v1.0"
   }
 }

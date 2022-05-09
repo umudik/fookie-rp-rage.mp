@@ -3,19 +3,23 @@ module.exports = async function (ctx) {
         name: 'interaction_menu',
         database: "store",
         schema: {
+            name: {
+                type: "string",
+                required: true,
+            },
             entity_type: {
-                relation: "entity_type"
+                type: "string",
+                required: true,
             },
             label: {
                 type: "string",
-                input: "text"
+                required: true,
             },
             tag: {
-
+                type: "string",
             },
             control: {
                 type: "function",
-                input: "text"
             },
             job: {
                 type: "function",
