@@ -6,7 +6,7 @@ module.exports = {
             input: "text",
         },
     },
-    database: "store",
+    database: "mongodb",
     lifecycle: {
         read: {
             role: ["everybody"],

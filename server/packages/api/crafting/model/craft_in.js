@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'craft_in',
-        database: "store",
+        database: "mongodb",
         schema: {
             craft: {
                 relation: "craft"

@@ -1,6 +1,6 @@
 module.exports = {
     name: 'inventory_type',
-    database: "store",
+    database: "mongodb",
     schema: {
         name: {
             required: true,

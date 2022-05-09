@@ -1,9 +1,10 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        mixin: ["entity"],
+        mixin: ["entity", "cache"],
         name: 'vehicle',
         database: "mongodb",
         schema: {
+            rotation: { type: "object" },
             owner: { relation: "character" },
             inventory: { relation: "inventory" },
             mod_spoiler: { type: "number", default: -1 },

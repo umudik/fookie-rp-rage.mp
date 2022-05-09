@@ -14,16 +14,13 @@ module.exports = async function (ctx) {
                 },
                 dimension: {
                     type: "number",
-                    input: "number"
                 },
                 position: {
                     required: true,
                     type: "object",
-                    input: "object",
                 },
                 heading: {
-                    type: "object",
-                    input: "object",
+                    type: "number",
                 },
             },
             lifecycle: {

@@ -11,7 +11,7 @@ module.exports = {
             relation: "character",
         },
     },
-    database: "store",
+    database: "mongodb",
     lifecycle: {
         read: {
             role: ["everybody"],

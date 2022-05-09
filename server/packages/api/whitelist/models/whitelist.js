@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'whitelist',
-        database: "store",
+        database: "mongodb",
         schema: {
             rgscId: {
                 type: "string",

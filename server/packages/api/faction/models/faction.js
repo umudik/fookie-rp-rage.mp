@@ -9,7 +9,7 @@ module.exports = {
             relation: "faction_type",
         },
     },
-    database: "store",
+    database: "mongodb",
     lifecycle: {
         read: {
             role: ["everybody"],

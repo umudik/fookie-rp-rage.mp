@@ -18,7 +18,7 @@ module.exports = async function (ctx) {
                 input: "text"
             },
         },
-        database: "store",
+        database: "mongodb",
         lifecycle: {
 
             read: {

@@ -5,7 +5,7 @@ module.exports = {
             relation: "example",
         },
     },
-    database: "store",
+    database: "mongodb",
     lifecycle: {
 
         read: {

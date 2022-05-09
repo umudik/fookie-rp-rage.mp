@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'shop_type',
-        database: "store",
+        database: "mongodb",
         schema: {
             joaat: {
                 required: true,

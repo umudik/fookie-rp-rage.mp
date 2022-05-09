@@ -39,16 +39,49 @@ mp.events.add("fookie_connected", async (ctx) => {
 
 
 
-
-
-
-
-
+    let i = 0
 
     // SAVE ENTITIES TO DB CRONJOB
     setInterval(async () => {
-        for (let entity_type of entity_types) {
-        }
+        console.log("VEHICLES SAVED...");
+        mp.vehicles.forEach(async function (entity) {
+            const speed = Math.abs(entity.velocity.x) + Math.abs(entity.velocity.y) + Math.abs(entity.velocity.z)
+            if (entity.getVariable("fookie_id") && speed < 0.1) {
+                ctx.run({
+                    token: true,
+                    model: "vehicle",
+                    method: "update",
+                    query: {
+                        filter: {
+                            pk: entity.getVariable("fookie_id"),
+                        }
+                    },
+                    body: {
+                        position: entity.position,
+                        heading: entity.heading,
+                        rotation: entity.rotation
+                    }
+                });
+            }
+        })
+    }, 60 * 60 * 1000)
+
+    mp.events.add("playerExitVehicle", async function (player, entity) {
+        let res = await ctx.run({
+            token: true,
+            model: "vehicle",
+            method: "update",
+            query: {
+                filter: {
+                    pk: entity.getVariable("fookie_id"),
+                }
+            },
+            body: {
+                position: entity.position,
+                heading: entity.heading,
+                rotation: entity.rotation
+            }
+        });
     })
 
-}, 5000)
+})

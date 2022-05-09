@@ -22,7 +22,7 @@
     await fookie.use(require("./whitelist/export"))
     await fookie.use(require("./shop/export"))
     await fookie.use(require("./object/export"))
-    await fookie.use(require("./crafting/export"))
+    // await fookie.use(require("./crafting/export"))
     await fookie.use(require("./drop/export"))
     await fookie.use(require("./faction/export"))
     await fookie.use(require("./house/export"))
@@ -58,7 +58,6 @@
                 }
             },
         })
-        console.log(res);
     })
 
     mp.events.addCommand('v', async (player) => {
@@ -95,7 +94,6 @@
             method: "read",
         })
         let t = fookie.lodash.sample(t_res.data)
-        console.log(t);
         let res = await fookie.run({
             token: true,
             model: "object",
@@ -110,7 +108,42 @@
                 dimension: player.dimension
             }
         })
+    })
+
+    mp.events.addCommand('t', async (player) => {
+        console.log(player.position);
+        player.position = new mp.Vector3(0, 0, 72.5);
+    })
+
+
+
+    mp.events.addCommand('ap', async (player) => {
+        let t_res = await fookie.run({
+            token: true,
+            model: "apartment_type",
+            method: "read",
+        })
+        let t = fookie.lodash.sample(t_res.data)
+        console.log(t._id);
+        let res = await fookie.run({
+            token: true,
+            model: "apartment",
+            method: "create",
+            body: {
+                name: "Umut APT",
+                type: t._id.toString(),
+                position: {
+                    x: player.position.x,
+                    y: player.position.y,
+                    z: player.position.z
+                },
+                dimension: player.dimension,
+            }
+        })
         console.log(res);
     })
+
+
+
 })()
 

@@ -13,7 +13,7 @@ module.exports = async function (ctx) {
                 input: "texg"
             }
         },
-        database: "store",
+        database: "mongodb",
         lifecycle: {
 
             read: {

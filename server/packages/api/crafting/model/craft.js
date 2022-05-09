@@ -3,7 +3,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'craft',
-        database: "store",
+        database: "mongodb",
         schema: {
             name: {
                 type: "string",

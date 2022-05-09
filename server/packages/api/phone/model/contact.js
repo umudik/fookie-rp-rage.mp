@@ -9,7 +9,7 @@ module.exports = async function (ctx) {
                 relation: "character",
             }
         },
-        database: "store",
+        database: "mongodb",
         lifecycle: {
 
             read: {

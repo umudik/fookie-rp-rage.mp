@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'crafting_table_type',
-        database: "store",
+        database: "mongodb",
         schema: {
             joaat: {
                 type: "string",

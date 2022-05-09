@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'law_article',
-        database: "store",
+        database: "mongodb",
         schema: {
             title: {
                 type: "string",

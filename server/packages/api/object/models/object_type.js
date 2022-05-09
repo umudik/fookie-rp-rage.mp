@@ -56,7 +56,6 @@ module.exports = async function (ctx) {
             method: "create",
             body: ot
         })
-        console.log(res);
     }
 
 }

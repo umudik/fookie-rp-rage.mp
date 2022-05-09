@@ -69,6 +69,14 @@ module.exports = async function (ctx) {
             spawnAtStart: true,
             syncInterval: true,
             syncRate: 2000,
+        },
+        {
+            name: "Apartment",
+            model: "apartment",
+            pool: "objects",
+            spawnAtStart: true,
+            syncInterval: true,
+            syncRate: 2000,
         }
     ]
 

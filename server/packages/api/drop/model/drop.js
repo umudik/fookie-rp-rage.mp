@@ -8,7 +8,7 @@ module.exports = async function (ctx) {
                 relation: "inventory",
             },
         },
-        database: "store",
+        database: "mongodb",
         lifecycle: {
             read: {
                 role: ["everybody"],
