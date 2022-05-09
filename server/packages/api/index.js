@@ -30,7 +30,7 @@
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
 
-    await fookie.listen(2626)
+    await fookie.listen(3434)
 
     mp.events.call("fookie_connected", fookie)
 
@@ -62,13 +62,18 @@
     })
 
     mp.events.addCommand('v', async (player) => {
-        let vt = fookie.local.random("vehicle_type")
+        let vt_res = await fookie.run({
+            token: true,
+            model: "vehicle_type",
+            method: "read",
+        })
+        let vt = fookie.lodash.sample(vt_res.data)
         let res = await fookie.run({
             token: true,
             model: "vehicle",
             method: "create",
             body: {
-                type: vt.id,
+                type: vt._id,
                 position: {
                     x: player.position.x,
                     y: player.position.y,
@@ -83,6 +88,29 @@
         })
     })
 
-
+    mp.events.addCommand('o', async (player) => {
+        let t_res = await fookie.run({
+            token: true,
+            model: "object_type",
+            method: "read",
+        })
+        let t = fookie.lodash.sample(t_res.data)
+        console.log(t);
+        let res = await fookie.run({
+            token: true,
+            model: "object",
+            method: "create",
+            body: {
+                type: t._id.toString(),
+                position: {
+                    x: player.position.x,
+                    y: player.position.y,
+                    z: player.position.z
+                },
+                dimension: player.dimension
+            }
+        })
+        console.log(res);
+    })
 })()
 

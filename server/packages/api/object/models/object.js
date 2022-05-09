@@ -1,28 +1,27 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'object',
-        database: "store",
+        database: "mongodb",
         mixin: ["entity"],
         schema: {
-            type: {
+            name: {
                 type: "string",
-                required: true
-            },
+                default: "Misnomer object"
+            }
         },
         lifecycle: {
+            create: {
+                role: ["system"],
+            },
             read: {
                 role: ["everybody"],
             },
             update: {
                 role: ["system"],
             },
-            create: {
-                role: ["admin", "rage_mp_post"],
-            },
             delete: {
                 role: ["system"],
             },
-
         }
     })
 }

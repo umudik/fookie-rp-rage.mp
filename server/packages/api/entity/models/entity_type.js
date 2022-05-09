@@ -53,14 +53,24 @@ module.exports = async function (ctx) {
 
 
 
-    const entityTypes = [{
-        name: "Vehicle",
-        model: "vehicle",
-        pool: "vehicles",
-        spawnAtStart: true,
-        syncInterval: true,
-        syncRate: 1000,
-    }]
+    const entityTypes = [
+        {
+            name: "Vehicle",
+            model: "vehicle",
+            pool: "vehicles",
+            spawnAtStart: true,
+            syncInterval: true,
+            syncRate: 1000,
+        },
+        {
+            name: "Object",
+            model: "object",
+            pool: "objects",
+            spawnAtStart: true,
+            syncInterval: true,
+            syncRate: 2000,
+        }
+    ]
 
     for (const e of entityTypes) {
         await ctx.run({

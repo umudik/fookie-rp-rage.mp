@@ -70,7 +70,6 @@ mp.game.getClosest = function () {
     })
     mp.players.forEach(e => {
         if (c_p == null) {
-            // if (e.id == mp.players.local.id) c_p = e
         } else if (mp.game.calcDist(c_p.position, pos) > mp.game.calcDist(e.position, pos) & e.id != mp.players.local.id)
             c_p = e
     })
@@ -138,7 +137,6 @@ mp.keys.bind(keys.enter, true, async function () {
             fookie_id: c_obj.getVariable("fookie_id"),
             interaction_menu: menus[index].id
         }))
-        active = false
     }
 })
 

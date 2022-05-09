@@ -3,7 +3,8 @@ const lodash = require("lodash")
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'vehicle_type',
-        database: "store",
+        mixin: ["cache"],
+        database: "mongodb",
         schema: {
             joaat: {
                 type: "string",
@@ -779,9 +780,10 @@ module.exports = async function (ctx) {
         "zr380": 540101442,
         "ztype": 758895617
     }
+    const arr = []
 
     for (const j of lodash.keys(joaats)) {
-        await ctx.run({
+        arr.push(ctx.run({
             token: true,
             model: "vehicle_type",
             method: "create",
@@ -789,7 +791,7 @@ module.exports = async function (ctx) {
                 joaat: j,
                 maxFuel: 100,
             }
-        })
-
+        }))
     }
+    await Promise.all(arr)
 }

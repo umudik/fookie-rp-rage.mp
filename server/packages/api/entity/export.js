@@ -7,38 +7,6 @@ module.exports = async function (ctx) {
     await ctx.use(require("./rule/dont_spawn_twice"))
     await ctx.use(require("./modifies/set_type"))
 
-    // SPAWN ALL ENTITIES
-    let res = await ctx.run({
-        token: true,
-        model: "entity_type",
-        method: "read"
-    })
-    entity_types = res.data
-
-    for (let entity_type of entity_types) {
-        let res = await ctx.run({
-            token: true,
-            method: "read",
-            model: entity_type.model,
-
-        })
-
-        let allEntites = res.data
-
-        for (let entity of allEntites) {
-            ctx.run({
-                token: true,
-                model: entity_type.model,
-                method: "spawn",
-                query: {
-                    filter: {
-                        pk: entity._id
-                    }
-
-                }
-            })
-        }
-    }
 }
 
 
