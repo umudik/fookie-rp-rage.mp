@@ -18,7 +18,6 @@ module.exports = async function (ctx) {
         },
 
         lifecycle: {
-
             read: {
                 role: ["everybody"],
             },

@@ -89,6 +89,7 @@ module.exports = async function (ctx) {
 
 
     for (const a of array) {
+        mp.world.requestIpl(a.code);
         let res = await ctx.run({
             token: true,
             model: "apartment_type",

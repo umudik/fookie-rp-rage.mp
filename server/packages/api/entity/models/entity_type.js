@@ -77,7 +77,15 @@ module.exports = async function (ctx) {
             spawnAtStart: true,
             syncInterval: true,
             syncRate: 2000,
-        }
+        },
+        {
+            name: "Apartment Exit Door",
+            model: "apartment_exit_door",
+            pool: "objects",
+            spawnAtStart: true,
+            syncInterval: true,
+            syncRate: 1000,
+        },
     ]
 
     for (const e of entityTypes) {

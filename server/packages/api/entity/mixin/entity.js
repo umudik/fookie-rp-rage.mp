@@ -21,6 +21,7 @@ module.exports = async function (ctx) {
                 },
                 heading: {
                     type: "number",
+                    default: 0
                 },
             },
             lifecycle: {

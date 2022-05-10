@@ -34,7 +34,6 @@ mp.events.add("fookie_connected", async (ctx) => {
                 spawned: true,
             }
         })
-        console.log(r_2);
     }
 
 

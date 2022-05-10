@@ -3,6 +3,34 @@
     const fookie = require("fookie");
     require("dotenv").config();
     await fookie.init()
+    fookie.remote = {
+        random: async function (model, query = {
+            query: {
+                filter: {
+
+                }
+            }
+        }) {
+            const res = await fookie.run({
+                token: true,
+                model,
+                method: "read",
+                query,
+            })
+            return res.data[0]
+        },
+        read: async function (model, query = {
+            query: { filter: {} }
+        }) {
+            const res = await fookie.run({
+                token: true,
+                model,
+                method: "read",
+                query,
+            })
+            return res.data
+        }
+    }
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
 
@@ -42,6 +70,7 @@
 
 
     mp.events.addCommand("pos", (player) => {
+        console.log(player.position);
         player.outputChatBox(player.position + " -pos")
     })
 
@@ -124,14 +153,15 @@
             method: "read",
         })
         let t = fookie.lodash.sample(t_res.data)
-        console.log(t._id);
+        console.log(t);
         let res = await fookie.run({
             token: true,
             model: "apartment",
             method: "create",
             body: {
-                name: "Umut APT",
-                type: t._id.toString(),
+                name: "Umut APT" + Math.random(),
+                type: t._id,
+                fixed_dimension: Math.round(Math.random() * 9999999999),
                 position: {
                     x: player.position.x,
                     y: player.position.y,
