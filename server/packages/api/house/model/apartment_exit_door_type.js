@@ -36,5 +36,4 @@ module.exports = async function (ctx) {
             joaat: "p_idol_case_s",
         }
     })
-    console.log(res);
 }

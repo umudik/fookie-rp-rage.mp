@@ -11,6 +11,11 @@ module.exports = async function (ctx) {
                 type: "string",
                 required: true,
             },
+            close_on_click: {
+                type: "boolean",
+                required: true,
+                default: false,
+            },
             label: {
                 type: "string",
                 required: true,
@@ -29,6 +34,7 @@ module.exports = async function (ctx) {
         lifecycle: {
             read: {
                 role: ["everybody"],
+                filter: ["filter_not_avaible_im"],
             },
             update: {
                 role: ["system"],

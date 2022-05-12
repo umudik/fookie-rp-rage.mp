@@ -137,6 +137,9 @@ mp.keys.bind(keys.enter, true, async function () {
             fookie_id: c_obj.getVariable("fookie_id"),
             interaction_menu: menus[index].id
         }))
+        if (menus[index].close_on_click) {
+            active = false
+        }
     }
 })
 

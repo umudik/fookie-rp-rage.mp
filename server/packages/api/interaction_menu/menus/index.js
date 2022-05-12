@@ -9,6 +9,7 @@ module.exports = async function (ctx) {
             name: "engine_on",
             label: "Engine On",
             entity_type: "vehicle",
+            close_on_click: true,
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -38,6 +39,7 @@ module.exports = async function (ctx) {
             name: "engine_off",
             label: "Engine Off",
             entity_type: "vehicle",
+            close_on_click: true,
             control: async function (character, entity, payload) {
                 return true //todo
             },

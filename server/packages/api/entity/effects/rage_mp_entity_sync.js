@@ -1,3 +1,8 @@
+const entity_creat_functions = {
+    vehicle: async function () { },
+}
+
+
 module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "rage_mp_entity_sync",
@@ -62,7 +67,8 @@ module.exports = async function (ctx) {
                         query: { filter: { pk: payload.body.type } }
                     })
                     const type = type_res.data[0]
-                    let entity = mp[state.entity_type.pool].new(mp.joaat(type.joaat), payload.body.position)
+                    console.log(state.entity_type.pool);
+                    let entity = mp[state.entity_type.pool].new(1, payload.body.position, 1)
                     entity.setVariable("fookie_id", payload.response.data._id.toString())
                     entity.setVariable("fookie_type", `${payload.model}_type`)
                     entity.setVariable("entity_type", state.entity_type.model)

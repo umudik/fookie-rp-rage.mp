@@ -86,6 +86,16 @@ module.exports = async function (ctx) {
             syncInterval: true,
             syncRate: 1000,
         },
+
+        {
+            name: "Marker",
+            model: "marker",
+            pool: "markers",
+            spawnAtStart: true,
+            syncInterval: true,
+            syncRate: 1000,
+        },
+
     ]
 
     for (const e of entityTypes) {

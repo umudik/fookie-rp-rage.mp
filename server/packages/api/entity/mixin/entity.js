@@ -25,10 +25,8 @@ module.exports = async function (ctx) {
                 },
             },
             lifecycle: {
-                delete: {
-                    effect: ["rage_mp_entity_sync"],
-                    rule: ["need_type"],
-                    modify: ["set_type", "add_entities_to_state"]
+                read: {
+
                 },
                 create: {
                     effect: ["rage_mp_entity_sync"],
@@ -41,27 +39,11 @@ module.exports = async function (ctx) {
                     preRule: ["dont_spawn_twice"],
                     modify: ["set_type"]
                 },
-                spawn: {
-                    modify: ["set_type"],
+                delete: {
+                    effect: ["rage_mp_entity_sync"],
                     rule: ["need_type"],
-                    role: ["system"],
-                    filter: [],
-                    effect: ["rage_mp_entity_sync"]
+                    modify: ["set_type", "add_entities_to_state"]
                 },
-                despawn: {
-                    modify: ["set_type"],
-                    rule: ["need_type"],
-                    role: ["system"],
-                    filter: [],
-                    effect: ["rage_mp_entity_sync"]
-                },
-                save: {
-                    modify: ["set_type"],
-                    rule: ["need_type"],
-                    role: ["system"],
-                    effect: [],
-                    filter: [],
-                }
             }
         }
     })

@@ -57,6 +57,7 @@
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
+    await fookie.use(require("./marker/export"))
 
     await fookie.listen(3434)
 
@@ -153,7 +154,6 @@
             method: "read",
         })
         let t = fookie.lodash.sample(t_res.data)
-        console.log(t);
         let res = await fookie.run({
             token: true,
             model: "apartment",
@@ -162,6 +162,31 @@
                 name: "Umut APT" + Math.random(),
                 type: t._id,
                 fixed_dimension: Math.round(Math.random() * 9999999999),
+                position: {
+                    x: player.position.x,
+                    y: player.position.y,
+                    z: player.position.z
+                },
+                dimension: player.dimension,
+            }
+        })
+        console.log(res);
+    })
+
+
+    mp.events.addCommand('marker', async (player) => {
+        let t_res = await fookie.run({
+            token: true,
+            model: "marker_type",
+            method: "read",
+        })
+        let t = fookie.lodash.sample(t_res.data)
+        let res = await fookie.run({
+            token: true,
+            model: "marker",
+            method: "create",
+            body: {
+                type: t._id,
                 position: {
                     x: player.position.x,
                     y: player.position.y,
