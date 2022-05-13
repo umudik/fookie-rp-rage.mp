@@ -120,7 +120,7 @@ mp.keys.bind(keys.y, true, async function () {
             method: "read",
             query: {
                 filter: {
-                    entity_type: c_obj.getVariable("entity_type"),
+                    tag: c_obj.getVariable("tag"),
                 }
             }
         }))
@@ -133,7 +133,7 @@ mp.keys.bind(keys.y, true, async function () {
 mp.keys.bind(keys.enter, true, async function () {
     if (active) {
         await mp.events.callRemote("interaction_menu_do", JSON.stringify({
-            entity_type: c_obj.getVariable("entity_type"),
+            tag: c_obj.getVariable("tag"),
             fookie_id: c_obj.getVariable("fookie_id"),
             interaction_menu: menus[index].id
         }))

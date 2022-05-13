@@ -30,19 +30,19 @@ module.exports = {
             role: ["everybody"],
         },
         update: {
-            modify: ["set_type", "set_inventory_and_type"],
+            modify: ["set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", "valid_item_move_body"],
             role: ["system"],
             effect: ["item_out", "item_in"],
         },
         create: {
-            modify: ["set_type", "set_inventory_and_type"],
+            modify: ["set_inventory_and_type"],
             rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible"],
             role: ["system"],
             effect: ["item_in"],
         },
         delete: {
-            modify: ["set_type", "set_inventory_and_type"],
+            modify: ["set_inventory_and_type"],
             rule: [],
             role: ["system"],
             effect: ["item_out"],

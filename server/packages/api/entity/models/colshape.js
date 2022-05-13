@@ -1,13 +1,23 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: "apartment_exit_door",
-        mixin: ["entity", "cache"],
+        name: 'colshape',
         database: "mongodb",
+        mixin: ["entity", "cache"],
         schema: {
-            apartment: {
+            joaat: {
+                type: "number",
+                required: true,
+            },
+            type: {
                 type: "string",
                 required: true,
-            }
+                default: "circle"
+            },
+            radius: {
+                type: "number",
+                required: true,
+                default: 2,
+            },
         },
         lifecycle: {
             create: {

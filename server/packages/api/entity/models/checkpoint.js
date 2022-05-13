@@ -1,15 +1,26 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: "apartment_exit_door_type",
-        mixin: ["cache"],
+        name: 'checkpoint',
         database: "mongodb",
+        mixin: ["entity", "cache"],
         schema: {
             joaat: {
-                type: "string",
+                type: "number",
                 required: true,
-                unique: true,
-                default: "p_idol_case_s"
-
+            },
+            radius: {
+                type: "number",
+                required: true,
+                default: 2,
+            },
+            color: {
+                type: "array",
+                default: [252, 253, 254, 255],
+            },
+            visible: {
+                type: "boolean",
+                required: true,
+                default: true,
             }
         },
         lifecycle: {
@@ -25,15 +36,6 @@ module.exports = async function (ctx) {
             delete: {
                 role: ["system"],
             },
-        }
-    })
-
-    let res = await ctx.run({
-        token: true,
-        model: "apartment_exit_door_type",
-        method: "create",
-        body: {
-            joaat: "p_idol_case_s",
         }
     })
 }

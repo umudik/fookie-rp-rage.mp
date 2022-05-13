@@ -1,42 +1,41 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'interaction_menu',
-        database: "store",
+        name: 'label',
+        database: "mongodb",
+        mixin: ["entity", "cache"],
         schema: {
-            name: {
+            text: {
                 type: "string",
                 required: true,
+                default: "LABEL"
             },
-            tag: {
-                type: "string",
-                required: true,
-            },
-            close_on_click: {
+            los: {
                 type: "boolean",
                 required: true,
-                default: false,
+                default: true
             },
-            label: {
-                type: "string",
+            font: {
+                type: "number",
                 required: true,
+                default: 0
             },
-            control: {
-                type: "function",
-            },
-            job: {
-                type: "function",
+            drawDistance: {
+                type: "number",
                 required: true,
+                default: 1
+            },
+            color: {
+                type: "array",
             },
         },
         lifecycle: {
-            read: {
-                role: ["everybody"],
-                filter: ["filter_not_avaible_im"],
-            },
-            update: {
+            create: {
                 role: ["system"],
             },
-            create: {
+            read: {
+                role: ["everybody"],
+            },
+            update: {
                 role: ["system"],
             },
             delete: {
@@ -45,4 +44,3 @@ module.exports = async function (ctx) {
         }
     })
 }
-

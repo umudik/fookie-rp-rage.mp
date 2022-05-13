@@ -3,9 +3,10 @@ module.exports = async function (ctx) {
         name: "entity",
         object: {
             schema: {
-                type: {
+                tag: {
                     type: "string",
-                    required: true
+                    required: true,
+                    default: "object"
                 },
                 spawned: {
                     type: "boolean",
@@ -26,7 +27,6 @@ module.exports = async function (ctx) {
             },
             lifecycle: {
                 read: {
-
                 },
                 create: {
                     effect: ["rage_mp_entity_sync"],

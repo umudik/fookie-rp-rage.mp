@@ -9,11 +9,6 @@ module.exports = async function (ctx) {
                 required: true,
                 unique: true,
             },
-            joaat: {
-                type: "string",
-                required: true,
-                default: "p_phonebox_01b_s"
-            },
             code: {
                 type: "string",
                 required: true,

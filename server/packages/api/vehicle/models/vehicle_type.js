@@ -2,7 +2,7 @@ const lodash = require("lodash")
 
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'vehicle_type',
+        name: 'vehicle_prop',
         mixin: ["cache"],
         database: "mongodb",
         schema: {
@@ -785,7 +785,7 @@ module.exports = async function (ctx) {
     for (const j of lodash.keys(joaats)) {
         arr.push(ctx.run({
             token: true,
-            model: "vehicle_type",
+            model: "vehicle_prop",
             method: "create",
             body: {
                 joaat: j,

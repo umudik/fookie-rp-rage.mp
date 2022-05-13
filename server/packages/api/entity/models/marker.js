@@ -1,18 +1,28 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        mixin: ["cache"],
-        name: 'marker_type',
+        mixin: ["entity", "cache"],
+        name: 'marker',
         database: "mongodb",
         schema: {
             joaat: {
                 type: "number",
                 required: true,
-                unique: true,
+                default: 1
             },
             color: {
                 type: "array",
                 required: true,
-                default: [0, 0, 0, 255]
+                default: [0, 123, 123, 255]
+            },
+            scale: {
+                type: "number",
+                required: true,
+                default: 1
+            },
+            visible: {
+                type: "boolean",
+                required: true,
+                default: true,
             }
         },
         lifecycle: {
@@ -33,29 +43,6 @@ module.exports = async function (ctx) {
             },
         }
     })
-
-
-
-    const arr = [
-        {
-            joaat: 1,
-        },
-        {
-            joaat: 2,
-        },
-        {
-            joaat: 3,
-        }
-    ]
-    for (const et of arr) {
-        let res = await ctx.run({
-            token: true,
-            model: "marker_type",
-            method: "create",
-            body: et
-        })
-        console.log(res);
-    }
 }
 
 

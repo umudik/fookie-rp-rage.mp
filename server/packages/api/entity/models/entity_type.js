@@ -17,19 +17,19 @@ module.exports = async function (ctx) {
                 required: true,
                 type: "string",
             },
-            data: {
-                type: "object",
-            },
             spawnAtStart: {
                 type: "boolean",
             },
-            syncInterval: {
-                type: "boolean",
-                input: "boolean"
-            },
             syncRate: {
                 type: "number",
-                input: "number"
+            },
+            creator: {
+                type: "function",
+                required: true,
+            },
+            destroyer: {
+                type: "function",
+
             },
         },
         lifecycle: {
@@ -59,47 +59,118 @@ module.exports = async function (ctx) {
             model: "vehicle",
             pool: "vehicles",
             spawnAtStart: true,
-            syncInterval: true,
             syncRate: 1000,
+            creator: function (entity, entity_type) {
+                return mp[entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
         },
         {
             name: "Object",
             model: "object",
             pool: "objects",
             spawnAtStart: true,
-            syncInterval: true,
             syncRate: 2000,
+            creator: function (entity, entity_type) {
+                return mp[entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
         },
-        {
-            name: "Apartment",
-            model: "apartment",
-            pool: "objects",
-            spawnAtStart: true,
-            syncInterval: true,
-            syncRate: 2000,
-        },
-        {
-            name: "Apartment Exit Door",
-            model: "apartment_exit_door",
-            pool: "objects",
-            spawnAtStart: true,
-            syncInterval: true,
-            syncRate: 1000,
-        },
-
         {
             name: "Marker",
             model: "marker",
             pool: "markers",
             spawnAtStart: true,
-            syncInterval: true,
             syncRate: 1000,
+            creator: function (entity, entity_type) {
+                return mp[entity_type.pool].new(entity.joaat, entity.position, entity.scale)
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
         },
+        {
+            name: "Blip",
+            model: "blip",
+            pool: "blips",
+            spawnAtStart: true,
+            syncRate: 1000,
+            creator: function (entity, entity_type) {
+                return mp[entity_type.pool].new(entity.joaat, entity.position, {
+                    scale: entity.scale,
+                    color: entity.color,
+                    drawDistance: entity.drawDistance,
+                    shortRange: entity.shortRange,
+                    radius: entity.radius,
+                });
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
+        },
+        {
+            name: "Colspahe",
+            model: "colshape",
+            pool: "colshapes",
+            spawnAtStart: true,
+            syncRate: 1000,
+            creator: function (entity, entity_type) {
+                console.log(entity);
+                if (entity.type == "circle") {
+                    return mp.colshapes.newCircle(entity.position.x, entity.position.y, entity.radius, entity.dimension)
+                } else if (entity.type == "sphere") {
+                    return mp.colshapes.newSphere(entity.position.x, entity.position.y, entity.position.z, entity.radius, entity.dimension)
+                } else {
+                    throw Error("INVALID COLSHAPE TYPE")
+                }
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
+        },
+        {
+            name: "Label",
+            model: "label",
+            pool: "labels",
+            spawnAtStart: true,
+            syncRate: 1000,
+            creator: function (entity, entity_type) {
+                return mp.labels.new(entity.text, entity.position,
+                    {
+                        los: entity.los,
+                        font: entity.font,
+                        drawDistance: entity.drawDistance,
+                        color: entity.color,
+                        dimension: entity.dimension
+                    });
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
+        },
+        {
+            name: "Checkpoint",
+            model: "checkpoint",
+            pool: "checkpoints",
+            spawnAtStart: true,
+            syncRate: 1000,
+            creator: function (entity, entity_type) {
+                return mp[entity_type.pool].new(entity.joaat, entity.position, entity.radius);
+            },
+            destroyer: function (rage_entity, entity_type) {
+                rage_entity.destroy();
+            },
+        },
+
 
     ]
 
     for (const e of entityTypes) {
-        await ctx.run({
+        let res = await ctx.run({
             token: true,
             model: "entity_type",
             method: "create",

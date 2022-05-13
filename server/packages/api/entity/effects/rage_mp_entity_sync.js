@@ -1,8 +1,3 @@
-const entity_creat_functions = {
-    vehicle: async function () { },
-}
-
-
 module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "rage_mp_entity_sync",
@@ -20,24 +15,16 @@ module.exports = async function (ctx) {
                 for (const entity of entities_res.data) {
                     if (ctx.lodash.has(payload.body, "spawned")) {
                         if (payload.body.spawned) {
-
-                            let type_res = await ctx.run({
-                                token: true,
-                                model: `${payload.model}_type`,
-                                method: "read",
-                                query: { filter: { pk: entity.type } }
-                            })
-                            const type = type_res.data[0]
-                            rage_entity = mp[state.entity_type.pool].new(mp.joaat(type.joaat), entity.position)
+                            console.log(entity.tag, "entity");
+                            rage_entity = state.entity_type.creator(entity, state.entity_type)
                             rage_entity.setVariable("fookie_id", entity._id.toString())
-                            rage_entity.setVariable("fookie_type", `${payload.model}_type`)
-                            rage_entity.setVariable("entity_type", state.entity_type.model)
+                            rage_entity.setVariable("tag", entity.tag)
                             update_body = entity
                         }
                         else {
                             rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
                             if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
-                                rage_entity.destroy();
+                                state.entity_type.destroyer(rage_entity, state.entity_type)
                             }
                             return
                         }
@@ -47,7 +34,6 @@ module.exports = async function (ctx) {
                         rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
                         if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
                             update_body = payload.body
-
                         }
                     }
 
@@ -60,18 +46,9 @@ module.exports = async function (ctx) {
 
             if (payload.method == "create") {
                 if (ctx.lodash.has(payload.body, "spawned") && payload.body.spawned) {
-                    let type_res = await ctx.run({
-                        token: true,
-                        model: `${payload.model}_type`,
-                        method: "read",
-                        query: { filter: { pk: payload.body.type } }
-                    })
-                    const type = type_res.data[0]
-                    console.log(state.entity_type.pool);
-                    let entity = mp[state.entity_type.pool].new(1, payload.body.position, 1)
+                    let entity = state.entity_type.creator(payload.body, state.entity_type)
                     entity.setVariable("fookie_id", payload.response.data._id.toString())
-                    entity.setVariable("fookie_type", `${payload.model}_type`)
-                    entity.setVariable("entity_type", state.entity_type.model)
+                    entity.setVariable("tag", payload.body.tag)
 
                     for (let f in payload.response.data) {
                         entity[f] = payload.response.data[f]
@@ -84,7 +61,7 @@ module.exports = async function (ctx) {
                 for (let entity of state.deleteEntities) {
                     let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
                     if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
-                        rage_entity.destroy();
+                        state.entity_type.destroyer(rage_entity, state.entity_type)
                     }
                 }
 

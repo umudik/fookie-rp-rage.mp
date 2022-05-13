@@ -1,5 +1,6 @@
 
 (async () => {
+    const lodash = require("lodash")
     const fookie = require("fookie");
     require("dotenv").config();
     await fookie.init()
@@ -41,7 +42,7 @@
         }
     })
     await fookie.use(require("fookie-databases").mongodb)
-
+    await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
     await fookie.use(require("./user/export"))
@@ -49,15 +50,13 @@
     await fookie.use(require("./inventory/export"))
     await fookie.use(require("./whitelist/export"))
     await fookie.use(require("./shop/export"))
-    await fookie.use(require("./object/export"))
     // await fookie.use(require("./crafting/export"))
     await fookie.use(require("./drop/export"))
     await fookie.use(require("./faction/export"))
     await fookie.use(require("./house/export"))
-    await fookie.use(require("./interaction_menu/export"))
+
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
-    await fookie.use(require("./marker/export"))
 
     await fookie.listen(3434)
 
@@ -91,18 +90,12 @@
     })
 
     mp.events.addCommand('v', async (player) => {
-        let vt_res = await fookie.run({
-            token: true,
-            model: "vehicle_type",
-            method: "read",
-        })
-        let vt = fookie.lodash.sample(vt_res.data)
         let res = await fookie.run({
             token: true,
             model: "vehicle",
             method: "create",
             body: {
-                type: vt._id,
+                joaat: lodash.sample(["zentorno", "turismor", "banshee2", "jester3"]),
                 position: {
                     x: player.position.x,
                     y: player.position.y,
@@ -118,18 +111,12 @@
     })
 
     mp.events.addCommand('o', async (player) => {
-        let t_res = await fookie.run({
-            token: true,
-            model: "object_type",
-            method: "read",
-        })
-        let t = fookie.lodash.sample(t_res.data)
         let res = await fookie.run({
             token: true,
             model: "object",
             method: "create",
             body: {
-                type: t._id.toString(),
+                joaat: "bkr_prop_meth_sacid",
                 position: {
                     x: player.position.x,
                     y: player.position.y,
@@ -141,52 +128,18 @@
     })
 
     mp.events.addCommand('t', async (player) => {
-        console.log(player.position);
         player.position = new mp.Vector3(0, 0, 72.5);
     })
 
-
-
-    mp.events.addCommand('ap', async (player) => {
-        let t_res = await fookie.run({
-            token: true,
-            model: "apartment_type",
-            method: "read",
-        })
-        let t = fookie.lodash.sample(t_res.data)
-        let res = await fookie.run({
-            token: true,
-            model: "apartment",
-            method: "create",
-            body: {
-                name: "Umut APT" + Math.random(),
-                type: t._id,
-                fixed_dimension: Math.round(Math.random() * 9999999999),
-                position: {
-                    x: player.position.x,
-                    y: player.position.y,
-                    z: player.position.z
-                },
-                dimension: player.dimension,
-            }
-        })
-        console.log(res);
-    })
-
-
     mp.events.addCommand('marker', async (player) => {
-        let t_res = await fookie.run({
-            token: true,
-            model: "marker_type",
-            method: "read",
-        })
-        let t = fookie.lodash.sample(t_res.data)
+
         let res = await fookie.run({
             token: true,
             model: "marker",
             method: "create",
             body: {
-                type: t._id,
+                joaat: Math.round(Math.random() * 43) + 1,
+                color: [0, 123, 123, 255],
                 position: {
                     x: player.position.x,
                     y: player.position.y,
@@ -197,6 +150,89 @@
         })
         console.log(res);
     })
+
+    mp.events.addCommand('blip', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "blip",
+            method: "create",
+            body: {
+                joaat: Math.round(Math.random() * 43) + 1,
+                color: 13,
+                position: player.position,
+                dimension: player.dimension,
+            }
+        })
+        console.log(res);
+    })
+
+    mp.events.addCommand('colshape', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "colshape",
+            method: "create",
+            body: {
+                joaat: 40,
+                type: "circle",
+                position: player.position,
+                dimension: player.dimension,
+            }
+        })
+        console.log(res);
+    })
+
+
+    mp.events.addCommand('label', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "label",
+            method: "create",
+            body: {
+                text: "EXAMPLE TEXT " + Math.round(Math.random() * 100),
+                position: player.position,
+                dimension: player.dimension,
+            }
+        })
+        console.log(res);
+    })
+
+    mp.events.addCommand('checkpoint', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "checkpoint",
+            method: "create",
+            body: {
+                joaat: 1,
+                position: player.position,
+                dimension: player.dimension,
+            }
+        })
+        console.log(res);
+    })
+
+
+    mp.events.add("playerEnterColshape", (player, shape) => {
+        console.log("BİR COLSHAPE GİRİLDİ-------");
+        console.log(shape);
+        console.log("------------------------");
+    });
+
+
+    mp.events.addCommand('apart', async (player) => {
+        let res = await fookie.run({
+            token: true,
+            model: "apartment",
+            method: "create",
+            body: {
+                name: "apartmanet " + Math.round(Math.random() * 99100),
+                type: await fookie.remote.random("apartment_type"),
+                position: player.position,
+                fixed_dimension: Math.round(Math.random() * 999991434),
+            }
+        })
+        console.log("APART", res);
+    })
+
 
 
 

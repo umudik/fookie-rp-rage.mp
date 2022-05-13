@@ -8,7 +8,7 @@ module.exports = async function (ctx) {
         body: {
             name: "engine_on",
             label: "Engine On",
-            entity_type: "vehicle",
+            tag: "vehicle",
             close_on_click: true,
             control: async function (character, entity, payload) {
                 return true //todo
@@ -38,7 +38,7 @@ module.exports = async function (ctx) {
         body: {
             name: "engine_off",
             label: "Engine Off",
-            entity_type: "vehicle",
+            tag: "vehicle",
             close_on_click: true,
             control: async function (character, entity, payload) {
                 return true //todo
@@ -69,7 +69,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_z--",
             label: "z--",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -101,7 +101,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_z++",
             label: "z++",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -133,7 +133,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_x--",
             label: "x--",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -165,7 +165,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_x++",
             label: "x++",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -197,7 +197,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_y--",
             label: "y--",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },
@@ -229,7 +229,7 @@ module.exports = async function (ctx) {
         body: {
             name: "object_y++",
             label: "y++",
-            entity_type: "object",
+            tag: "object",
             control: async function (character, entity, payload) {
                 return true //todo
             },

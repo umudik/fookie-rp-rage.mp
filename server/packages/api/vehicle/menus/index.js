@@ -8,7 +8,7 @@ module.exports = (ctx) => {
                 name: "destroy_vehicle",
                 label: "Destroy Vehicle",
                 close_on_click: true,
-                entity_type: "vehicle",
+                tag: "vehicle",
                 control: async function (character, entity, payload) {
                     return true //todo
                 },
@@ -36,7 +36,7 @@ module.exports = (ctx) => {
             body: {
                 name: "apartment_exit",
                 label: "Exit",
-                entity_type: "apartment_exit_door",
+                tag: "apartment_exit_door",
                 close_on_click: true,
                 control: async function (character, entity, payload) {
                     return true //todo

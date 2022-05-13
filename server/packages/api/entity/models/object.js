@@ -2,12 +2,12 @@ module.exports = async function (ctx) {
     await ctx.model({
         name: 'object',
         database: "mongodb",
-        mixin: ["entity"],
+        mixin: ["entity", "cache"],
         schema: {
-            name: {
+            joaat: {
                 type: "string",
-                default: "Misnomer object"
-            }
+                required: true,
+            },
         },
         lifecycle: {
             create: {

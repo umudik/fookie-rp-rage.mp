@@ -4,6 +4,7 @@ module.exports = async function (ctx) {
         name: 'vehicle',
         database: "mongodb",
         schema: {
+            joaat: { type: "string", required: true },
             rotation: { type: "object" },
             owner: { relation: "character" },
             inventory: { relation: "inventory" },
