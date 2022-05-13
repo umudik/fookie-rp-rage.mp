@@ -30,7 +30,69 @@
                 query,
             })
             return res.data
-        }
+        },
+        get: async function (model, pk) {
+            const res = await fookie.run({
+                token: true,
+                model: model,
+                method: "read",
+                query: {
+                    filter: {
+                        pk
+                    }
+                },
+            })
+            return res.data[0]
+        },
+        all: async function (model) {
+            const res = await fookie.run({
+                token: true,
+                model,
+                method: "read",
+                query: {
+                    filter: {
+
+                    }
+                },
+            })
+            return res.data
+        },
+        create: async function (model, body) {
+            const res = await fookie.run({
+                token: true,
+                model: model,
+                method: "create",
+                body
+            })
+            return res.data
+        },
+        update: async function (model, pk, body) {
+            const res = await fookie.run({
+                token: true,
+                model: model,
+                method: "update",
+                body,
+                query: {
+                    filter: {
+                        pk
+                    }
+                }
+            })
+            return res.data
+        },
+        delete: async function (model, pk) {
+            const res = await fookie.run({
+                token: true,
+                model: model,
+                method: "delete",
+                query: {
+                    filter: {
+                        pk
+                    }
+                }
+            })
+            return res.data
+        },
     }
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
@@ -89,7 +151,7 @@
         })
     })
 
-    mp.events.addCommand('v', async (player) => {
+    mp.events.addCommand("v", async (player) => {
         let res = await fookie.run({
             token: true,
             model: "vehicle",
@@ -101,7 +163,9 @@
                     y: player.position.y,
                     z: player.position.z
                 },
-                dimension: player.dimension,
+                tag: "vehicle",
+                parent_id: "-",
+                dimension: 0,
                 color1: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
                 color2: [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
                 mod_spoiler: 3,
@@ -110,7 +174,7 @@
         })
     })
 
-    mp.events.addCommand('o', async (player) => {
+    mp.events.addCommand("o", async (player) => {
         let res = await fookie.run({
             token: true,
             model: "object",
@@ -122,13 +186,17 @@
                     y: player.position.y,
                     z: player.position.z
                 },
+                parent_id: "-",
+                tag: "object",
                 dimension: player.dimension
             }
         })
+        console.log(res);
     })
 
-    mp.events.addCommand('t', async (player) => {
+    mp.events.addCommand("t", async (player) => {
         player.position = new mp.Vector3(0, 0, 72.5);
+        player.dimension = 0
     })
 
     mp.events.addCommand('marker', async (player) => {
@@ -145,6 +213,7 @@
                     y: player.position.y,
                     z: player.position.z
                 },
+                parent_id: "-",
                 dimension: player.dimension,
             }
         })
@@ -157,6 +226,7 @@
             model: "blip",
             method: "create",
             body: {
+                parent_id: "-",
                 joaat: Math.round(Math.random() * 43) + 1,
                 color: 13,
                 position: player.position,

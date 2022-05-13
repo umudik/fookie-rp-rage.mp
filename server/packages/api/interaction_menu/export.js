@@ -37,21 +37,8 @@ mp.events.add("fookie_connected", async (ctx) => {
         })
         const character = c_res.data[0]
 
-        const e_res = await ctx.run({
-            token: true,
-            method: "read",
-            model: payload.entity_type,
-            query: {
-                filter: {
-                    pk: payload.fookie_id
-                }
-
-            }
-        })
-        const entity = e_res.data[0]
-
-        if (await interaction_menu.control(player, entity, payload)) {
-            await interaction_menu.job(player, entity, payload)
+        if (await interaction_menu.control(player, payload, interaction_menu)) {
+            await interaction_menu.job(player, payload, interaction_menu)
         }
     })
 })

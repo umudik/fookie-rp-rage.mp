@@ -8,28 +8,20 @@ module.exports = () => {
                 name: "apartment_join",
                 label: "Join",
                 close_on_click: true,
-                tag: "create_opening_door",
-                control: async function (character, entity, payload) {
+                tag: "opening_door",
+                control: async function (character, payload, im) {
                     return true //todo
                 },
-                job: async function (character, entity, payload) {
+                job: async function (character, payload, im) {
                     console.log(payload);
-                    const type_res = await ctx.run({
-                        token: true,
-                        model: "apartment_bind",
-                        method: "read",
-                        query: {
-                            filter: {
+                    const door = await ctx.remote.get("object", payload.fookie_id)
+                    const apartment = await ctx.remote.get("apartment", door.parent_id)
+                    const apartment_type = await ctx.remote.get("apartment_type", apartment.type)
 
-                            }
-                        }
-                    })
-
-                    return
-                    const apartment_type = type_res.data[0]
                     character.position = apartment_type.location
-                    const type = await ctx.remote.random("apartment_exit_door_type")
-                    const create_exit_door_res = await ctx.run({
+                    character.dimension = apartment.fixed_dimension
+
+                    await ctx.run({
                         token: true,
                         model: "object",
                         method: "create",
@@ -37,7 +29,8 @@ module.exports = () => {
                             joaat: "v_ilev_rc_door2",
                             dimension: apartment.fixed_dimension,
                             position: apartment_type.location,
-                            tag: "create_exit_door",
+                            tag: "exit_door",
+                            parent_id: apartment._id
                         }
                     })
                 },
@@ -52,42 +45,20 @@ module.exports = () => {
             body: {
                 name: "apartment_exit",
                 label: "Exit",
-                tag: "apartment_exit_door",
+                tag: "exit_door",
                 close_on_click: true,
-                control: async function (character, entity, payload) {
+                control: async function (character, payload, im) {
                     return true //todo
                 },
-                job: async function (character, entity, payload) {
-                    const apartment_res = await ctx.run({
-                        token: true,
-                        model: "apartment",
-                        method: "read",
-                        query: {
-                            filter: {
-                                pk: entity.apartment
-                            }
-                        }
-                    })
+                job: async function (character, payload, im) {
+                    const door = await ctx.remote.get("object", payload.fookie_id)
+                    const apartment = await ctx.remote.get("apartment", door.parent_id)
+                    const apartment_type = await ctx.remote.get("apartment_type", apartment.type)
 
-                    const apartment = apartment_res.data[0]
                     character.position = apartment.position
-                    console.log(apartment);
-                    mp.players.forEach(async player => {
-                        if (player.dimension === apartment.fixed_dimension) {
-                            return
+                    character.dimension = 0
+                    await ctx.remote.delete("object", door._id)
 
-                        }
-                    })
-                    const exit_res = await ctx.run({
-                        token: true,
-                        model: "apartment_exit_door",
-                        method: "delete",
-                        query: {
-                            filter: {
-                                apartment: apartment._id.toString()
-                            }
-                        }
-                    })
                 },
             }
         })

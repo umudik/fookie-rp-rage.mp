@@ -1,6 +1,6 @@
 const weatherURL = 'http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/347625?apikey=hTELp2Lc4vAy2k5FtQ5V1blYymjlLyPK'; //Los Angeles
 const timeURL = 'http://worldtimeapi.org/api/timezone/Europe/Istanbul' //İstanbul
-
+const lodash = require("lodash")
 mp.world.time.hour = new Date().getHours();
 mp.world.time.minute = new Date().getMinutes();
 mp.world.time.second = new Date().getSeconds();
@@ -12,14 +12,15 @@ setInterval(() => {
         mp.world.time.second = 0
         mp.world.time.minute++
     }
-    
+
     if (mp.world.time.minute == 60) {
         mp.world.time.minute = 0
         mp.world.time.hour++
+        mp.world.weather = lodash.sample(['EXTRASUNNY', 'CLEAR', 'CLOUDS', 'RAIN', 'SNOW', 'FOG'])
     }
 
     if (mp.world.time.hour == 24) {
-        mp.world.time.hour = 0        
+        mp.world.time.hour = 0
     }
 }, 100);
 

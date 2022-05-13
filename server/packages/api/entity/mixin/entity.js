@@ -6,7 +6,12 @@ module.exports = async function (ctx) {
                 tag: {
                     type: "string",
                     required: true,
-                    default: "object"
+                    default: "-"
+                },
+                parent_id: {
+                    type: "string",
+                    required: true,
+                    default: "-",
                 },
                 spawned: {
                     type: "boolean",

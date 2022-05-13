@@ -15,7 +15,6 @@ module.exports = async function (ctx) {
                 for (const entity of entities_res.data) {
                     if (ctx.lodash.has(payload.body, "spawned")) {
                         if (payload.body.spawned) {
-                            console.log(entity.tag, "entity");
                             rage_entity = state.entity_type.creator(entity, state.entity_type)
                             rage_entity.setVariable("fookie_id", entity._id.toString())
                             rage_entity.setVariable("tag", entity.tag)

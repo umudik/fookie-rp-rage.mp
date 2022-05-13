@@ -92,6 +92,7 @@ module.exports = async function (ctx) {
             body: a
 
         })
+        console.log(res);
     }
 
 }

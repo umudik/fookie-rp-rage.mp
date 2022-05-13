@@ -10,7 +10,7 @@ module.exports = async function (ctx) {
                 unique: true,
             },
             type: {
-                relation: "apartment",
+                relation: "apartment_type",
                 required: true,
             },
             fixed_dimension: {
@@ -29,7 +29,7 @@ module.exports = async function (ctx) {
         lifecycle: {
             create: {
                 role: ["system"],
-                effect: ["apartment_bind_effect"]
+                effect: ["apartment_create_door"]
             },
             read: {
                 role: ["everybody"],

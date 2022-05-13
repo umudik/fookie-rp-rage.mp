@@ -30,6 +30,6 @@
     "sha512": "^0.0.1"
   },
   "devDependencies": {
-    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#v1.0"
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master"
   }
 }

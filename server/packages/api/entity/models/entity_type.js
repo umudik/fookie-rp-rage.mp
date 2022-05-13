@@ -119,7 +119,6 @@ module.exports = async function (ctx) {
             spawnAtStart: true,
             syncRate: 1000,
             creator: function (entity, entity_type) {
-                console.log(entity);
                 if (entity.type == "circle") {
                     return mp.colshapes.newCircle(entity.position.x, entity.position.y, entity.radius, entity.dimension)
                 } else if (entity.type == "sphere") {
