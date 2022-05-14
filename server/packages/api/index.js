@@ -14,7 +14,7 @@
             url: process.env.MONGO
         }
     })
-    await fookie.use(require("../../../../databases").mongodb)
+    await fookie.use(require("fookie-databases").mongodb)
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))

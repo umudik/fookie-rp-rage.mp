@@ -3,7 +3,7 @@
 */package-lock.json
 /dist
 
-
+docker.env
 # local env files
 .env.local
 .env.*.local

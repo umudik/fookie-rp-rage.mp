@@ -1,28 +1,30 @@
 version: "3"
 services:
-  # server:
-    #restart: always
-    ##env_file: .env
-    ###build: server
-    #tty: true
-   # ports:
-    #  - "22005:22005/udp"
-    #  - "22006:22006"
-   # depends_on:
-   #   - cache
-    #volumes:
-    #  - ../core:/app/core
-    #  - ../server:/app/server
-     # - ../cache:/app/cache
-     # - ../databases:/app/databases
+  server:
+    restart: always
+    env_file: docker.env
+    build: server
+    tty: true
+    ports:
+      - "22005:22005/udp"
+      - "22006:22006"
+    depends_on:
+      - cache
   cache:
     restart: always
-    env_file: .env
+    env_file: docker.env
     build: cache
     ports:
       - 2630:2630
-    volumes:
-      - ../core:/app/core
-      - ../server:/app/server
-      - ../cache:/app/cache
-      - ../databases:/app/databases
+  mongodb:
+    image: mongo
+    restart: always
+    env_file: docker.env
+      
+  cef:
+    build: ./cef
+    restart: always
+    env_file: docker.env
+    ports:
+      - 8080:8080
+

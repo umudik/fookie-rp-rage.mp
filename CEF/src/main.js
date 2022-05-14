@@ -1,47 +1,30 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import vuetify from "./plugins/vuetify";
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import vuetify from './plugins/vuetify'
+import './main.css'
+Vue.config.productionTip = false
+
+// COMPONENTS
+import f_model_info from './components/model/info.vue'
+import f_model_field from './components/model/field.vue'
+import f_model_list from './components/model/list.vue'
+import f_model_create from './components/model/create.vue'
+
+Vue.component("f-model-info", f_model_info)
+Vue.component("f-model-list", f_model_list)
+Vue.component("f-model-create", f_model_create)
+Vue.component("f-model-field", f_model_field)
 
 
-import deletee from './components/fookie/fookie-delete.vue'
-import viewer from './components/fookie/fookie-viewer.vue'
-import filter from './components/fookie/fookie-filter.vue'
-import fookiePost from './components/fookie/fookie-post.vue'
-import field from './components/fookie/fookie-field.vue'
-import card from './components/fookie/fookie-card.vue'
-import inventory from './components/game/inventory/inventory.vue'
-import move from './components/game/move/move.vue'
-import item from './components/game/inventory/item.vue'
-import phone from './components/game/phone/phone.vue'
+// MIXIN 
+import fm from "./mixin/fm.vue";
+Vue.mixin(fm)
 
-
-Vue.component('fookie-delete', deletee)
-Vue.component('fookie-viewer', viewer)
-Vue.component('fookie-post', fookiePost)
-Vue.component('fookie-filter', filter)
-Vue.component('fookie-field', field)
-Vue.component('fookie-card', card)
-Vue.component('game-inventory', inventory)
-Vue.component('game-move', move)
-Vue.component('game-item', item)
-Vue.component('game-phone', phone)
-import fookie from "./plugins/fookie_mixin.js";
-
-import VJsoneditor from 'v-jsoneditor/src/index'
-
-Vue.use(VJsoneditor)
-
-Vue.config.productionTip = false;
-
-Vue.mixin(fookie)
-const app = new Vue({
-    router,
-    store,
-    vuetify,
-    render: h => h(App)
-}).$mount("#app");
-
-window.app = app
-global.app = app
+new Vue({
+  router,
+  store,
+  vuetify,
+  render: h => h(App)
+}).$mount('#app')
