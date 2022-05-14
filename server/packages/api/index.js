@@ -4,96 +4,7 @@
     const fookie = require("fookie");
     require("dotenv").config();
     await fookie.init()
-    fookie.remote = {
-        random: async function (model, query = {
-            query: {
-                filter: {
 
-                }
-            }
-        }) {
-            const res = await fookie.run({
-                token: true,
-                model,
-                method: "read",
-                query,
-            })
-            return res.data[0]
-        },
-        read: async function (model, query = {
-            query: { filter: {} }
-        }) {
-            const res = await fookie.run({
-                token: true,
-                model,
-                method: "read",
-                query,
-            })
-            return res.data
-        },
-        get: async function (model, pk) {
-            const res = await fookie.run({
-                token: true,
-                model: model,
-                method: "read",
-                query: {
-                    filter: {
-                        pk
-                    }
-                },
-            })
-            return res.data[0]
-        },
-        all: async function (model) {
-            const res = await fookie.run({
-                token: true,
-                model,
-                method: "read",
-                query: {
-                    filter: {
-
-                    }
-                },
-            })
-            return res.data
-        },
-        create: async function (model, body) {
-            const res = await fookie.run({
-                token: true,
-                model: model,
-                method: "create",
-                body
-            })
-            return res.data
-        },
-        update: async function (model, pk, body) {
-            const res = await fookie.run({
-                token: true,
-                model: model,
-                method: "update",
-                body,
-                query: {
-                    filter: {
-                        pk
-                    }
-                }
-            })
-            return res.data
-        },
-        delete: async function (model, pk) {
-            const res = await fookie.run({
-                token: true,
-                model: model,
-                method: "delete",
-                query: {
-                    filter: {
-                        pk
-                    }
-                }
-            })
-            return res.data
-        },
-    }
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
 
@@ -103,7 +14,7 @@
             url: process.env.MONGO
         }
     })
-    await fookie.use(require("fookie-databases").mongodb)
+    await fookie.use(require("../../../../databases").mongodb)
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
@@ -123,6 +34,9 @@
     await fookie.listen(3434)
 
     mp.events.call("fookie_connected", fookie)
+
+
+
 
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)
@@ -302,9 +216,5 @@
         })
         console.log("APART", res);
     })
-
-
-
-
 })()
 

@@ -1,9 +1,9 @@
 module.exports = async function (ctx) {
 
     await ctx.lifecycle({
-        name: "apartment_create_door",
-        async: false,
+        name: "apartment_delete_door",
         function: async function (payload, ctx, state) {
+
             const apartment = payload.response.data
             const door = await ctx.run({
                 token: true,
@@ -17,20 +17,9 @@ module.exports = async function (ctx) {
                     parent_id: apartment._id
                 }
             })
-            const apartment_u_res = await ctx.run({
-                token: true,
-                model: "apartment",
-                method: "update",
-                query: {
-                    filter: {
-                        pk: apartment._id
-                    }
-                },
-                body: {
-                    door: door.data._id
-                }
+            let res = await ctx.remote.update("apartment", payload.body._id, {
+                door: door.data._id
             })
-            console.log(apartment_u_res);
         }
     })
 }

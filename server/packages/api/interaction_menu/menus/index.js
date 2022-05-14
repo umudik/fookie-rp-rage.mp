@@ -13,6 +13,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",
@@ -45,6 +46,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",
@@ -77,6 +79,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",
@@ -109,6 +112,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",
@@ -141,6 +145,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",
@@ -173,6 +178,7 @@ module.exports = async function (ctx) {
                 return true //todo
             },
             job: async function (character, payload, im) {
+                const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
                     token: true,
                     model: "object",

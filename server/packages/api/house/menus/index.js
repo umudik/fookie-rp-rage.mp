@@ -33,6 +33,7 @@ module.exports = () => {
                             parent_id: apartment._id
                         }
                     })
+
                 },
             }
         })

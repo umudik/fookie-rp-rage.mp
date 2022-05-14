@@ -16,12 +16,12 @@ module.exports = async function (ctx) {
                     if (ctx.lodash.has(payload.body, "spawned")) {
                         if (payload.body.spawned) {
                             rage_entity = state.entity_type.creator(entity, state.entity_type)
-                            rage_entity.setVariable("fookie_id", entity._id.toString())
+                            rage_entity.setVariable("fookie_id", entity._id)
                             rage_entity.setVariable("tag", entity.tag)
                             update_body = entity
                         }
                         else {
-                            rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
+                            rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                             if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
                                 state.entity_type.destroyer(rage_entity, state.entity_type)
                             }
@@ -30,7 +30,7 @@ module.exports = async function (ctx) {
 
 
                     } else {
-                        rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
+                        rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                         if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
                             update_body = payload.body
                         }
@@ -46,7 +46,7 @@ module.exports = async function (ctx) {
             if (payload.method == "create") {
                 if (ctx.lodash.has(payload.body, "spawned") && payload.body.spawned) {
                     let entity = state.entity_type.creator(payload.body, state.entity_type)
-                    entity.setVariable("fookie_id", payload.response.data._id.toString())
+                    entity.setVariable("fookie_id", payload.response.data._id)
                     entity.setVariable("tag", payload.body.tag)
 
                     for (let f in payload.response.data) {
@@ -58,7 +58,7 @@ module.exports = async function (ctx) {
 
             if (payload.method == "delete") {
                 for (let entity of state.deleteEntities) {
-                    let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id.toString())
+                    let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                     if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
                         state.entity_type.destroyer(rage_entity, state.entity_type)
                     }

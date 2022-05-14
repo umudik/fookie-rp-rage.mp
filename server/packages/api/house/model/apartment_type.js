@@ -45,7 +45,7 @@ module.exports = async function (ctx) {
             location: {
                 x: -786.8663,
                 y: 315.7642,
-                z: 217.6385
+                z: 218.0385
             },
             flat_size: 5
         },
@@ -55,7 +55,7 @@ module.exports = async function (ctx) {
             location: {
                 x: -786.8663,
                 y: 315.6229,
-                z: 187.9136
+                z: 188.4136
             },
             flat_size: 5
         },
@@ -65,7 +65,7 @@ module.exports = async function (ctx) {
             location: {
                 x: -774.0126,
                 y: 342.0428,
-                z: 196.6864
+                z: 197.0
             },
             flat_size: 5
         },
@@ -75,7 +75,7 @@ module.exports = async function (ctx) {
             location: {
                 x: - 787.0749,
                 y: 315.8198,
-                z: 217.6386
+                z: 218.0386
             },
             flat_size: 5
         },

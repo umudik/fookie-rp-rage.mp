@@ -18,6 +18,15 @@ module.exports = async function (ctx) {
                 required: true,
                 unique: true,
             },
+            door: {
+                relation: "object",
+                reactive: [{
+                    from: "position",
+                    to: "position",
+                    compute: v => v
+                }],
+                reactive_delete: true,
+            },
             position: {
                 type: "object",
                 required: true,
