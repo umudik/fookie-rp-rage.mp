@@ -29,19 +29,20 @@ module.exports = async function (ctx) {
         lifecycle: {
             create: {
                 role: ["system"],
-                effect: ["apartment_create_door"]
+                effect: ["apartment_door"]
             },
             read: {
                 role: ["everybody"],
             },
             update: {
                 role: ["system"],
-                rule: ["set_computed_ids"],
+                filter: ["set_computed_data"],
+                effect: ["apartment_door"]
             },
             delete: {
                 role: ["system"],
-                rule: ["set_computed_ids"],
-                effect: ["apartment_delete_door"]
+                rule: ["set_computed_data"],
+                effect: ["apartment_door"]
             },
         }
     })

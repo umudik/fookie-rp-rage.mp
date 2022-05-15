@@ -31,6 +31,8 @@ module.exports = async function (ctx) {
             },
             update: {
                 role: ["system"],
+                filter: ["set_computed_data"],
+                effect: ["apartment_type_door"]
             },
             delete: {
                 role: ["system"],

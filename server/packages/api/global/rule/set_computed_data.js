@@ -1,6 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.lifecycle({
-        name: "set_computed_ids",
+        name: "set_computed_data",
         function: async function (payload, ctx, state) {
             const read_res = await ctx.run({
                 token: true,
@@ -8,7 +8,7 @@ module.exports = async function (ctx) {
                 method: "read",
                 query: payload.query
             })
-            state.computed_ids = read_res.data.map(item => item._id)
+            state.computed_data = read_res.data
             return true
         }
     })
