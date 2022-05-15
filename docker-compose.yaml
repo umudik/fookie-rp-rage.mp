@@ -20,9 +20,11 @@ services:
     image: mongo
     restart: always
     env_file: docker.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     ports:
-      - 27017:27017
-          
+      - 27017:27017          
   cef:
     build: ./cef
     restart: always
