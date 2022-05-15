@@ -18,15 +18,6 @@ module.exports = async function (ctx) {
                 required: true,
                 unique: true,
             },
-            door: {
-                relation: "object",
-                reactive: [{
-                    from: "position",
-                    to: "position",
-                    compute: v => v
-                }],
-                reactive_delete: true,
-            },
             position: {
                 type: "object",
                 required: true,
@@ -45,45 +36,12 @@ module.exports = async function (ctx) {
             },
             update: {
                 role: ["system"],
+                rule: ["set_computed_ids"],
             },
             delete: {
                 role: ["system"],
-            },
-        }
-    })
-
-
-    await ctx.model({
-        name: "apartment_bind",
-        mixin: ["cache"],
-        database: "mongodb",
-        schema: {
-            apartment: {
-                relation: "apartment",
-                required: true,
-                unique: true,
-            },
-            opening_door: {
-                relation: "apartment",
-                required: true,
-            },
-            exit_door: {
-                relation: "apartment",
-                required: true,
-            },
-        },
-        lifecycle: {
-            create: {
-                role: ["system"],
-            },
-            read: {
-                role: ["everybody"],
-            },
-            update: {
-                role: ["system"],
-            },
-            delete: {
-                role: ["system"],
+                rule: ["set_computed_ids"],
+                effect: ["apartment_delete_door"]
             },
         }
     })

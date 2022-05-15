@@ -1,17 +1,18 @@
 module.exports = {
     name: 'member',
+    database: "mongodb",
     schema: {
         faction: {
             relation: "faction",
         },
-        member_type: {
-            relation: "member_type",
-        },
         character: {
             relation: "character",
         },
+        role: {
+            type: "string",
+            required: true,
+        }
     },
-    database: "mongodb",
     lifecycle: {
         read: {
             role: ["everybody"],

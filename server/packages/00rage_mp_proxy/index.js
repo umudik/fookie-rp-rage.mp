@@ -67,12 +67,6 @@ for (let p of properties) {
 }
 
 
-
-
-
-
-//-------------------VEHİCLE COLOR------------------------
-
 mp.Vehicle.prototype["_color1"] = [0, 0, 0]
 Object.defineProperty(mp.Vehicle.prototype, "color1", {
     get() {

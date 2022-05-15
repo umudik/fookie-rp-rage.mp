@@ -13,7 +13,7 @@ module.exports = () => {
                     return true //todo
                 },
                 job: async function (character, payload, im) {
-                    console.log(payload);
+
                     const door = await ctx.remote.get("object", payload.fookie_id)
                     const apartment = await ctx.remote.get("apartment", door.parent_id)
                     const apartment_type = await ctx.remote.get("apartment_type", apartment.type)

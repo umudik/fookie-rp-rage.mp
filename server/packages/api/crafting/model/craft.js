@@ -7,12 +7,9 @@ module.exports = async function (ctx) {
         schema: {
             name: {
                 type: "string",
-                input: "text"
+                required: true,
+                unique: true
             },
-            controller: {
-                type: "function",
-                required: true
-            }
         },
         lifecycle: {
             read: {

@@ -9,7 +9,8 @@ module.exports = async function (ctx) {
                 input: "text"
             },
             user: {
-                relation: "user"
+                relation: "user",
+                required: true,
             },
             inventory: {
                 relation: "inventory"

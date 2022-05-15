@@ -14,6 +14,7 @@
             url: process.env.MONGO
         }
     })
+    await fookie.use(require("./global/export"))
     await fookie.use(require("fookie-databases").mongodb)
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
@@ -105,7 +106,6 @@
                 dimension: player.dimension
             }
         })
-        console.log(res);
     })
 
     mp.events.addCommand("t", async (player) => {
@@ -131,7 +131,6 @@
                 dimension: player.dimension,
             }
         })
-        console.log(res);
     })
 
     mp.events.addCommand('blip', async (player) => {
@@ -147,7 +146,6 @@
                 dimension: player.dimension,
             }
         })
-        console.log(res);
     })
 
     mp.events.addCommand('colshape', async (player) => {
@@ -162,7 +160,6 @@
                 dimension: player.dimension,
             }
         })
-        console.log(res);
     })
 
 
@@ -177,7 +174,6 @@
                 dimension: player.dimension,
             }
         })
-        console.log(res);
     })
 
     mp.events.addCommand('checkpoint', async (player) => {
@@ -191,7 +187,6 @@
                 dimension: player.dimension,
             }
         })
-        console.log(res);
     })
 
 
@@ -214,7 +209,6 @@
                 fixed_dimension: Math.round(Math.random() * 999991434),
             }
         })
-        console.log("APART", res);
     })
 })()
 

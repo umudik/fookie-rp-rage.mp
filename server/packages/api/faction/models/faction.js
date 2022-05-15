@@ -3,11 +3,10 @@ module.exports = {
     schema: {
         name: {
             type: "string",
-            input: "text",
+            required: true,
+            unique: true
         },
-        faction_type: {
-            relation: "faction_type",
-        },
+
     },
     database: "mongodb",
     lifecycle: {

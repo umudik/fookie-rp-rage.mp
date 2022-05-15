@@ -4,14 +4,22 @@ module.exports = async function (ctx) {
         database: "mongodb",
         schema: {
             craft: {
-                relation: "craft"
+                relation: "craft",
+                required: true,
             },
             item_type: {
-                relation: "item_type"
+                relation: "item_type",
+                required: true,
             },
             amount: {
+                required: true,
                 type: "number",
-                input: "number"
+                default: 1
+            },
+            data: {
+                type: "object",
+                required: true,
+                default: {}
             }
         },
         lifecycle: {
