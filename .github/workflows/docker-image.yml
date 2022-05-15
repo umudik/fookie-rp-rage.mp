@@ -13,7 +13,7 @@ jobs:
           username: ${{ secrets.RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           script: |
-            git clone git@github.com:umudik/fookie-rp-rage.mp.git server || true
+            git clone git@github.com:umudik/fookie-rp-rage.mp.git server &> /dev/null || true
             cd server
             git pull origin/master
             docker-compose up --build
