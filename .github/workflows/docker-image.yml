@@ -15,6 +15,6 @@ jobs:
           script: |
             git clone git@github.com:umudik/fookie-rp-rage.mp.git server &> /dev/null || true
             cd server ; git pull origin
-            ct server ; var env = "${{secrets.RAGEMP_ENV}}"
+            ct server ; env = "${{secrets.RAGEMP_ENV}}"
             cd server ; echo $env > docker.env 
             cd server ; docker-compose up --build --detach           
