@@ -10,6 +10,6 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.RAGEMP_TEST_SERVER }}
-          username: ${{ RAGEMP_TEST_HOST }}
+          username: ${{ secrets.RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           script: whoami
