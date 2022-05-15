@@ -15,6 +15,6 @@ jobs:
           script: |
             git clone git@github.com:umudik/fookie-rp-rage.mp.git server &> /dev/null || true
             cd server
-            git pull origin/master
+            git pull origin/main
             docker-compose up --build
             
