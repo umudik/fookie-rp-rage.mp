@@ -13,6 +13,7 @@
             url: process.env.MONGO
         }
     })
+    console.log("hi");
     await fookie.use(require("./global/export"))
     await fookie.use(require("fookie-databases").mongodb)
     await fookie.use(require("./interaction_menu/export"))
