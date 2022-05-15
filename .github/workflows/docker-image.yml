@@ -14,7 +14,6 @@ jobs:
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           script: |
             git clone git@github.com:umudik/fookie-rp-rage.mp.git server &> /dev/null || true
-            cd server
-            git pull origin/main
-            docker-compose up --build
+            cd server ; git pull origin/master
+            cd server ; docker-compose up --build
             
