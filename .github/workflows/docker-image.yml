@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Git Clone
         uses: appleboy/ssh-action@master
-        env :
-          RAGEMP_ENV: ${{secrets.RAGEMP_ENV}}
         with:
           host: ${{ secrets.RAGEMP_TEST_SERVER }}
           username: ${{ secrets.RAGEMP_TEST_HOST }}
@@ -19,5 +17,5 @@ jobs:
             cd server ; git pull origin
             rm -rf docker.env
             touch docker.env
-            cat $RAGEMP_ENV
+            echo "${{secrets.RAGEMP_ENV}}" > docker.env
             docker-compose up --build --detach           
