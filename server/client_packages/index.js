@@ -1,5 +1,6 @@
 mp.cef = null
-mp.cef = new mp.browsers.new('http://localhost:8080')
+
+mp.cef = new mp.browsers.new('http://185.174.61.181:8080')
 mp.cef.execute(`app.$store.state.inGame = true;`)
 
 mp.events.add('apiSync', (payload) => {
