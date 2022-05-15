@@ -162,7 +162,6 @@
         })
     })
 
-
     mp.events.addCommand('label', async (player) => {
         let res = await fookie.run({
             token: true,
