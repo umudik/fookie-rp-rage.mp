@@ -2,7 +2,6 @@
 (async () => {
     const lodash = require("lodash")
     const fookie = require("fookie");
-    require("dotenv").config();
     await fookie.init()
 
     await fookie.use(require("fookie-server"))
