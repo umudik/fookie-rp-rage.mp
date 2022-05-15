@@ -10,6 +10,7 @@ services:
       - "22006:22006"
     depends_on:
       - cache
+      - mongodb
   cache:
     restart: always
     env_file: docker.env
@@ -31,4 +32,6 @@ services:
     env_file: docker.env
     ports:
       - 8080:8080
+    depends_on:
+      - server
 
