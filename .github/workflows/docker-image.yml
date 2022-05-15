@@ -6,10 +6,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Git Pull
+      - name: Git Clone
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.RAGEMP_TEST_SERVER }}
           username: ${{ secrets.RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          script: whoami
+          script: |
+            git clone git@github.com:umudik/fookie-rp-rage.mp.git server || true
+            cd server
+            git pull origin/master
+            docker-compose up --build
+            
