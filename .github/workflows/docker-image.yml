@@ -19,5 +19,5 @@ jobs:
             cd server ; git pull origin
             cd server ; rm -rf docker.env
             cd server ; touch docker.env
-            cd server ; echo "$RAGEMP_ENV" >> docker.env 
+            cd server ; cat "$RAGEMP_ENV" > docker.env 
             cd server ; docker-compose up --build --detach           
