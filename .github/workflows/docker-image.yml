@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Deploy
 on:
   push:
     branches: [ master ]
@@ -6,10 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: executing remote ssh commands using ssh key
+      - name: Git Pull
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.RAGEMP_TEST_SERVER }}
           username: ${{ RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           script: whoami
