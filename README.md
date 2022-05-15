@@ -1,3 +1,6 @@
+[![Deploy](https://github.com/umudik/fookie-rp-rage.mp/actions/workflows/docker-image.yml/badge.svg)](https://github.com/umudik/fookie-rp-rage.mp/actions/workflows/docker-image.yml)
+
+
 # Fookie RAGEMP
 
 ### Developed with Fookie JS.
