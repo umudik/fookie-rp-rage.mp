@@ -1,5 +1,5 @@
 <template lang="pug">
-div yok
+div
 </template>
 
 <script>

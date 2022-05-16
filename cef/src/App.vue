@@ -1,5 +1,10 @@
 <template lang="pug">
-v-app(app class="tw-bg-transparent")
+v-app(app)
+  v-system-bar(dark lights-out)
+    span Fookie RAGEMP
+    v-spacer
+    v-icon mdi-fire
+    span 13:37
   v-main(app color="transparent")
     v-container
       router-view
@@ -25,8 +30,10 @@ export default {
 
 
 <style>
-html {
-  background: transparent !important;
-  background-color: transparent !important;
+::-webkit-scrollbar {
+  display: none;
+}
+.v-application {
+  background-color: var(--v-background-base) !important;
 }
 </style>

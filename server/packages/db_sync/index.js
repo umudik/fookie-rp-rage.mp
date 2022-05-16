@@ -37,14 +37,11 @@ mp.events.add("fookie_connected", async (ctx) => {
     }
 
 
-
-    let i = 0
-
     // SAVE ENTITIES TO DB CRONJOB
     setInterval(async () => {
         mp.vehicles.forEach(async function (entity) {
             const speed = Math.abs(entity.velocity.x) + Math.abs(entity.velocity.y) + Math.abs(entity.velocity.z)
-            if (entity.getVariable("fookie_id") && speed < 0.1 && Math.random() > 0.5) {
+            if (entity.getVariable("fookie_id") && speed < 0.4 && Math.random() > 0.5) {
                 console.log("VEHICLES SAVED... ", entity.getVariable("fookie_id"));
                 await ctx.run({
                     token: true,
@@ -63,7 +60,7 @@ mp.events.add("fookie_connected", async (ctx) => {
                 });
             }
         })
-    }, 60 * 1000)
+    }, 10 * 60 * 1000)
 
     mp.events.add("playerExitVehicle", async function (player, entity) {
         let res = await ctx.run({
