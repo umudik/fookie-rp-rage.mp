@@ -23,7 +23,7 @@
     "dotenv": "^16.0.0",
     "fookie": "^0.9.58",
     "fookie-cache": "^0.1.0",
-    "fookie-databases": "^0.0.6",
+    "fookie-databases": "^0.0.7",
     "fookie-server": "^0.1.0",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",

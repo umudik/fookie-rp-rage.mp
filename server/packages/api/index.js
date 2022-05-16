@@ -1,21 +1,21 @@
 
 (async () => {
+    //require("dotenv").config();
     const lodash = require("lodash")
     const fookie = require("fookie");
     await fookie.init()
-
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
-
     await fookie.setting({
         name: "mongodb_connection",
         value: {
             url: process.env.MONGO
         }
     })
-    console.log("hi");
+
     await fookie.use(require("./global/export"))
     await fookie.use(require("fookie-databases").mongodb)
+
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./character/export"))
@@ -28,23 +28,16 @@
     await fookie.use(require("./drop/export"))
     await fookie.use(require("./faction/export"))
     await fookie.use(require("./house/export"))
-
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
-
     await fookie.listen(3434)
 
     mp.events.call("fookie_connected", fookie)
-
-
-
-
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)
         await fookie.run(payload)
         return JSON.stringify(payload.response)
     })
-
 
     mp.events.addCommand("pos", (player) => {
         console.log(player.position);
@@ -66,7 +59,7 @@
         })
     })
 
-    mp.events.addCommand("v", async (player) => {
+    mp.events.addCommand("vehicle", async (player) => {
         let res = await fookie.run({
             token: true,
             model: "vehicle",
@@ -89,7 +82,7 @@
         })
     })
 
-    mp.events.addCommand("o", async (player) => {
+    mp.events.addCommand("object", async (player) => {
         let res = await fookie.run({
             token: true,
             model: "object",
@@ -108,7 +101,7 @@
         })
     })
 
-    mp.events.addCommand("t", async (player) => {
+    mp.events.addCommand("spawn", async (player) => {
         player.position = new mp.Vector3(0, 0, 72.5);
         player.dimension = 0
     })
@@ -194,7 +187,6 @@
         console.log(shape);
         console.log("------------------------");
     });
-
 
     mp.events.addCommand('apart', async (player) => {
         let res = await fookie.run({
