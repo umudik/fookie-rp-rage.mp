@@ -23,7 +23,7 @@ module.exports = async function (ctx) {
                 required: true,
             },
             owner: {
-                relation: "user",
+                relation: "player",
             }
         },
         lifecycle: {

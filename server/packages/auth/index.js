@@ -1,4 +1,19 @@
-mp.events.add("playerJoin", async (player) => {
-    player.dimension = mp.helpers.getEmptyDimension()
-    player.setVariable("fookie_token", "admin")
+mp.events.add("fookie_connected", async (ctx) => {
+
+    mp.events.add("playerJoin", async (player) => {
+        const socialID = player.rgscId;
+        player.dimension = mp.helpers.getEmptyDimension()
+        player.outputChatBox("Your Social club ID is: " + socialID);
+        setTimeout(() => {
+            const id = player.getVariable("fookie_id");
+            console.log(id);
+            if (!id) {
+                player.kick()
+            }
+
+
+        }, 15 * 1000);
+    })
 })
+
+

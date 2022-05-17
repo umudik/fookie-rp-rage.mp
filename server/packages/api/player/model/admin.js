@@ -1,20 +1,17 @@
 module.exports = async function (ctx) {
   await ctx.model({
-    name: "user",
+    name: "admin",
     database: "mongodb",
+    mixin: ["cache"],
     schema: {
-      email: {
-        type: "string",
+      user: {
+        relation: "player",
         required: true,
-        unique: true,
       },
-      password: {
-        type: "string",
+      type: {
+        type: "number",
         required: true,
-        read: ["nobody"]
-      },
-      code: {
-        type: "string",
+        default: 100,
       }
     },
     lifecycle: {
@@ -23,12 +20,9 @@ module.exports = async function (ctx) {
       },
       update: {
         role: ["system"],
-        modify: ["hash_password"],
       },
       create: {
-        rule: [],
         role: ["system"],
-        modify: ["hash_password"],
       },
       delete: {
         role: ["system"],
@@ -36,10 +30,6 @@ module.exports = async function (ctx) {
       count: {
         role: ["system"],
       },
-      login: {
-        preRule: ["has_password_email"],
-      }
     },
-    mixin: [],
   });
 };

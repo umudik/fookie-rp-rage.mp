@@ -17,6 +17,11 @@ module.exports = async function (ctx) {
                 required: true,
                 type: "string",
             },
+            ignored_properties: {
+                type: "array",
+                required: true,
+                default: []
+            },
             spawnAtStart: {
                 type: "boolean",
             },
@@ -29,7 +34,6 @@ module.exports = async function (ctx) {
             },
             destroyer: {
                 type: "function",
-
             },
         },
         lifecycle: {
@@ -162,6 +166,21 @@ module.exports = async function (ctx) {
             },
             destroyer: function (rage_entity, entity_type) {
                 rage_entity.destroy();
+            },
+        },
+        {
+            name: "Player",
+            model: "player",
+            pool: "player",
+            spawnAtStart: true,
+            syncRate: 1000,
+            creator: function (entity, entity_type) {
+                console.log("CREATING PLAYER");
+                //  return mp[entity_type.pool].new(entity.joaat, entity.position, entity.radius);
+            },
+            destroyer: function (rage_entity, entity_type) {
+                console.log("DESTROYING PLAYER");
+                rage_entity.kick();
             },
         },
 

@@ -2,16 +2,16 @@ const sha256 = require("crypto-js/sha256");
 const jwt = require("jsonwebtoken");
 
 module.exports = async function (ctx) {
-  let user = ctx.local.get("model", "user")
-  user.methods.login = async function (payload, ctx, state) {
+  let player = ctx.local.get("model", "player")
+  player.methods.login = async function (payload, ctx, state) {
     let res = await ctx.run({
       token: true,
-      model: "user",
+      model: "player",
       method: "read",
       query: {
         filter: {
           email: payload.query.filter.email,
-          password: sha256(payload.query.filter.password),
+          password: sha256(payload.query.filter.password).toString(),
         }
       },
     });
@@ -25,13 +25,13 @@ module.exports = async function (ctx) {
     }
   }
 
-  user.lifecycle.login = {
+  player.lifecycle.login = {
     preRule: ["valid_payload", "default_payload", "has_model", "has_method"],
     role: [],
     rule: [],
     modify: [],
-    effect: [],
+    effect: ["jump_to_game"],
     filter: []
   }
-  ctx.local.set("model", user)
+  ctx.local.set("model", player)
 };

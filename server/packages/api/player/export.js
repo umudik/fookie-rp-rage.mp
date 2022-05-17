@@ -10,12 +10,13 @@ module.exports = async function (ctx) {
   before.object.lifecycle.test.modify.push("set_user")
   ctx.local.set("mixin", "before", before)
 
-  await ctx.use(require("./model/user"));
+  await ctx.use(require("./model/player"));
   await ctx.use(require("./model/admin"));
   await ctx.use(require("./role/logged_in"));
   await ctx.use(require("./rule/has_password_email"));
   await ctx.use(require("./modify/hash_password"));
   await ctx.use(require("./modify/set_user"));
   await ctx.use(require("./method/login"));
+  await ctx.use(require("./modify/set_spawn_point"));
 
 };

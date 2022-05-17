@@ -1,6 +1,6 @@
 
 (async () => {
-    //require("dotenv").config();
+    require("dotenv").config();
     const lodash = require("lodash")
     const fookie = require("fookie");
     await fookie.init()
@@ -18,13 +18,11 @@
 
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
-    await fookie.use(require("./character/export"))
-    await fookie.use(require("./user/export"))
+    await fookie.use(require("./player/export"))
     await fookie.use(require("./vehicle/export"))
     await fookie.use(require("./inventory/export"))
-    await fookie.use(require("./whitelist/export"))
     await fookie.use(require("./shop/export"))
-    // await fookie.use(require("./crafting/export"))
+    await fookie.use(require("./crafting/export"))
     await fookie.use(require("./drop/export"))
     await fookie.use(require("./faction/export"))
     await fookie.use(require("./house/export"))
@@ -60,12 +58,14 @@
     })
 
     mp.events.addCommand("vehicle", async (player) => {
+        const t = await fookie.remote.random("vehicle_type")
+        console.log(t);
         let res = await fookie.run({
             token: true,
             model: "vehicle",
             method: "create",
             body: {
-                joaat: lodash.sample(["zentorno", "turismor", "banshee2", "jester3"]),
+                joaat: t.joaat,
                 position: {
                     x: player.position.x,
                     y: player.position.y,

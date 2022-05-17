@@ -1,10 +1,12 @@
 const sha256 = require("crypto-js/sha256");
 module.exports = async function (ctx) {
   await ctx.lifecycle({
-    name: "hash_password",
+    name: "set_spawn_point",
     function: async function (payload, ctx, state) {
-      if (ctx.lodash.has(payload.body, "password")) {
-        payload.body.password = sha256(payload.body.password);
+      payload.body.position = {
+        x: 0,
+        y: 0,
+        z: 72,
       }
     },
   });
