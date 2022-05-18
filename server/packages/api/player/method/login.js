@@ -30,7 +30,7 @@ module.exports = async function (ctx) {
     role: [],
     rule: [],
     modify: [],
-    effect: ["jump_to_game"],
+    effect: [],
     filter: []
   }
   ctx.local.set("model", player)

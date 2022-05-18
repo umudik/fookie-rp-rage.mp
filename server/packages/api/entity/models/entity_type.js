@@ -24,6 +24,8 @@ module.exports = async function (ctx) {
             },
             spawnAtStart: {
                 type: "boolean",
+                required: true,
+                default: true
             },
             syncRate: {
                 type: "number",
@@ -172,7 +174,7 @@ module.exports = async function (ctx) {
             name: "Player",
             model: "player",
             pool: "player",
-            spawnAtStart: true,
+            spawnAtStart: false,
             syncRate: 1000,
             creator: function (entity, entity_type) {
                 console.log("CREATING PLAYER");

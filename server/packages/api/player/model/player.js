@@ -19,7 +19,7 @@ module.exports = async function (ctx) {
       },
       name: {
         type: "string",
-        input: "text"
+
       },
       inventory: {
         relation: "inventory"
@@ -32,6 +32,18 @@ module.exports = async function (ctx) {
         type: "number",
 
       },
+      cloth_head: { type: "number" },
+      cloth_beard: { type: "number" },
+      cloth_hair: { type: "number" },
+      cloth_torso: { type: "number" },
+      cloth_legs: { type: "number" },
+      cloth_hand: { type: "number" },
+      cloth_foot: { type: "number" },
+      cloth_eye: { type: "number" },
+      cloth_accessory1: { type: "number" },
+      acloth_accessory2: { type: "number" },
+      cloth_decal: { type: "number" },
+      cloth_auxiliary: { type: "number" },
       customization_gender: { type: "number" },
       customization_mother_blend: { type: "number" },
       customization_father_blend: { type: "number" },

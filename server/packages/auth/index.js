@@ -1,5 +1,4 @@
 mp.events.add("fookie_connected", async (ctx) => {
-
     mp.events.add("playerJoin", async (player) => {
         const socialID = player.rgscId;
         player.dimension = mp.helpers.getEmptyDimension()
@@ -8,10 +7,8 @@ mp.events.add("fookie_connected", async (ctx) => {
             const id = player.getVariable("fookie_id");
             console.log(id);
             if (!id) {
-                player.kick()
+                console.log("you are kicked");
             }
-
-
         }, 15 * 1000);
     })
 })

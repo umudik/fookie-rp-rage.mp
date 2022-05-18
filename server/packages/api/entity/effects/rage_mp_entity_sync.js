@@ -41,8 +41,6 @@ module.exports = async function (ctx) {
                     }
                 }
             }
-
-
             if (payload.method == "create") {
                 if (ctx.lodash.has(payload.body, "spawned") && payload.body.spawned) {
                     let entity = state.entity_type.creator(payload.body, state.entity_type)
@@ -54,8 +52,6 @@ module.exports = async function (ctx) {
                     }
                 }
             }
-
-
             if (payload.method == "delete") {
                 for (let entity of state.deleteEntities) {
                     let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)

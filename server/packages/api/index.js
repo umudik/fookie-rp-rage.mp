@@ -160,6 +160,7 @@
             token: true,
             model: "label",
             method: "create",
+
             body: {
                 text: "EXAMPLE TEXT " + Math.round(Math.random() * 100),
                 position: player.position,
