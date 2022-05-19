@@ -21,5 +21,7 @@ mp.keys.bind(0x71, true, function () {
     mp.gui.cursor.show(cursor, cursor);
 });
 
+
+
 require('./interact_menu/index.js')
 require('./vehicle/index.js')

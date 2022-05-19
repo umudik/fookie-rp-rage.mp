@@ -23,7 +23,9 @@ services:
     restart: always
     env_file: docker.env
     ports:
-      - 27017:27017          
+      - 27017:27017        
+    volumes:
+      - './data:/data/db'  
   cef:
     build: ./cef
     restart: always

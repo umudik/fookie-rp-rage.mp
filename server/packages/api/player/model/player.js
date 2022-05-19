@@ -32,6 +32,11 @@ module.exports = async function (ctx) {
         type: "number",
 
       },
+      health: {
+        type: "number",
+        default: 100,
+        required: true
+      },
       cloth_head: { type: "number" },
       cloth_beard: { type: "number" },
       cloth_hair: { type: "number" },

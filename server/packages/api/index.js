@@ -33,7 +33,7 @@
     mp.events.call("fookie_connected", fookie)
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)
-        await fookie.run(payload)
+        await fookie.run(payload, { player })
         return JSON.stringify(payload.response)
     })
 
