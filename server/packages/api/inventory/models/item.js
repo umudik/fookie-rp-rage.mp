@@ -20,10 +20,6 @@ module.exports = {
             type: "number",
             input: "number",
         },
-        data: {
-            type: "object",
-            input: "object",
-        },
     },
     lifecycle: {
         read: {

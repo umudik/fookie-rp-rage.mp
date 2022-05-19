@@ -1,20 +1,22 @@
 module.exports = {
     name: 'inventory_type',
     database: "mongodb",
+    mixin: ["cache"],
     schema: {
         name: {
             required: true,
             type: "string",
             input: "text"
         },
-        entity_type: {
-            required: true,
-            relation: "entity_type"
-        },
-        field: {
+        tag: {
             required: true,
             type: "string",
             input: "text"
+        },
+        entity_type: {
+            required: true,
+            type: "string",
+            default: "player"
         },
         slotSize: {
             required: true,

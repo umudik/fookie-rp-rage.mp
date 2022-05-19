@@ -5,37 +5,34 @@ module.exports = {
         name: {
             require: true,
             type: "string",
-            input: "text",
-        },
-        inventory_type: {
-            require: true,
-            relation: "inventory_type",
         },
         weight: {
             require: true,
             type: "number",
-            input: "number",
+
         },
-        stackable: {
+        stack: {
             require: true,
             type: "boolean",
-            input: "boolean",
+            default: 1
         },
         desc: {
             type: "string",
-            input: "text",
         },
         in: {
-            type: "string",
-            input: "text",
+            type: "function",
+            required: true,
+            default: async function () { }
         },
         out: {
-            type: "string",
-            input: "text",
+            type: "function",
+            required: true,
+            default: async function () { }
         },
         use: {
-            type: "string",
-            input: "text",
+            type: "function",
+            required: true,
+            default: async function () { }
         },
     },
     lifecycle: {

@@ -2,6 +2,10 @@ module.exports = {
     name: 'inventory',
     database: "mongodb",
     schema: {
+        bind: {
+            required: true,
+            type: "string",
+        },
         inventory_type: {
             required: true,
             relation: "inventory_type",
