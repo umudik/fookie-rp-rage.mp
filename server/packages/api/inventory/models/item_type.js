@@ -1,6 +1,6 @@
 module.exports = {
     name: 'item_type',
-    database: "mongodb",
+    database: "store",
     schema: {
         name: {
             require: true,

@@ -1,9 +1,10 @@
 
 (async () => {
-    //require("dotenv").config();
+    require("dotenv").config();
     const lodash = require("lodash")
     const fookie = require("fookie");
     await fookie.init()
+    mp.fookie = fookie
     await fookie.use(require("fookie-server"))
     await fookie.use(require("fookie-cache").client)
     await fookie.setting({
@@ -102,7 +103,7 @@
     })
 
     mp.events.addCommand("spawn", async (player) => {
-        player.position = new mp.Vector3(0, 0, 72.5);
+        player.spawn(new mp.Vector3(0, 0, 72.5))
         player.dimension = 0
     })
 

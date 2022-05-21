@@ -3,7 +3,9 @@ module.exports = async function (ctx) {
         name: "rage_mp_entity_sync",
         async: false,
         function: async function (payload, ctx, state) {
+            if (payload.options.dont_sync) return;
             if (payload.method == "update") {
+                console.log("update", state.entity_type.pool);
                 const entities_res = await ctx.run({
                     token: true,
                     model: payload.model,
@@ -15,7 +17,7 @@ module.exports = async function (ctx) {
                 for (const entity of entities_res.data) {
                     if (ctx.lodash.has(payload.body, "spawned")) {
                         if (payload.body.spawned) {
-                            rage_entity = state.entity_type.creator(entity, state.entity_type)
+                            rage_entity = state.entity_type.creator(entity, state)
                             rage_entity.setVariable("fookie_id", entity._id)
                             rage_entity.setVariable("tag", entity.tag)
                             update_body = entity
@@ -23,12 +25,10 @@ module.exports = async function (ctx) {
                         else {
                             rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                             if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
-                                state.entity_type.destroyer(rage_entity, state.entity_type)
+                                state.entity_type.destroyer(rage_entity, state)
                             }
                             return
                         }
-
-
                     } else {
                         rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                         if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
@@ -43,7 +43,7 @@ module.exports = async function (ctx) {
             }
             if (payload.method == "create") {
                 if (ctx.lodash.has(payload.body, "spawned") && payload.body.spawned) {
-                    let entity = state.entity_type.creator(payload.body, state.entity_type)
+                    let entity = state.entity_type.creator(payload.body, state)
                     entity.setVariable("fookie_id", payload.response.data._id)
                     entity.setVariable("tag", payload.body.tag)
 
@@ -56,12 +56,11 @@ module.exports = async function (ctx) {
                 for (let entity of state.deleteEntities) {
                     let rage_entity = mp[state.entity_type.pool].toArray().find(e => e.getVariable("fookie_id") == entity._id)
                     if (rage_entity && mp[state.entity_type.pool].exists(rage_entity.id)) {
-                        state.entity_type.destroyer(rage_entity, state.entity_type)
+                        state.entity_type.destroyer(rage_entity, state)
                     }
                 }
 
             }
-
         }
     })
 }

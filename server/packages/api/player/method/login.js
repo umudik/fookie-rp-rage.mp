@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 module.exports = async function (ctx) {
   let player = ctx.local.get("model", "player")
   player.methods.login = async function (payload, ctx, state) {
+    console.log(sha256(payload.query.filter.password).toString());
     let res = await ctx.run({
       token: true,
       model: "player",
@@ -15,12 +16,14 @@ module.exports = async function (ctx) {
         }
       },
     });
+
     if (res.data.length > 0) {
       payload.response.data = {
-        token: jwt.sign(res.data[0], process.env.SYSTEM_TOKEN)
+        token: jwt.sign(res.data[0], process.env.SYSTEM_TOKEN),
+        _id: res.data[0]._id
       }
     } else {
-      payload.response.data = {}
+      payload.response.data = "login_error"
       payload.response.status = false
     }
   }

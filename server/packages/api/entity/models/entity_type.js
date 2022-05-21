@@ -66,10 +66,10 @@ module.exports = async function (ctx) {
             pool: "vehicles",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
-                return mp[entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
+            creator: function (entity, state) {
+                return mp[state.entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -79,10 +79,10 @@ module.exports = async function (ctx) {
             pool: "objects",
             spawnAtStart: true,
             syncRate: 2000,
-            creator: function (entity, entity_type) {
-                return mp[entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
+            creator: function (entity, state) {
+                return mp[state.entity_type.pool].new(mp.joaat(entity.joaat), entity.position)
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -92,10 +92,10 @@ module.exports = async function (ctx) {
             pool: "markers",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
-                return mp[entity_type.pool].new(entity.joaat, entity.position, entity.scale)
+            creator: function (entity, state) {
+                return mp[state.entity_type.pool].new(entity.joaat, entity.position, entity.scale)
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -105,8 +105,8 @@ module.exports = async function (ctx) {
             pool: "blips",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
-                return mp[entity_type.pool].new(entity.joaat, entity.position, {
+            creator: function (entity, state) {
+                return mp[state.entity_type.pool].new(entity.joaat, entity.position, {
                     scale: entity.scale,
                     color: entity.color,
                     drawDistance: entity.drawDistance,
@@ -114,7 +114,7 @@ module.exports = async function (ctx) {
                     radius: entity.radius,
                 });
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -124,7 +124,7 @@ module.exports = async function (ctx) {
             pool: "colshapes",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
+            creator: function (entity, state) {
                 if (entity.type == "circle") {
                     return mp.colshapes.newCircle(entity.position.x, entity.position.y, entity.radius, entity.dimension)
                 } else if (entity.type == "sphere") {
@@ -133,7 +133,7 @@ module.exports = async function (ctx) {
                     throw Error("INVALID COLSHAPE TYPE")
                 }
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -143,7 +143,7 @@ module.exports = async function (ctx) {
             pool: "labels",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
+            creator: function (entity, state) {
                 return mp.labels.new(entity.text, entity.position,
                     {
                         los: entity.los,
@@ -153,7 +153,7 @@ module.exports = async function (ctx) {
                         dimension: entity.dimension
                     });
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
@@ -163,24 +163,24 @@ module.exports = async function (ctx) {
             pool: "checkpoints",
             spawnAtStart: true,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
-                return mp[entity_type.pool].new(entity.joaat, entity.position, entity.radius);
+            creator: function (entity, state) {
+                return mp[state.entity_type.pool].new(entity.joaat, entity.position, entity.radius);
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 rage_entity.destroy();
             },
         },
         {
             name: "Player",
             model: "player",
-            pool: "player",
+            pool: "players",
             spawnAtStart: false,
             syncRate: 1000,
-            creator: function (entity, entity_type) {
+            creator: function (entity, state) {
                 console.log("CREATING PLAYER");
-                //  return mp[entity_type.pool].new(entity.joaat, entity.position, entity.radius);
+                return state.player
             },
-            destroyer: function (rage_entity, entity_type) {
+            destroyer: function (rage_entity, state) {
                 console.log("DESTROYING PLAYER");
                 rage_entity.kick();
             },

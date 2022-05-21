@@ -12,7 +12,7 @@ module.exports = async function (ctx) {
       password: {
         type: "string",
         required: true,
-        read: ["nobody"]
+        // read: ["nobody"]
       },
       code: {
         type: "string",
