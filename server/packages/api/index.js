@@ -1,6 +1,6 @@
 
 (async () => {
-    require("dotenv").config();
+    // require("dotenv").config();
     const lodash = require("lodash")
     const fookie = require("fookie");
     await fookie.init()
