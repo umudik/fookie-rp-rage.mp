@@ -1,6 +1,9 @@
-FROM node:14.15.0-alpine
+FROM node:16
+RUN npm install -g http-server
 WORKDIR /app
-COPY . .
+COPY package*.json ./
 RUN npm install
+COPY . .
+RUN npm run build
 EXPOSE 8080
-CMD [ "nom run serve" ]
+CMD [ "http-server", "dist" ]
