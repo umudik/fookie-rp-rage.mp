@@ -17,8 +17,7 @@ jobs:
             cd server ; git pull origin
             rm -rf docker.env
             touch docker.env
-            echo "${{secrets.RAGEMP_ENV}}" > docker.env
-            docker-compose up --build --detach           
+            echo "${{secrets.RAGEMP_ENV}}" > docker.env      
       - name: Compose Up
         uses: appleboy/ssh-action@master
         with:
