@@ -26,5 +26,4 @@ jobs:
           username: ${{ secrets.RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           script: |       
-            docker system prune 
             docker-compose up --build --detach 
