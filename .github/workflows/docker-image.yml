@@ -6,6 +6,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Clear
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RAGEMP_TEST_SERVER }}
+          username: ${{ secrets.RAGEMP_TEST_HOST }}
+          key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          script: |
+            rm -rf server;
       - name: Git Clone
         uses: appleboy/ssh-action@master
         with:
