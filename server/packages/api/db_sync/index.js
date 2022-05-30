@@ -1,4 +1,4 @@
-mp.events.add("fookie_connected", async (ctx) => {
+module.exports = async (ctx) => {
     // SPAWN ALL ENTITIES
     let res = await ctx.run({
         token: true,
@@ -90,4 +90,4 @@ mp.events.add("fookie_connected", async (ctx) => {
         });
     })
 
-})
+}

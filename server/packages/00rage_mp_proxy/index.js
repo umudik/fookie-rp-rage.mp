@@ -151,7 +151,7 @@ let player_props = [
     { key: "cloth_accessory1", type: 8, min: 0, max: 255 },
     { key: "acloth_accessory2", type: 9, min: 0, max: 255 },
     { key: "cloth_decal", type: 10, min: 0, max: 255 },
-    { key: "cloth_auxiliary ", min: 0, max: 255 },
+    { key: "cloth_auxiliary ", type: 11, min: 0, max: 255 },
 ]
 
 for (let p of player_props) {
@@ -160,9 +160,9 @@ for (let p of player_props) {
         get() {
             return this["_" + p.key]
         },
-        set({ drawable, texture }) {
-            this["_" + p.key] = { drawable, texture }
-            this.setClothes(p.type, drawable, texture, 2)
+        set(object) {
+            this["_" + p.key] = object.drawable
+            this.setClothes(p.type, object.drawable, object.texture, 2)
         }
     })
 }

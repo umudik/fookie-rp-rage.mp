@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 module.exports = async function (ctx) {
   let player = ctx.local.get("model", "player")
   player.methods.login = async function (payload, ctx, state) {
-    console.log(sha256(payload.query.filter.password).toString());
     let res = await ctx.run({
       token: true,
       model: "player",

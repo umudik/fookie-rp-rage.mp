@@ -6,12 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    setting: {
-      host: "localhost",
-      protocol: "http",
-      port: "2626",
-      token: "admin"
-    },
+    token: "",
     models: {
       model: [],
     },
@@ -64,7 +59,7 @@ export default new Vuex.Store({
         body: payload
       })
 
-      const apiCall = await axios.post(`${ctx.state.setting.protocol}://${ctx.state.setting.host}:${ctx.state.setting.port}`, payload, {
+      const apiCall = await axios.post(`${process.env.SERVER}`, payload, {
         headers: {
           token: localStorage.getItem("token")
         }

@@ -22,9 +22,11 @@ Vue.component("f-model-field", f_model_field)
 import fm from "./mixin/fm.vue";
 Vue.mixin(fm)
 
-new Vue({
+const app = new Vue({
   router,
   store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+window.app = app

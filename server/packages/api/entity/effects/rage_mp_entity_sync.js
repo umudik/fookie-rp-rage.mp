@@ -5,7 +5,6 @@ module.exports = async function (ctx) {
         function: async function (payload, ctx, state) {
             if (payload.options.dont_sync) return;
             if (payload.method == "update") {
-                console.log("update", state.entity_type.pool);
                 const entities_res = await ctx.run({
                     token: true,
                     model: payload.model,

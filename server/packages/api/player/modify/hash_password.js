@@ -5,7 +5,6 @@ module.exports = async function (ctx) {
     function: async function (payload, ctx, state) {
       if (ctx.lodash.has(payload.body, "password")) {
         payload.body.password = sha256(payload.body.password).toString();
-        console.log(payload.body);
       }
     },
   });

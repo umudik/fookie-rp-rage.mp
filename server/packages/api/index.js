@@ -1,6 +1,7 @@
 
 (async () => {
-    require("dotenv").config();
+    // require("dotenv").config();
+    mp.accept_connections = false
     const lodash = require("lodash")
     const fookie = require("fookie");
     await fookie.init()
@@ -29,15 +30,17 @@
     await fookie.use(require("./house/export"))
     await fookie.use(require("./government/export"))
     await fookie.use(require("./phone/export"))
+    await fookie.use(require("./auth/index.js"))
+    await fookie.use(require("./db_sync/index.js"))
     await fookie.listen(3434)
 
-    mp.events.call("fookie_connected", fookie)
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)
         await fookie.run(payload, { player })
         return JSON.stringify(payload.response)
     })
-
+    mp.events.call("fookie_connected", fookie)
+    mp.accept_connections = true
     mp.events.addCommand("pos", (player) => {
         console.log(player.position);
         player.outputChatBox(player.position + " -pos")

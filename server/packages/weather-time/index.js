@@ -7,6 +7,9 @@ mp.world.time.second = new Date().getSeconds();
 
 console.log(`[SERVER] ${mp.world.time.hour}:${mp.world.time.minute}:${mp.world.time.second} `);
 setInterval(() => {
+    mp.world.time.hour = 8;
+    mp.world.time.minute = 0;
+    mp.world.time.second = 0;
     mp.world.time.second++
     if (mp.world.time.second == 60) {
         mp.world.time.second = 0

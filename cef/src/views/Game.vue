@@ -1,5 +1,13 @@
 <template lang="pug">
-div
+v-app(app)
+  v-system-bar(dark lights-out)
+    span Fookie RAGEMP
+    v-spacer
+    v-icon mdi-fire
+    span 13:37
+  v-main(app color="transparent")
+    v-container
+      router-view
 </template>
 
 <script>
