@@ -12,6 +12,7 @@ services:
     depends_on:
       - cache
       - mongodb
+      - cef
   cache:
     restart: always
     env_file: docker.env
