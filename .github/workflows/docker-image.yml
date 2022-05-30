@@ -24,5 +24,6 @@ jobs:
           host: ${{ secrets.RAGEMP_TEST_SERVER }}
           username: ${{ secrets.RAGEMP_TEST_HOST }}
           key:  ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-          script: |       
+          script: |
+            cd server;       
             docker-compose up --build --detach 
