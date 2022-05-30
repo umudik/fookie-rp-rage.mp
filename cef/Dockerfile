@@ -1,4 +1,4 @@
-FROM node
+FROM node:14
 RUN npm install -g http-server
 WORKDIR /app
 COPY package*.json ./
