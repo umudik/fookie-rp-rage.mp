@@ -14,6 +14,7 @@ module.exports = async function (ctx) {
   await ctx.use(require("./model/admin"));
   await ctx.use(require("./role/logged_in"));
   await ctx.use(require("./rule/has_password_email"));
+  await ctx.use(require("./rule/in_game"));
   await ctx.use(require("./modify/hash_password"));
   await ctx.use(require("./modify/set_user"));
   await ctx.use(require("./method/login"));

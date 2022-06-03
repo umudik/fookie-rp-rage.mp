@@ -49,7 +49,7 @@ module.exports = async function (ctx) {
       cloth_accessory2: { type: "object" },
       cloth_decal: { type: "object" },
       cloth_auxiliary: { type: "object" },
-      customization_gender: { type: "number" },
+      customization_gender: { type: "boolean" },
       customization_mother_blend: { type: "number" },
       customization_father_blend: { type: "number" },
       customization_f_blend_shape: { type: "number" },

@@ -8,21 +8,6 @@ module.exports = async function (ctx) {
             })
         }
     });
-    mp.events.add("playerReady", async (player) => {
-        if (!mp.accept_connections) {
-            player.kick("SERVER IS STARTING UP...");
-        }
-        const socialID = player.rgscId;
-        player.dimension = mp.helpers.getEmptyDimension()
-        player.outputChatBox("Your Social club ID is: " + socialID);
-        setTimeout(() => {
-            const id = player.getVariable("fookie_id");
-            if (!id) {
-                player.kick("You are not registered");
-            }
-        }, 8 * 1000);
-    })
-
 
     mp.events.addProc("login", async (player, payload) => {
         const data = JSON.parse(payload)
@@ -41,7 +26,7 @@ module.exports = async function (ctx) {
         if (res.status) {
             player.setVariable("token", res.data.token)
             player.setVariable("fookie_id", res.data._id)
-            await ctx.run({
+            let res2 = await ctx.run({
                 token: true,
                 model: "player",
                 method: "update",

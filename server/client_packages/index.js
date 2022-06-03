@@ -3,7 +3,9 @@ let cursor = true;
 
 (async () => {
     const cef_url = await mp.events.callRemoteProc('CEF_URL')
+    const api_url = await mp.events.callRemoteProc('API_URL')
     mp.cef = new mp.browsers.new(cef_url)
+    mp.cef.execute(`app.$store.state.API_URL = "${api_url}"`)
 })()
 
 
@@ -11,9 +13,8 @@ let sceneryCamera = mp.cameras.new('default', new mp.Vector3(-485, 1095.75, 323.
 sceneryCamera.pointAtCoord(402.8664, -996.4108, -98.5); // Changes the rotation of the camera to point towards a location
 sceneryCamera.setActive(true);
 mp.game.cam.renderScriptCams(true, false, 0, true, false);
-for (let i = 0; i < 10; i++) {
-    mp.game.controls.disableAllControlActions(i);
-}
+
+mp.game.controls.disableAllControlActions(0);
 
 mp.game.ui.displayRadar(false);
 mp.gui.chat.show(false);
@@ -31,9 +32,8 @@ mp.events.add('CEF_LOGIN', async (payload) => {
     if (res.status) {
         mp.cef.execute(`app.$store.state.token = "${res.data.token}";`)
         mp.game.cam.renderScriptCams(false, false, 0, false, false);
-        for (let i = 0; i < 10; i++) {
-            mp.game.controls.enableAllControlActions(i);
-        }
+
+        mp.game.controls.enableAllControlActions(0);
 
         mp.gui.chat.show(true);
         cursor = false

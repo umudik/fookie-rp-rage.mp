@@ -43,10 +43,8 @@ module.exports = async (ctx) => {
 
     // SAVE ENTITIES TO DB CRONJOB
     setInterval(async () => {
-        mp.vehicles.forEach(async function (entity) {
-            const speed = Math.abs(entity.velocity.x) + Math.abs(entity.velocity.y) + Math.abs(entity.velocity.z)
-            if (entity.getVariable("fookie_id") && speed < 0.13) {
-                console.log("VEHICLES SAVED... ", entity.getVariable("fookie_id"));
+        mp.vehicles.forEach(async function (vehicle) {
+            if (vehicle.getVariable("fookie_id")) {
                 ctx.run({
                     token: true,
                     model: "vehicle",
@@ -56,21 +54,42 @@ module.exports = async (ctx) => {
                     },
                     query: {
                         filter: {
-                            pk: entity.getVariable("fookie_id"),
+                            pk: vehicle.getVariable("fookie_id"),
                         }
                     },
                     body: {
-                        position: entity.position,
-                        heading: entity.heading,
-                        rotation: entity.rotation
+                        position: vehicle.position,
+                        heading: vehicle.heading,
+                        rotation: vehicle.rotation
                     }
                 });
             }
         })
-    }, 10 * 60 * 1000)
+        mp.players.forEach(async function (player) {
+            if (player.getVariable("fookie_id")) {
+                ctx.run({
+                    token: true,
+                    model: "player",
+                    method: "update",
+                    options: {
+                        dont_sync: true
+                    },
+                    query: {
+                        filter: {
+                            pk: player.getVariable("fookie_id"),
+                        }
+                    },
+                    body: {
+                        position: player.position,
+                        heading: player.heading,
+                    }
+                });
+            }
+        })
+    }, 4 * 60 * 1000)
 
     mp.events.add("playerExitVehicle", async function (player, entity) {
-        let res = await ctx.run({
+        await ctx.run({
             token: true,
             model: "vehicle",
             method: "update",
@@ -89,5 +108,28 @@ module.exports = async (ctx) => {
             }
         });
     })
+
+
+    mp.events.add("playerQuit", async (player) => {
+        if (player.getVariable("fookie_id")) {
+            ctx.run({
+                token: true,
+                model: "player",
+                method: "update",
+                options: {
+                    dont_sync: true
+                },
+                query: {
+                    filter: {
+                        pk: player.getVariable("fookie_id"),
+                    }
+                },
+                body: {
+                    position: player.position,
+                    heading: player.heading,
+                }
+            });
+        }
+    });
 
 }

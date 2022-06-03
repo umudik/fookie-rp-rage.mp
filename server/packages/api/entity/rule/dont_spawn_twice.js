@@ -2,6 +2,7 @@ module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "dont_spawn_twice",
         function: async function (payload, ctx, state) {
+            if (payload.model == "player") return true
             const e_res = await ctx.run({
                 token: true,
                 model: payload.model,

@@ -177,11 +177,9 @@ module.exports = async function (ctx) {
             spawnAtStart: false,
             syncRate: 1000,
             creator: function (entity, state) {
-                console.log(state.player);
                 return state.player
             },
             destroyer: function (rage_entity, state) {
-                console.log("DESTROYING PLAYER");
                 rage_entity.kick();
             },
         },

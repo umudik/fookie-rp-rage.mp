@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    API_URL: "",
     token: "",
     models: {
       model: [],
@@ -59,7 +60,7 @@ export default new Vuex.Store({
         body: payload
       })
 
-      const apiCall = await axios.post(`${process.env.SERVER}`, payload, {
+      const apiCall = await axios.post(ctx.state.API_URL, payload, {
         headers: {
           token: localStorage.getItem("token")
         }

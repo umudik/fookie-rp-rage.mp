@@ -1,8 +1,9 @@
-
 (async () => {
-    // require("dotenv").config();
     mp.accept_connections = false
-    const lodash = require("lodash")
+    if (typeof process.env.MONGO != "string") {
+        require("dotenv").config();
+    }
+
     const fookie = require("fookie");
     await fookie.init()
     mp.fookie = fookie
@@ -17,7 +18,6 @@
 
     await fookie.use(require("./global/export"))
     await fookie.use(require("fookie-databases").mongodb)
-
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./player/export"))
@@ -32,6 +32,12 @@
     await fookie.use(require("./phone/export"))
     await fookie.use(require("./auth/index.js"))
     await fookie.use(require("./db_sync/index.js"))
+
+
+
+
+    // ADD SOMETHINGS
+    await fookie.use(require("./house/menus/index.js"))
     await fookie.listen(3434)
 
     mp.events.addProc('apiProc', async (player, payload) => {
@@ -39,16 +45,7 @@
         await fookie.run(payload, { player })
         return JSON.stringify(payload.response)
     })
-    mp.events.call("fookie_connected", fookie)
-    mp.accept_connections = true
-    mp.events.addCommand("pos", (player) => {
-        console.log(player.position);
-        player.outputChatBox(player.position + " -pos")
-    })
 
-    mp.events.addCommand("dim", (player) => {
-        player.outputChatBox(player.dimension + " -dim")
-    })
     mp.events.addCommand('i', async (player) => {
         let res = await fookie.run({
             token: true,
@@ -63,7 +60,6 @@
 
     mp.events.addCommand("vehicle", async (player) => {
         const t = await fookie.remote.random("vehicle_type")
-        console.log(t);
         let res = await fookie.run({
             token: true,
             model: "vehicle",
@@ -105,106 +101,6 @@
         })
     })
 
-    mp.events.addCommand("spawn", async (player) => {
-        player.spawn(new mp.Vector3(0, 0, 72.5))
-        player.dimension = 0
-    })
-
-    mp.events.addCommand('marker', async (player) => {
-
-        let res = await fookie.run({
-            token: true,
-            model: "marker",
-            method: "create",
-            body: {
-                joaat: Math.round(Math.random() * 43) + 1,
-                color: [0, 123, 123, 255],
-                position: {
-                    x: player.position.x,
-                    y: player.position.y,
-                    z: player.position.z
-                },
-                parent_id: "-",
-                dimension: player.dimension,
-            }
-        })
-    })
-
-    mp.events.addCommand('blip', async (player) => {
-        let res = await fookie.run({
-            token: true,
-            model: "blip",
-            method: "create",
-            body: {
-                parent_id: "-",
-                joaat: Math.round(Math.random() * 43) + 1,
-                color: 13,
-                position: player.position,
-                dimension: player.dimension,
-            }
-        })
-    })
-
-    mp.events.addCommand('colshape', async (player) => {
-        let res = await fookie.run({
-            token: true,
-            model: "colshape",
-            method: "create",
-            body: {
-                joaat: 40,
-                type: "circle",
-                position: player.position,
-                dimension: player.dimension,
-            }
-        })
-    })
-
-    mp.events.addCommand('label', async (player) => {
-        let res = await fookie.run({
-            token: true,
-            model: "label",
-            method: "create",
-
-            body: {
-                text: "EXAMPLE TEXT " + Math.round(Math.random() * 100),
-                position: player.position,
-                dimension: player.dimension,
-            }
-        })
-    })
-
-    mp.events.addCommand('checkpoint', async (player) => {
-        let res = await fookie.run({
-            token: true,
-            model: "checkpoint",
-            method: "create",
-            body: {
-                joaat: 1,
-                position: player.position,
-                dimension: player.dimension,
-            }
-        })
-    })
-
-
-    mp.events.add("playerEnterColshape", (player, shape) => {
-        console.log("BİR COLSHAPE GİRİLDİ-------");
-        console.log(shape);
-        console.log("------------------------");
-    });
-
-    mp.events.addCommand('apart', async (player) => {
-        let res = await fookie.run({
-            token: true,
-            model: "apartment",
-            method: "create",
-            body: {
-                name: "apartmanet " + Math.round(Math.random() * 99100),
-                type: await fookie.remote.random("apartment_type"),
-                position: player.position,
-                fixed_dimension: Math.round(Math.random() * 999991434),
-            }
-        })
-    })
+    mp.accept_connections = true
 })()
 

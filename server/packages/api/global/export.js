@@ -4,4 +4,7 @@ module.exports = async function (ctx) {
     mp.events.addProc("CEF_URL", async (player) => {
         return process.env.CEF
     })
+    mp.events.addProc("API_URL", async (player) => {
+        return process.env.API
+    })
 }
