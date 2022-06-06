@@ -12,10 +12,16 @@ import f_model_field from './components/model/field.vue'
 import f_model_list from './components/model/list.vue'
 import f_model_create from './components/model/create.vue'
 
+//MENUS 
+
+import player_generate from './components/menus/player_generate.vue'
+
 Vue.component("f-model-info", f_model_info)
 Vue.component("f-model-list", f_model_list)
 Vue.component("f-model-create", f_model_create)
 Vue.component("f-model-field", f_model_field)
+
+Vue.component("f-player-generate", player_generate)
 
 
 // MIXIN 

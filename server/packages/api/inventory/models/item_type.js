@@ -9,11 +9,12 @@ module.exports = {
         weight: {
             require: true,
             type: "number",
+            default: 1,
 
         },
         stack: {
             require: true,
-            type: "boolean",
+            type: "number",
             default: 1
         },
         desc: {

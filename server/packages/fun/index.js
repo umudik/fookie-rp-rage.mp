@@ -117,14 +117,18 @@ mp.events.addCommand('apart', async (player) => {
 mp.events.addCommand('randomize', async (player) => {
     const _id = player.getVariable("fookie_id");
     if (_id) {
-        let res = await mp.fookie.remote.update("player", _id, {
+        await mp.fookie.remote.update("player", _id, {
+            "customization_gender": Math.random() > 0.5 ? false : true,
+        })
+
+        await mp.fookie.remote.update("player", _id, {
             "customization_gender": Math.random() > 0.5 ? false : true,
             "customization_mother_blend": Math.random(),
             "customization_father_blend": Math.random(),
             "customization_f_blend_shape": Math.random(),
             "customization_f_blend_skin": Math.random(),
             "customization_hair_highlight": Math.random(),
-            "customization_hair_color": Math.random(),
+            "customization_hair_color": Math.round(Math.random() * 255),
             "customization_nose_width": Math.random(),
             "customization_nose_height": Math.random(),
             "customization_nose_length": Math.random(),
