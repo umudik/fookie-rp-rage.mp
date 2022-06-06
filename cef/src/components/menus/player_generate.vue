@@ -9,6 +9,13 @@ v-dialog(width="600")
       v-card-text 
         v-text-field(label="Name" )
         v-text-field(label="Age"  type="number" min="18" max="99")
+      v-card-title Cloth
+      v-card-text
+        div( v-for ="item of cloth_keys")
+          v-slider(:label="item +  ' drawable'" min="-1" max="255" thumb-label step="1")
+          v-slider(:label="item + ' texture'" min="-1" max="255" thumb-label step="1")
+      v-card-title Customization
+      v-card-text 
         v-slider(:label="item" v-for ="item of one_zero_keys" min="-1" max="1" thumb-label step="0.01")
       v-card-actions
         v-spacer
@@ -70,6 +77,9 @@ export default {
   mounted() {},
   methods: {},
   computed: {
+    cloth_keys() {
+      return lodash.keys(this.player_cloth);
+    },
     one_zero_keys() {
       return lodash.keys(this.player_zero_one_keys);
     },
