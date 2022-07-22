@@ -1,4 +1,8 @@
-module.exports = async function (payload) {
-    console.log("openable control");
-    return true
+module.exports = async function (ctx) {
+    await ctx.lifecycle({
+        name: "openable",
+        function: async function (payload, ctx, state) {
+            return true
+        }
+    })
 }

@@ -4,7 +4,7 @@ module.exports = {
     schema: {
         openable: {
             type: "boolean",
-            input: "boolean"
+            default: true
         },
     },
     lifecycle: {

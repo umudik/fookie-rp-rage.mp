@@ -20,6 +20,7 @@ module.exports = async function (ctx) {
                 },
                 dimension: {
                     type: "number",
+                    default: 0,
                 },
                 position: {
                     required: true,

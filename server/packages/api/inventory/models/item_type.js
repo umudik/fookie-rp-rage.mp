@@ -17,23 +17,17 @@ module.exports = {
             type: "number",
             default: 1
         },
-        desc: {
+        description: {
             type: "string",
         },
         in: {
             type: "function",
-            required: true,
-            default: async function () { }
         },
         out: {
             type: "function",
-            required: true,
-            default: async function () { }
         },
         use: {
             type: "function",
-            required: true,
-            default: async function () { }
         },
     },
     lifecycle: {
