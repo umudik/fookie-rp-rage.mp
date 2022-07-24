@@ -6,11 +6,7 @@ module.exports = {
         name: {
             required: true,
             type: "string",
-            input: "text"
-        },
-        tag: {
-            required: true,
-            type: "string",
+            unique: true,
             input: "text"
         },
         entity_type: {

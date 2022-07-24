@@ -1,6 +1,7 @@
 module.exports = {
     name: 'item',
     database: "mongodb",
+    mixin: ["cache"],
     schema: {
         item_type: {
             required: true,
@@ -13,12 +14,10 @@ module.exports = {
         slot: {
             required: true,
             type: "number",
-            input: "number",
         },
         amount: {
             required: true,
             type: "number",
-            input: "number",
         },
     },
     lifecycle: {
@@ -26,19 +25,19 @@ module.exports = {
             role: ["everybody"],
         },
         update: {
-            modify: ["set_inventory_and_type"],
-            rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible", "valid_item_move_body"],
+            modify: [],
+            rule: [],
             role: ["system"],
             effect: ["item_out", "item_in"],
         },
         create: {
-            modify: ["set_inventory_and_type"],
-            rule: ["check_weight", "slot_fixer", "openable", "has_slot", "is_slot_avaible"],
+            modify: ["set_inventory_and_type", "slot_fixer"],
+            rule: ["check_weight", "openable", "has_slot", "is_slot_avaible"],
             role: ["system"],
             effect: ["item_in"],
         },
         delete: {
-            modify: ["set_inventory_and_type"],
+            modify: [],
             rule: [],
             role: ["system"],
             effect: ["item_out"],

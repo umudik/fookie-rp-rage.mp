@@ -11,8 +11,8 @@ module.exports = async function (ctx) {
     await ctx.use(require('./effects/item_out'))
     await ctx.use(require('./modifies/set_inventory_and_type.js'))
     await ctx.use(require("./rules/valid_item_move_body.js"))
-    await ctx.use(require("./rules/slot_fixer.js"))
-    await ctx.use(require("./item_types/index.js"))
+    await ctx.use(require("./modifies/slot_fixer.js"))
+    await ctx.use(require("./defaults/index.js"))
 }
 
 

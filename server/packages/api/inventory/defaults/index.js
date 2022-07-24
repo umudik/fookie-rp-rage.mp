@@ -1,5 +1,16 @@
 module.exports = async function (ctx) {
     await ctx.run({
+        model: "inventory_type",
+        method: "create",
+        token: true,
+        body: {
+            name: "player_inventory",
+            entity_type: "player",
+            slotSize: 30,
+            maxWeight: 300
+        }
+    })
+    await ctx.run({
         model: "item_type",
         method: "create",
         token: true,

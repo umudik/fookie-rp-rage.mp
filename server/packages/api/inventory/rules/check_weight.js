@@ -1,13 +1,13 @@
 module.exports = async function (ctx) {
     await ctx.lifecycle({
-        name: "check_wegiht",
+        name: "check_weight",
         function: async function (payload, ctx, state) {
             let res = await ctx.run({
                 token: true,
                 method: "read",
                 model: "item",
                 query: {
-                    filter: { inventory: payload.target.inventory }
+                    filter: { inventory: payload.body.inventory }
                 }
             })
 
@@ -15,54 +15,21 @@ module.exports = async function (ctx) {
             let total = 0
 
             for (let item of items) {
-                res = await ctx.run({
+                console.log(item);
+                const item_type_res = await ctx.run({
                     token: true,
-                    method: "get",
+                    method: "read",
                     model: "item_type",
                     query: {
-                        filter: { _id: item.item_type }
+                        filter: { pk: item.item_type }
                     }
                 })
 
-                let item_type = res.data
+                const item_type = item_type_res.data[0]
                 total += item.amount * item_type.weight
             }
-
-            res = await ctx.run({
-                token: true,
-                method: "get",
-                model: "item_type",
-                query: {
-                    filter: { _id: payload.target.item_type }
-                }
-            })
-
-            let self_type = res.data
-
-            total += payload.target.amount * self_type.weight
-
-
-            res = await ctx.run({
-                token: true,
-                method: "get",
-                model: "inventory",
-                query: {
-                    filter: { _id: payload.target.inventory }
-                }
-            })
-
-            let inventory = res.data
-
-            res = await ctx.run({
-                token: true,
-                method: "get",
-                model: "inventory_type",
-                query: {
-                    filter: { _id: inventory.inventory_type }
-                }
-            })
-            let inventory_type = res.data
-            return inventory_type.maxWeight >= total
+            total += payload.body.amount * state.item_type.weight
+            return state.inventory_type.maxWeight >= total
         }
 
     })

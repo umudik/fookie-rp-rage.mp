@@ -1,6 +1,7 @@
 module.exports = {
     name: 'item_type',
-    database: "store",
+    database: "mongodb",
+    mixin: ["cache"],
     schema: {
         name: {
             require: true,
@@ -19,15 +20,6 @@ module.exports = {
         },
         description: {
             type: "string",
-        },
-        in: {
-            type: "function",
-        },
-        out: {
-            type: "function",
-        },
-        use: {
-            type: "function",
         },
     },
     lifecycle: {

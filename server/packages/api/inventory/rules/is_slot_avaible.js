@@ -8,34 +8,12 @@ module.exports = async function (ctx) {
                 model: "item",
                 query: {
                     filter: {
-                        inventory: payload.target.inventory,
-                        slot: payload.target.slot,
-                        item_type: payload.target.item_type,
+                        inventory: payload.body.inventory,
+                        slot: payload.body.slot,
                     }
                 }
             })
-            if (res.data == 0) {
-                return true
-            } else {
-                for (let i in state.entity_type.stack_size)
-                    res = await ctx.run({
-                        token: true,
-                        method: "count",
-                        model: "item",
-                        query: {
-                            filter: {
-                                inventory: payload.target.inventory,
-                                slot: i
-                            }
-                        }
-                    })
-                if (res.data == 0) {
-                    payload.target.slot = i
-                    return true
-                } else {
-                    return false
-                }
-            }
+            return res.data === 0
         }
     })
 }
