@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  api:
+    restart: always
+    env_file: .env
+    build: server
+    tty: true
+    platform: linux/x86_64
+    ports:
+      - "22005:22005/udp"
+      - "22006:22006"
+      - "3434:3434"
+    depends_on:
+      - cache
+      - mongodb
+  cache:
+    image: umudik/fookie-cache
+    env_file: .env
+    ports:
+      - "2626:2626"
+  mongodb:
+    image: mongo
+    restart: always
+    env_file: .env  
+    
+

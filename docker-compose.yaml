@@ -2,7 +2,7 @@ version: "3.8"
 services:
   api:
     restart: always
-    env_file: docker.env
+    env_file: .env
     build: server
     tty: true
     ports:
@@ -15,14 +15,14 @@ services:
       - cef
   cache:
     restart: always
-    env_file: docker.env
+    env_file: .env
     build: cache
     ports:
       - 2630:2630
   mongodb:
     image: mongo
     restart: always
-    env_file: docker.env
+    env_file: .env
     ports:
       - 27017:27017        
     volumes:
@@ -30,7 +30,7 @@ services:
   cef:
     build: ./cef
     restart: always
-    env_file: docker.env
+    env_file: .env
     ports:
       - 8080:80
 

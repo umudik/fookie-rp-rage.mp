@@ -8,13 +8,7 @@
     await fookie.init()
     mp.fookie = fookie
     await fookie.use(require("fookie-server"))
-    await fookie.use(require("fookie-cache").client)
-    await fookie.setting({
-        name: "mongodb_connection",
-        value: {
-            url: process.env.MONGO
-        }
-    })
+    await fookie.use(require("fookie-cache"))
 
     await fookie.use(require("./global/export"))
     await fookie.use(require("fookie-databases").mongodb)
