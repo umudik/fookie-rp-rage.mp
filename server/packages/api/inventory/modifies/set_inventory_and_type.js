@@ -4,7 +4,7 @@ module.exports = async function (ctx) {
         function: async function (payload, ctx, state) {
 
             const item_type_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 method: "read",
                 model: "item_type",
                 query: {
@@ -15,23 +15,23 @@ module.exports = async function (ctx) {
                 state.item_type = item_type_res.data[0]
             }
 
-            const inventory_res = await ctx.run({
-                token: true,
+            const inventory = (await ctx.run({
+                token: process.env.SYSTEM_TOKEN,
                 method: "read",
                 model: "inventory",
                 query: {
                     filter: { pk: payload.body.inventory }
                 }
-            })
+            })).data[0]
 
-            state.inventory = inventory_res.data[0]
+            state.inventory = inventory
 
             const inventory_type_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 method: "read",
                 model: "inventory_type",
                 query: {
-                    filter: { pk: state.inventory.inventory_type }
+                    filter: { pk: inventory.inventory_type }
                 }
             })
 

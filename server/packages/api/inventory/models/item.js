@@ -1,7 +1,7 @@
 module.exports = {
     name: 'item',
-    database: "mongodb",
-    mixin: ["cache"],
+    database: process.env.DATABASE,
+    mixins: [],
     schema: {
         item_type: {
             required: true,
@@ -14,33 +14,44 @@ module.exports = {
         slot: {
             required: true,
             type: "number",
+            min: 0
         },
         amount: {
             required: true,
             type: "number",
+            min: 1
         },
+        data: {
+            type: "object"
+        }
     },
     lifecycle: {
+        create: {
+            modify: ["set_inventory_and_type"],
+            rule: ["check_weight", "openable", "has_slot", "is_slot_avaible", "check_item_amount"],
+            role: ["system"],
+            effect: ["organise_inventory", "do_item_type_events"],
+        },
         read: {
             role: ["everybody"],
         },
         update: {
-            modify: [],
-            rule: [],
+            modify: ["find_items"],
+            rule: ["check_weight", "openable", "has_slot", "is_slot_avaible", "check_item_amount"],
             role: ["system"],
-            effect: ["item_out", "item_in"],
-        },
-        create: {
-            modify: ["set_inventory_and_type", "slot_fixer"],
-            rule: ["check_weight", "openable", "has_slot", "is_slot_avaible"],
-            role: ["system"],
-            effect: ["item_in"],
+            effect: [],
         },
         delete: {
+            modify: ["find_items"],
+            rule: [],
+            role: ["system"],
+            effect: ["do_item_type_events"],
+        },
+        count: {
             modify: [],
             rule: [],
             role: ["system"],
-            effect: ["item_out"],
+            effect: [],
         },
     }
 }

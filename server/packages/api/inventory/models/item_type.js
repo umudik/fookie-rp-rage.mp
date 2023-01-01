@@ -1,9 +1,14 @@
 module.exports = {
     name: 'item_type',
-    database: "mongodb",
-    mixin: ["cache"],
+    database: process.env.DATABASE,
+    mixins: [],
     schema: {
         name: {
+            require: true,
+            type: "string",
+        },
+        key: {
+            unique: true,
             require: true,
             type: "string",
         },

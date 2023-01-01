@@ -1,6 +1,6 @@
 module.exports = {
     name: 'member',
-    database: "mongodb",
+    database: process.env.DATABASE,
     schema: {
         faction: {
             relation: "faction",

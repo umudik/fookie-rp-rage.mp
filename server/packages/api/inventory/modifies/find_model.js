@@ -8,7 +8,7 @@ module.exports = async function (payload) {
         target_inv_id = payload.body.inventory
     } else {
         let res = await payload.api.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "inventory",
             method: "get",
             query: { filter: { id: target_inv_id } }
@@ -16,7 +16,7 @@ module.exports = async function (payload) {
         let inventory = res.data
 
         res = await payload.api.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "entity_type",
             method: "get",
             query: { filter: { id: inventory_type.entity_type } }
@@ -26,10 +26,10 @@ module.exports = async function (payload) {
 
 
         res = await payload.api.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: modelName,
             method: "get",
-            query: { filter: { field: inventory._id } }
+            query: { filter: { field: inventory[ctx.helpers.pk("inventory")] } }
         })
 
         let model = res.data

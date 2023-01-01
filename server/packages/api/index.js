@@ -1,6 +1,6 @@
 (async () => {
     mp.accept_connections = false
-    if (typeof process.env.MONGO != "string") {
+    if (typeof process.env.DATABASE != "string") {
         require("dotenv").config();
     }
 
@@ -8,10 +8,8 @@
     await fookie.init()
     mp.fookie = fookie
     await fookie.use(require("fookie-server"))
-    await fookie.use(require("fookie-cache"))
 
     await fookie.use(require("./global/export"))
-    await fookie.use(require("fookie-databases").mongodb)
     await fookie.use(require("./interaction_menu/export"))
     await fookie.use(require("./entity/export"))
     await fookie.use(require("./player/export"))

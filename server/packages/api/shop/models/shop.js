@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'shop',
-        database: "mongodb",
+        database: process.env.DATABASE,
         mixin: ["entity"],
         schema: {
             inventory: {

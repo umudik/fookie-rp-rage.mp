@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'phone',
-        database: "mongodb",
+        database: process.env.DATABASE,
         schema: {
             item: {
                 relation: "item",

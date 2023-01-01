@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
     await ctx.run({
         model: "inventory_type",
         method: "create",
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         body: {
             name: "player_inventory",
             entity_type: "player",
@@ -13,7 +13,7 @@ module.exports = async function (ctx) {
     await ctx.run({
         model: "item_type",
         method: "create",
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         body: {
             name: "money",
             weight: 0.001,

@@ -1,7 +1,7 @@
 module.exports = {
     name: 'inventory',
-    database: "mongodb",
-    mixin: ["cache"],
+    database: process.env.DATABASE,
+    mixins: [],
     schema: {
         inventory_type: {
             relation: "inventory_type",

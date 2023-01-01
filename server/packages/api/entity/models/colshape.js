@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'colshape',
-        database: "mongodb",
+        database: process.env.DATABASE,
         mixin: ["entity", "cache"],
         schema: {
             joaat: {

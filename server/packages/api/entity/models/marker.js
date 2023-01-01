@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
     await ctx.model({
         mixin: ["entity", "cache"],
         name: 'marker',
-        database: "mongodb",
+        database: process.env.DATABASE,
         schema: {
             joaat: {
                 type: "number",

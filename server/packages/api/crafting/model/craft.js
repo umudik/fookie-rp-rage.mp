@@ -3,13 +3,16 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'craft',
-        database: "mongodb",
+        database: process.env.DATABASE,
         schema: {
-            name: {
-                type: "string",
+            craft_type: {
+                relation: "craft_type",
                 required: true,
-                unique: true
             },
+            inventory: {
+                relation: "inventory",
+                required: true,
+            }
         },
         lifecycle: {
             read: {
@@ -19,9 +22,15 @@ module.exports = async function (ctx) {
                 role: ["system"],
             },
             create: {
+                modify: ["craft_sets"],
+                rule: ["has_items", "control_slot", "control_weight"],
                 role: ["system"],
+                effect: ["craft_items"]
             },
             delete: {
+                role: ["system"],
+            },
+            count: {
                 role: ["system"],
             },
 

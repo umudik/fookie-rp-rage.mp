@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'punishment',
-        database: "mongodb",
+        database: process.env.DATABASE,
         schema: {
             punishment_type: {
                 required: true,

@@ -14,9 +14,8 @@ services:
       - mongodb
       - cef
   cache:
-    restart: always
+    image: umudik/fookie-cache
     env_file: .env
-    build: cache
     ports:
       - 2630:2630
   mongodb:

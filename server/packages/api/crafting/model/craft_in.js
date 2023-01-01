@@ -1,16 +1,15 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'craft_in',
-        database: "mongodb",
+        database: process.env.DATABASE,
         schema: {
-            craft: {
-                relation: "craft",
+            craft_type: {
+                relation: "craft_type",
                 required: true,
             },
             item_type: {
                 relation: "item_type",
                 required: true,
-
             },
             amount: {
                 type: "number",

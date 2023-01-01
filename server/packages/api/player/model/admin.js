@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
   await ctx.model({
     name: "admin",
-    database: "mongodb",
+    database: process.env.DATABASE,
     mixin: ["cache"],
     schema: {
       user: {

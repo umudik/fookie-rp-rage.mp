@@ -8,7 +8,7 @@ module.exports = {
         },
 
     },
-    database: "mongodb",
+    database: process.env.DATABASE,
     lifecycle: {
         read: {
             role: ["everybody"],

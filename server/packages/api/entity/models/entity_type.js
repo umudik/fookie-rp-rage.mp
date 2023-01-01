@@ -3,11 +3,6 @@ module.exports = async function (ctx) {
         name: 'entity_type',
         database: "store",
         schema: {
-            name: {
-                type: "string",
-                unique: true,
-                required: true,
-            },
             model: {
                 required: true,
                 unique: true,
@@ -61,7 +56,6 @@ module.exports = async function (ctx) {
 
     const entityTypes = [
         {
-            name: "Vehicle",
             model: "vehicle",
             pool: "vehicles",
             spawnAtStart: true,
@@ -74,7 +68,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Object",
             model: "object",
             pool: "objects",
             spawnAtStart: true,
@@ -87,7 +80,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Marker",
             model: "marker",
             pool: "markers",
             spawnAtStart: true,
@@ -100,7 +92,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Blip",
             model: "blip",
             pool: "blips",
             spawnAtStart: true,
@@ -119,7 +110,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Colspahe",
             model: "colshape",
             pool: "colshapes",
             spawnAtStart: true,
@@ -138,7 +128,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Label",
             model: "label",
             pool: "labels",
             spawnAtStart: true,
@@ -158,7 +147,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Checkpoint",
             model: "checkpoint",
             pool: "checkpoints",
             spawnAtStart: true,
@@ -171,7 +159,6 @@ module.exports = async function (ctx) {
             },
         },
         {
-            name: "Player",
             model: "player",
             pool: "players",
             spawnAtStart: false,

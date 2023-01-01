@@ -7,7 +7,7 @@ module.exports = async function (ctx) {
             }
 
             let item_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 method: "read",
                 model: "item",
                 query: {
@@ -25,7 +25,7 @@ module.exports = async function (ctx) {
                 return false
             }
 
-            payload.body.slot = free_slots[0]
+            //  payload.body.slot = free_slots[0]
         }
     })
 }
