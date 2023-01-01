@@ -21,9 +21,6 @@ module.exports = async function (ctx) {
         type: "string",
 
       },
-      inventory: {
-        relation: "inventory"
-      },
       hunger: {
         type: "number",
 

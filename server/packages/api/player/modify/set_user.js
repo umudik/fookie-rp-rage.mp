@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 module.exports = async function (ctx) {
   await ctx.lifecycle({
     name: "set_user",

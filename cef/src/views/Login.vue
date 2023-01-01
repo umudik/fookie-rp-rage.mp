@@ -11,8 +11,6 @@ div(class="tw-flex tw-justify-center tw-items-center tw-min-h-screen")
 </template>
 
 <script>
-import axios from "axios";
-import lodash from "lodash";
 export default {
   data() {
     return {

@@ -54,18 +54,16 @@ export default new Vuex.Store({
       if (payload.method == "read") {
         ctx.state.loadings.push(payload.model)
       }
-      payload.token = localStorage.getItem("token") || "admin"
-      ctx.commit("log", {
-        title: `REQUEST -> Method:${payload.method} | Model:${payload.model}`,
-        body: payload
-      })
 
-      const apiCall = await axios.post(ctx.state.API_URL, payload, {
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      payload.token = ctx.state.token
+
+      const apiCall = await axios.post(ctx.state.API_URL, payload)
       payload.response = apiCall.data
+
+      ctx.commit("log", {
+        title: `RESPONSE -> Method:${payload.method} | Model:${payload.model}`,
+        body: payload.response
+      })
       if (payload.method == "read") {
         ctx.state.loadings = lodash.remove(ctx.state.loadings, payload.model)
       }

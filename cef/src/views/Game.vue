@@ -4,21 +4,33 @@ v-app(app)
     span Fookie RAGEMP
     v-spacer
     f-player-generate
+    f-log
     v-icon mdi-fire
+    v-icon(@click="openInventory") mdi-bag-personal
     span 13:37
   v-main(app color="transparent")
     v-container
-      router-view
+      f-menu
 </template>
 
 <script>
-import axios from "axios";
-import lodash from "lodash";
 export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    openInventory() {
+      const vue = this;
+      vue.$store.dispatch("run", {
+        model: "active_menu",
+        method: "create",
+        body: {
+          tag: "inventory",
+          entity: "player",
+        },
+      });
+    },
+  },
   mounted: async function () {},
 };
 </script>
