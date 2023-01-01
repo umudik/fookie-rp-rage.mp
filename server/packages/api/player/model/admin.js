@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
   await ctx.model({
     name: "admin",
     database: process.env.DATABASE,
-    mixin: ["cache"],
+    mixins: ["cache"],
     schema: {
       user: {
         relation: "player",

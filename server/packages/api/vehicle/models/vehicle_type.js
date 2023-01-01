@@ -3,7 +3,7 @@ const lodash = require("lodash")
 module.exports = async function (ctx) {
     await ctx.model({
         name: 'vehicle_type',
-        mixin: ["cache"],
+        mixins: ["cache"],
         database: process.env.DATABASE,
         schema: {
             joaat: {
