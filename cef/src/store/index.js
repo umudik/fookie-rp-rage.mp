@@ -23,10 +23,10 @@ export default new Vuex.Store({
       state.models[payload.model].push(payload.response.data);
     },
     remove(state, payload) {
-      state.models[payload.model] = state.models[payload.model].filter((i) => i._id != payload.query.where._id);
+      state.models[payload.model] = state.models[payload.model].filter((i) => i.id != payload.query.where.id);
     },
     update(state, payload) {
-      state.models[payload.model] = state.models[payload.model].filter((i) => i._id != payload.response.data._id);
+      state.models[payload.model] = state.models[payload.model].filter((i) => i.id != payload.response.data.id);
       state.models[payload.model].push(payload.response.data);
     },
     login(state, payload) {

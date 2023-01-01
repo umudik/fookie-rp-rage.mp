@@ -4,10 +4,6 @@ module.exports = {
     mixins: [],
     schema: {
         name: {
-            require: true,
-            type: "string",
-        },
-        key: {
             unique: true,
             require: true,
             type: "string",

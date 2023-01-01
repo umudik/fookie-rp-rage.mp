@@ -20,25 +20,27 @@ module.exports = async function (ctx) {
                     password: data.password
                 }
             },
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
         }, { player })
 
         if (res.status) {
             player.setVariable("token", res.data.token)
-            player.setVariable("fookie_id", res.data._id)
+            console.log("fookie_id", res.data[ctx.helpers.pk("player")], ctx.helpers.pk("player"), res);
+            player.setVariable("fookie_id", res.data[ctx.helpers.pk("player")])
             let res2 = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 model: "player",
                 method: "update",
                 query: {
                     filter: {
-                        _id: res.data._id
+                        pk: res.data[ctx.helpers.pk("player")]
                     }
                 },
                 body: {
                     spawned: true
                 }
             }, { player })
+
         }
         return res
     })

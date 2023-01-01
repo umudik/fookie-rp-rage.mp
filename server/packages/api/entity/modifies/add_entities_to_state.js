@@ -3,7 +3,7 @@ module.exports = async function (ctx) {
         name: "add_entities_to_state",
         function: async function (payload, ctx, state) {
             const entities_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 model: payload.model,
                 method: "read",
                 query: payload.query

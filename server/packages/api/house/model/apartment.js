@@ -1,7 +1,7 @@
 module.exports = async function (ctx) {
     await ctx.model({
         name: "apartment",
-        mixins: ["cache"],
+        mixins: [],
         database: process.env.DATABASE,
         schema: {
             name: {

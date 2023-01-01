@@ -1,9 +1,13 @@
 module.exports = async function (ctx) {
-  await ctx.model({
+  const res = await ctx.model({
     name: "player",
     database: process.env.DATABASE,
-    mixins: ["cache", "entity"],
+    mixins: ["entity"],
     schema: {
+      name: {
+        type: "string",
+
+      },
       email: {
         type: "string",
         required: true,
@@ -12,14 +16,10 @@ module.exports = async function (ctx) {
       password: {
         type: "string",
         required: true,
-        // read: ["nobody"]
+        read: ["nobody"]
       },
       code: {
         type: "string",
-      },
-      name: {
-        type: "string",
-
       },
       hunger: {
         type: "number",
@@ -73,6 +73,9 @@ module.exports = async function (ctx) {
       customization_chin_width: { type: "number" },
       customization_chin_shape: { type: "number" },
       customization_neck_width: { type: "number" },
+      inventory: {
+        relation: "inventory",
+      }
     },
     lifecycle: {
       read: {
@@ -86,6 +89,7 @@ module.exports = async function (ctx) {
         rule: [],
         role: ["system"],
         modify: ["hash_password", "set_spawn_point"],
+        effect: ["player_create_inventory"]
       },
       delete: {
         role: ["system"],

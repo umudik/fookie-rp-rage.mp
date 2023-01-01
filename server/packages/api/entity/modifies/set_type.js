@@ -3,7 +3,7 @@ module.exports = async function (ctx) {
         name: "set_type",
         function: async function (payload, ctx, state) {
             let et_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 model: "entity_type",
                 method: "read",
                 query: { filter: { model: payload.model } }

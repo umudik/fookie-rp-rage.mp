@@ -20,4 +20,6 @@ module.exports = async function (ctx) {
   await ctx.use(require("./method/login"));
   await ctx.use(require("./modify/set_spawn_point"));
 
+  await ctx.use(require("./effect/player_create_inventory"));
+
 };

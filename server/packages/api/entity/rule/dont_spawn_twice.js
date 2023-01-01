@@ -4,7 +4,7 @@ module.exports = async function (ctx) {
         function: async function (payload, ctx, state) {
             if (payload.model == "player") return true
             const e_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 model: payload.model,
                 method: "read",
                 query: payload.query

@@ -11,7 +11,7 @@ module.exports = async function (ctx) {
         const payload = JSON.parse(raw_payload)
 
         let im_res = await ctx.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "interaction_menu",
             method: "read",
             query: {
@@ -24,7 +24,7 @@ module.exports = async function (ctx) {
         const interaction_menu = im_res.data[0]
 
         const c_res = await ctx.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             method: "read",
             model: "character",
             query: {

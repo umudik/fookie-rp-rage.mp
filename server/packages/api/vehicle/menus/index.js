@@ -1,7 +1,7 @@
 module.exports = async (ctx) => {
     //-----------------VEHİCLE---------------------
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -19,7 +19,7 @@ module.exports = async (ctx) => {
     })
 
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -38,7 +38,7 @@ module.exports = async (ctx) => {
 
 
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {

@@ -9,6 +9,7 @@ mp.events.add("playerReady", async (player) => {
     player.outputChatBox("Your Social club ID is: " + socialID);
     setTimeout(() => {
         const id = player.getVariable("fookie_id");
+        console.log(player.getVariable("fookie_id"));
         if (!id) {
             player.kick("You are not registered");
         }
@@ -17,9 +18,9 @@ mp.events.add("playerReady", async (player) => {
 
 mp.events.addCommand("pos", (player) => {
     console.log(player.position);
-    player.outputChatBox(player.position + " -pos")
+    player.outputChatBox(player.position + "")
 })
 
 mp.events.addCommand("dim", (player) => {
-    player.outputChatBox(player.dimension + " -dim")
+    player.outputChatBox(player.dimension + "")
 })

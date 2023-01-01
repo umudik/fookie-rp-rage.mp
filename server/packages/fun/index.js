@@ -14,7 +14,7 @@ mp.events.addCommand("spawn", async (player) => {
 
 mp.events.addCommand('marker', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "marker",
         method: "create",
         body: {
@@ -33,7 +33,7 @@ mp.events.addCommand('marker', async (player) => {
 
 mp.events.addCommand('blip', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "blip",
         method: "create",
         body: {
@@ -48,7 +48,7 @@ mp.events.addCommand('blip', async (player) => {
 
 mp.events.addCommand('colshape', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "colshape",
         method: "create",
         body: {
@@ -62,7 +62,7 @@ mp.events.addCommand('colshape', async (player) => {
 
 mp.events.addCommand('label', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "label",
         method: "create",
 
@@ -76,7 +76,7 @@ mp.events.addCommand('label', async (player) => {
 
 mp.events.addCommand('checkpoint', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "checkpoint",
         method: "create",
         body: {
@@ -96,7 +96,7 @@ mp.events.add("playerEnterColshape", (player, shape) => {
 
 mp.events.addCommand('apart', async (player) => {
     let res = await mp.fookie.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "apartment",
         method: "create",
         body: {

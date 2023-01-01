@@ -3,7 +3,7 @@ module.exports = async function (ctx) {
         name: "set_computed_data",
         function: async function (payload, ctx, state) {
             const read_res = await ctx.run({
-                token: true,
+                token: process.env.SYSTEM_TOKEN,
                 model: payload.model,
                 method: "read",
                 query: payload.query

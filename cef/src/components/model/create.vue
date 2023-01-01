@@ -71,7 +71,7 @@ export default {
   mounted: async function () {
     let vue = this;
     if (this.selectedId) {
-      this.body = vue.model.pool.find((m) => m._id == this.selectedId);
+      this.body = vue.model.pool.find((m) => m.id == this.selectedId);
       console.log(this.body);
     }
     if (typeof this.defaults == "object") {

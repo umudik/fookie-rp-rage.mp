@@ -176,7 +176,7 @@ module.exports = async function (ctx) {
 
     for (const e of entityTypes) {
         let res = await ctx.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "entity_type",
             method: "create",
             body: e

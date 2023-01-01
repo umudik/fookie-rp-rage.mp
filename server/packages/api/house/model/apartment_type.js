@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
     await ctx.model({
         name: 'apartment_type',
         database: process.env.DATABASE,
-        mixins: ["cache"],
+        mixins: [],
         schema: {
             name: {
                 type: "string",
@@ -88,7 +88,7 @@ module.exports = async function (ctx) {
     for (const a of array) {
         mp.world.requestIpl(a.code);
         let res = await ctx.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "apartment_type",
             method: "create",
             body: a

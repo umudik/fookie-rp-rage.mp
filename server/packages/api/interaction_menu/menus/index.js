@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
 
     //-----------------OBJECT---------------------
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -15,7 +15,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {
@@ -35,7 +35,7 @@ module.exports = async function (ctx) {
         }
     })
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -48,7 +48,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {
@@ -68,7 +68,7 @@ module.exports = async function (ctx) {
         }
     })
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -81,7 +81,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {
@@ -101,7 +101,7 @@ module.exports = async function (ctx) {
         }
     })
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -114,7 +114,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {
@@ -134,7 +134,7 @@ module.exports = async function (ctx) {
         }
     })
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -147,7 +147,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {
@@ -167,7 +167,7 @@ module.exports = async function (ctx) {
         }
     })
     await ctx.run({
-        token: true,
+        token: process.env.SYSTEM_TOKEN,
         model: "interaction_menu",
         method: "create",
         body: {
@@ -180,7 +180,7 @@ module.exports = async function (ctx) {
             job: async function (character, payload, im) {
                 const entity = await ctx.remote.get("object", payload.fookie_id)
                 ctx.run({
-                    token: true,
+                    token: process.env.SYSTEM_TOKEN,
                     model: "object",
                     method: "update",
                     query: {

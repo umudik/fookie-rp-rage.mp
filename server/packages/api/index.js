@@ -41,8 +41,8 @@
 
     mp.events.addCommand('i', async (player) => {
         let res = await fookie.run({
-            token: true,
-            model: "interaction_menu",
+            token: process.env.SYSTEM_TOKEN,
+            model: "inventory",
             method: "read",
             query: {
                 filter: {
@@ -54,7 +54,7 @@
     mp.events.addCommand("vehicle", async (player) => {
         const t = await fookie.remote.random("vehicle_type")
         let res = await fookie.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "vehicle",
             method: "create",
             body: {
@@ -77,7 +77,7 @@
 
     mp.events.addCommand("object", async (player) => {
         let res = await fookie.run({
-            token: true,
+            token: process.env.SYSTEM_TOKEN,
             model: "object",
             method: "create",
             body: {
@@ -95,5 +95,8 @@
     })
 
     mp.accept_connections = true
+
+
+    await require("../../test/index.js")(fookie)
 })()
 
