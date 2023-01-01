@@ -36,10 +36,13 @@ module.exports = async function (fookie) {
     await fookie.use(require("./inventory/create_item.js"))
     await fookie.use(require("./inventory/move_item.js"))
     await fookie.use(require("./inventory/organise_inventory.js"))
+    await fookie.use(require("./inventory/player_inventory.js"))
 
     await fookie.use(require("./crafting/craft.js"))
 
     await fookie.use(require("./entity/index.js"))
+
+
 
     //------end test------
 

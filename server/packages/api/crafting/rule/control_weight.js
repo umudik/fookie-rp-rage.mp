@@ -2,7 +2,7 @@ module.exports = async function (ctx) {
     await ctx.lifecycle({
         name: "control_weight",
         function: async function (payload, ctx, state) {
-            const inventory_weight = await ctx.helpers.currentWeight(ctx, payload.body.inventory)
+            const inventory_weight = await ctx.helpers.currentWeight(payload.body.inventory)
             let ci_weight = 0
             let co_weight = 0
 

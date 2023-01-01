@@ -13,7 +13,6 @@ module.exports = async function (ctx) {
                     stack: 200,
                 }
             })
-
             const item_type_2_res = await ctx.run({
                 token: state.system_token,
                 model: "item_type",

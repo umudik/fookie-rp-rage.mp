@@ -3,14 +3,14 @@ module.exports = async function (ctx) {
         name: "check_weight",
         function: async function (payload, ctx, state) {
             if (payload.method === "create") {
-                let total = await ctx.helpers.currentWeight(ctx, payload.body.inventory)
+                let total = await ctx.helpers.currentWeight(payload.body.inventory)
                 total += payload.body.amount * state.item_type.weight
                 return state.inventory_type.maxWeight >= total
             }
 
             if (payload.method === "update") {
                 for (const item of state.items) {
-                    let total = await ctx.helpers.currentWeight(ctx, item.inventory)
+                    let total = await ctx.helpers.currentWeight(item.inventory)
 
                     const item_type_res = await ctx.run({
                         token: process.env.SYSTEM_TOKEN,

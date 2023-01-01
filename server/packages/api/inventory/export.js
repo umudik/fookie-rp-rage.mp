@@ -17,7 +17,6 @@ module.exports = async function (ctx) {
     await ctx.use(require('./effects/organise_inventory'))
     await ctx.use(require('./modifies/set_inventory_and_type.js'))
     await ctx.use(require("./modifies/slot_fixer.js"))
-    await ctx.use(require("./defaults/index.js"))
 
 
 }

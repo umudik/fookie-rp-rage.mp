@@ -25,7 +25,7 @@ module.exports = async function (ctx) {
                 return false
             }
 
-            //  payload.body.slot = free_slots[0]
+            payload.body.slot = free_slots[0]
         }
     })
 }

@@ -1,5 +1,5 @@
 module.exports = async function (ctx) {
-    ctx.helpers.currentWeight = async function (ctx, inventory_id) {
+    ctx.helpers.currentWeight = async function (inventory_id) {
         let res = await ctx.run({
             token: process.env.SYSTEM_TOKEN,
             method: "read",
@@ -174,5 +174,45 @@ module.exports = async function (ctx) {
 
         })
 
+    }
+
+    ctx.helpers.emptySlots = async function (inventory_id) {
+        const inventory = (await ctx.run({
+            token: process.env.SYSTEM_TOKEN,
+            model: "inventory",
+            method: "read",
+            query: {
+                filter: {
+                    pk: inventory_id
+                }
+            }
+        })).data[0]
+
+        const inventory_type = (await ctx.run({
+            token: process.env.SYSTEM_TOKEN,
+            model: "inventory_type",
+            method: "read",
+            query: {
+                filter: {
+                    pk: inventory.inventory_type
+                }
+            }
+        })).data[0]
+
+        let items = await ctx.run({
+            token: process.env.SYSTEM_TOKEN,
+            method: "read",
+            model: "item",
+            query: {
+                filter: {
+                    inventory: inventory.inventory_type
+                }
+            }
+        })
+
+        const na_slots = ctx.lodash.map(items, (item) => item.slot).sort((a, b) => a - b)
+        const slots = ctx.lodash.range(0, inventory_type.slotSize)
+        const free_slots = ctx.lodash.difference(slots, na_slots)
+        return free_slots
     }
 }
