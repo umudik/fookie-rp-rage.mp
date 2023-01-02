@@ -31,6 +31,7 @@ mp.events.add('CEF_LOGIN', async (payload) => {
     const res = await mp.events.callRemoteProc('login', payload)
     if (res.status) {
         mp.cef.execute(`app.$store.state.token = "${res.data.token}";`)
+        mp.cef.execute(`app.$store.state.player_id = "${res.data.id}";`)
         mp.game.cam.renderScriptCams(false, false, 0, false, false);
 
         mp.game.controls.enableAllControlActions(0);
@@ -43,8 +44,9 @@ mp.events.add('CEF_LOGIN', async (payload) => {
 })
 
 mp.events.addProc('apiProc', async (payload) => {
-    mp.gui.chat.push(`[API] ${payload}`)
-    return await mp.events.callRemoteProc('apiProc', payload)
+    const res = await mp.events.callRemoteProc('apiProc', payload)
+    mp.gui.chat.push(`[API] ${typeof res}`)
+    return res
 })
 
 mp.events.addProc('commit', async (payload) => {

@@ -1,9 +1,9 @@
 module.exports = async function (ctx) {
     mp.events.add("playerQuit", async (player) => {
-        const _id = player.getVariable("fookie_id");
-        if (_id) {
+        const fookie_id = player.getVariable("fookie_id");
+        if (fookie_id) {
 
-            let res = await ctx.remote.update("player", _id, {
+            let res = await ctx.remote.update("player", fookie_id, {
                 spawned: false
             })
         }
@@ -25,7 +25,6 @@ module.exports = async function (ctx) {
 
         if (res.status) {
             player.setVariable("token", res.data.token)
-            console.log("fookie_id", res.data[ctx.helpers.pk("player")], ctx.helpers.pk("player"), res);
             player.setVariable("fookie_id", res.data[ctx.helpers.pk("player")])
             let res2 = await ctx.run({
                 token: process.env.SYSTEM_TOKEN,

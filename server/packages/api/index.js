@@ -26,12 +26,9 @@
     await fookie.use(require("./db_sync/index.js"))
     await fookie.use(require("./ui/export.js"))
 
-
-
-
     // ADD SOMETHINGS
     await fookie.use(require("./house/menus/index.js"))
-    await fookie.listen(3434)
+    await fookie.listen(process.env.PORT)
 
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)

@@ -9,7 +9,7 @@ export default {
     };
   },
   mounted() {
-    this.$vuetify.theme.dark = false;
+    this.$vuetify.theme.dark = true;
     if (this.$store.state.token) {
       this.$router.push({ name: "game" });
     } else {

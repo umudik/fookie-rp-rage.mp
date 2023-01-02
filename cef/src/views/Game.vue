@@ -3,6 +3,8 @@ v-app(app)
   v-system-bar(dark lights-out)
     span Fookie RAGEMP
     v-spacer
+    span {{ $store.state.API_URL }}
+    v-spacer
     f-player-generate
     f-log
     v-icon mdi-fire
@@ -19,17 +21,7 @@ export default {
     return {};
   },
   methods: {
-    openInventory() {
-      const vue = this;
-      vue.$store.dispatch("run", {
-        model: "active_menu",
-        method: "create",
-        body: {
-          tag: "inventory",
-          entity: "player",
-        },
-      });
-    },
+    openInventory() {},
   },
   mounted: async function () {},
 };

@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 import lodash from 'lodash'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "",
-    token: "",
+    API_URL: null,
+    token: null,
+    player_id: null,
     models: {
       model: [],
     },
+    menus: ["player_inventory"],
     logs: [],
     loadings: [],
   },
@@ -57,19 +58,17 @@ export default new Vuex.Store({
 
       payload.token = ctx.state.token
 
-      const apiCall = await axios.post(ctx.state.API_URL, payload)
-      payload.response = apiCall.data
-
+      const res = await mp.events.callProc("apiProc", JSON.stringify(payload))
       ctx.commit("log", {
-        title: `RESPONSE -> Method:${payload.method} | Model:${payload.model}`,
-        body: payload.response
+        title: `Response`,
+        body: res
       })
-      if (payload.method == "read") {
-        ctx.state.loadings = lodash.remove(ctx.state.loadings, payload.model)
-      }
 
-      ctx.dispatch("sync", payload)
-      return payload.response.data
+
+
+
+
+      return JSON.parse(res)
     },
     sync(ctx, payload) {
       if (payload.response.status == true) {

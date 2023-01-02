@@ -79,7 +79,7 @@ module.exports = async function (ctx) {
     },
     lifecycle: {
       read: {
-        role: ["system"],
+        role: [],
       },
       update: {
         role: ["system"],

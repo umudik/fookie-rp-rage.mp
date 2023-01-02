@@ -21,7 +21,7 @@ export default {
   methods: {
     login: async function () {
       const vue = this;
-      let res = await mp.trigger(
+      await mp.trigger(
         "CEF_LOGIN",
         JSON.stringify({
           email: vue.email,
