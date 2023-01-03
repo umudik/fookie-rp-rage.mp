@@ -199,16 +199,16 @@ module.exports = async function (ctx) {
             }
         })).data[0]
 
-        let items = await ctx.run({
+        let items = (await ctx.run({
             token: process.env.SYSTEM_TOKEN,
             method: "read",
             model: "item",
             query: {
                 filter: {
-                    inventory: inventory.inventory_type
+                    inventory: inventory_id
                 }
             }
-        })
+        })).data
 
         const na_slots = ctx.lodash.map(items, (item) => item.slot).sort((a, b) => a - b)
         const slots = ctx.lodash.range(0, inventory_type.slotSize)
