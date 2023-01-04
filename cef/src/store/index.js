@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    in_game: false,
     API_URL: null,
     token: null,
     player_id: null,

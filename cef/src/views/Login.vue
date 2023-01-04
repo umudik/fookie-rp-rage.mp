@@ -11,6 +11,7 @@ div(class="tw-flex tw-justify-center tw-items-center tw-min-h-screen")
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -21,13 +22,27 @@ export default {
   methods: {
     login: async function () {
       const vue = this;
-      await mp.trigger(
-        "CEF_LOGIN",
-        JSON.stringify({
-          email: vue.email,
-          password: vue.password,
-        })
-      );
+      if (vue.$store.state.in_game) {
+        await mp.trigger(
+          "CEF_LOGIN",
+          JSON.stringify({
+            email: vue.email,
+            password: vue.password,
+          })
+        );
+      } else {
+        const res = await axios.post("http://localhost:2626", {
+          model: "player",
+          method: "login",
+          query: {
+            filter: {
+              email: vue.email,
+              password: vue.password,
+            },
+          },
+        });
+        console.log(res.data);
+      }
     },
   },
   mounted: async function () {},
