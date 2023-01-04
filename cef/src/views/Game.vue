@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app(app)
-  v-system-bar(dark lights-out)
+  v-system-bar(dark, lights-out)
     span Fookie RAGEMP
     v-spacer
     span {{ $store.state.API_URL }}
@@ -10,7 +10,7 @@ v-app(app)
     v-icon mdi-fire
     v-icon(@click="openInventory") mdi-bag-personal
     span 13:37
-  v-main(app color="transparent")
+  v-main(app, color="transparent")
     v-container
       f-menu
 </template>
@@ -23,6 +23,19 @@ export default {
   methods: {
     openInventory() {},
   },
-  mounted: async function () {},
+  mounted: async function () {
+    const vue = this;
+    vue.$store.state.player = (
+      await vue.$store.dispatch("run", {
+        model: "player",
+        method: "read",
+        query: {
+          filter: {
+            pk: vue.$store.state.player_id,
+          },
+        },
+      })
+    ).data[0];
+  },
 };
 </script>

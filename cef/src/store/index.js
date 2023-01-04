@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import lodash from 'lodash'
+import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -58,8 +59,13 @@ export default new Vuex.Store({
       }
 
       payload.token = ctx.state.token
+      let res = null
+      if (!ctx.state.in_game) {
+        res = (await axios.post("http://localhost:2626", payload)).data
+      } else {
+        res = JSON.parse(await mp.events.callProc("apiProc", JSON.stringify(payload)))
+      }
 
-      const res = await mp.events.callProc("apiProc", JSON.stringify(payload))
       ctx.commit("log", {
         title: `Response`,
         body: res
@@ -69,7 +75,7 @@ export default new Vuex.Store({
 
 
 
-      return JSON.parse(res)
+      return res
     },
     sync(ctx, payload) {
       if (payload.response.status == true) {

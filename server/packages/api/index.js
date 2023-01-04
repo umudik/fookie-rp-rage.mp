@@ -28,7 +28,7 @@
 
     // ADD SOMETHINGS
     await fookie.use(require("./house/menus/index.js"))
-    await fookie.listen(process.env.PORT)
+    await fookie.listen(2626)
 
     mp.events.addProc('apiProc', async (player, payload) => {
         payload = JSON.parse(payload)

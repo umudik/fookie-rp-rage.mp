@@ -22,6 +22,10 @@ module.exports = {
         description: {
             type: "string",
         },
+        image: {
+            require: true,
+            type: "string",
+        },
     },
     lifecycle: {
         read: {

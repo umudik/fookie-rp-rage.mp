@@ -19,6 +19,7 @@ module.exports = async function (ctx) {
                     name: "gold",
                     weight: 0.1,
                     stack: 64,
+                    image: "https://i.picsum.photos/id/112/200/200.jpg?hmac=a8Ve-HhSWAKC-SNBLKVosZ5gHmqMhgtNkPMYVMjEAbI"
                 }
             })).data
             for (let i = 0; i < 10; i++) {

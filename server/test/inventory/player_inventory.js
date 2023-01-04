@@ -21,6 +21,7 @@ module.exports = async function (ctx) {
                     name: "item_1",
                     weight: 0.1,
                     stack: 10,
+                    image: "https://i.picsum.photos/id/958/200/200.jpg?hmac=WdLUMERHKTLw-sP-eIf1-JlwdIT2ZY12zf4JbnQR_s8"
                 }
             })).data
 

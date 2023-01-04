@@ -11,6 +11,7 @@ module.exports = async function (ctx) {
                     name: "money",
                     weight: 0.001,
                     stack: 200,
+                    image: "https://i.picsum.photos/id/600/200/200.jpg?hmac=x3_SXBDfy4wqgriXAHmONXmt4rEB-k8sVoY7P5q8Bgs"
                 }
             })
             const item_type_2_res = await ctx.run({
@@ -21,6 +22,7 @@ module.exports = async function (ctx) {
                     name: "food",
                     weight: 1,
                     stack: 5,
+                    image: "https://i.picsum.photos/id/600/200/200.jpg?hmac=x3_SXBDfy4wqgriXAHmONXmt4rEB-k8sVoY7P5q8Bgs"
                 }
             })
             if (!item_type_2_res.status || !item_type_2_res.status) throw Error("item type")

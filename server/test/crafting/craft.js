@@ -19,6 +19,7 @@ module.exports = async function (ctx) {
                     name: "stick",
                     weight: 0.2,
                     stack: 64,
+                    image: "https://i.picsum.photos/id/823/200/200.jpg?hmac=zD0Ti1kYqMOUsfNVS7xtDou-2ECcI0RXYs18C54EdYo"
                 }
             })).data
 
@@ -30,6 +31,7 @@ module.exports = async function (ctx) {
                     name: "diamond",
                     weight: 0.5,
                     stack: 64,
+                    image: "https://i.picsum.photos/id/1071/200/200.jpg?hmac=mb6el6MCnRCyFnuMcCPJppn1WISnV5OKFUqDFg82Joo"
                 }
             })).data
 
@@ -41,6 +43,7 @@ module.exports = async function (ctx) {
                     name: "sword",
                     weight: 1,
                     stack: 1,
+                    image: "https://i.picsum.photos/id/600/200/200.jpg?hmac=x3_SXBDfy4wqgriXAHmONXmt4rEB-k8sVoY7P5q8Bgs"
                 }
             })).data
 

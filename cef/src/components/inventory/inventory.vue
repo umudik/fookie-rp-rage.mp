@@ -1,25 +1,47 @@
 <template lang="pug">
 v-row
-  v-col(cols="12" sm="3")
+  v-col(cols="12", sm="3")
     v-card
       v-card-title Inventory
-      v-card-subtitle  {{ inventory_id }}
-      v-card-text   
-        v-row(class="drop")      
-          v-col(v-for="(item, index) of inventory_type.slotSize" :key="item.id" class="drop_item" )
+      v-card-subtitle {{ inventory_id }}
+      v-card-text 
+        v-row.drop 
+          v-col.drop_item(
+            v-for="(item, index) of inventory_type.slotSize",
+            :key="item.id"
+          )
             v-menu(offset-x)
-              template(v-slot:activator="{ on, attrs }")  
-                v-sheet(v-if="getItem(index)" class="d-flex" height="110" width="110" elevation ="4" v-bind="attrs" v-on="on" )
-                  span(class="tw-text-xs")  {{ index + 1 }}             
-                  v-sheet(class="mt-auto") {{ getItemType(getItem(index).item_type).name }}  
-                  v-sheet(class="mt-auto ml-auto")
-                    span() {{ getItem(index).amount }}x
-                v-sheet(v-if="!getItem(index)" height="110" width="110" elevation ="1")
+              template(v-slot:activator="{ on, attrs }") 
+                v-img(
+                  v-if="getItem(index)",
+                  :src="getItemType(getItem(index).item_type).image",
+                  aspect-ratio="1",
+                  height="110",
+                  width="110",
+                  contain
+                )
+                  v-sheet.d-flex(
+                    color="transparent",
+                    height="110",
+                    width="110",
+                    elevation="4",
+                    v-bind="attrs",
+                    v-on="on"
+                  )
+                    span.tw-text-xs {{ index + 1 }}
+                    v-sheet.mt-auto {{ getItemType(getItem(index).item_type).name }}
+                    v-sheet.mt-auto.ml-auto
+                      span {{ getItem(index).amount }}x
+                v-sheet(
+                  v-if="!getItem(index)",
+                  height="110",
+                  width="110",
+                  elevation="1"
+                )
               v-list(dense)
                 v-list-item(link) Use
-                v-list-item(link) Drop   
+                v-list-item(link) Drop
       v-card-text
-      
 </template>
 
 <script>
