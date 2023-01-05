@@ -1,7 +1,7 @@
 
 module.exports = async function (ctx) {
     await ctx.use(require("./models/shop.js"))
-    await ctx.use(require("./models/shop_item_price.js"))
+    await ctx.use(require("./models/shop_item_type_price.js"))
 
     await ctx.use(require("./effect/shop_create_inventory.js"))
 
