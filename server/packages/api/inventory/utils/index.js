@@ -105,14 +105,6 @@ module.exports = async function (ctx) {
     }
 
     ctx.helpers.organiseInventory = async function (inventory, it_id) {
-        const its = await ctx.helpers.itemsByType(inventory, it_id)
-        const items = ctx.lodash.sortBy(its, "slot")
-        if (items.length === 0) {
-            return false
-        }
-
-        const total = ctx.lodash.sumBy(items, "amount")
-
         const item_type = (await ctx.run({
             token: process.env.SYSTEM_TOKEN,
             model: "item_type",
@@ -123,6 +115,16 @@ module.exports = async function (ctx) {
                 }
             }
         })).data[0]
+
+        const its = await ctx.helpers.itemsByType(inventory, it_id)
+        let items = ctx.lodash.sortBy(its, "slot")
+        if (items.length === 0) {
+            return false
+        }
+
+        const total = ctx.lodash.sumBy(items, "amount")
+
+
 
         const amounts = []
         let remain = parseInt(total)
@@ -137,42 +139,40 @@ module.exports = async function (ctx) {
             }
             remain -= item_type.stack
         }
-
-        const deleteMe = []
-        for (let i = 0; i < items.length; i++) {
-            const item = items[i]
-            if (i < amounts.length) { //TODO improve here
-                await ctx.run({
-                    token: process.env.SYSTEM_TOKEN,
-                    model: "item",
-                    method: "update",
-                    query: {
-                        filter: {
-                            pk: item[ctx.helpers.pk("item")],
-                        }
-                    },
-                    body: {
-                        amount: amounts[i]
-                    }
-                })
-            } else {
-                deleteMe.push(item[ctx.helpers.pk("item")])
-            }
+        if (amounts.length === items.length) {
+            return false
         }
-
+        const deleteMe = []
+        for (const i in items) {
+            deleteMe.push(items[i][ctx.helpers.pk("item")])
+        }
         await ctx.run({
             token: process.env.SYSTEM_TOKEN,
             model: "item",
             method: "delete",
             query: {
                 filter: {
-                    id: {
+                    pk: {
                         $or: deleteMe
                     }
                 }
             }
-
         })
+
+        for (const i in amounts) {
+            let item = items[0]
+            item = ctx.lodash.omit(item, [ctx.helpers.pk("item"), "slot"])
+            item.amount = amounts[i]
+
+            await ctx.run({
+                token: process.env.SYSTEM_TOKEN,
+                model: "item",
+                method: "create",
+                body: item
+            })
+        }
+
+
 
     }
 

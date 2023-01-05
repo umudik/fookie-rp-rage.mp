@@ -38,6 +38,7 @@ v-row
                   width="110",
                   elevation="1"
                 )
+                  span.tw-text-xs {{ index + 1 }}
               v-list(dense)
                 v-list-item(link) Use
                 v-list-item(link) Drop

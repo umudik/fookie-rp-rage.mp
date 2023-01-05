@@ -22,6 +22,11 @@ module.exports = {
         description: {
             type: "string",
         },
+        tag: {
+            type: "string",
+            require: true,
+            default: "none"
+        },
         image: {
             require: true,
             type: "string",

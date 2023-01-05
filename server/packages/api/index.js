@@ -25,6 +25,7 @@
     await fookie.use(require("./auth/index.js"))
     await fookie.use(require("./db_sync/index.js"))
     await fookie.use(require("./ui/export.js"))
+    await fookie.use(require("./bank/export.js"))
 
     // ADD SOMETHINGS
     await fookie.use(require("./house/menus/index.js"))

@@ -1,32 +1,30 @@
 module.exports = {
-    name: 'inventory_type',
+    name: 'bank_account',
     database: process.env.DATABASE,
-    mixins: [],
     schema: {
-        name: {
+        player: {
+            relation: "player",
             required: true,
-            type: "string",
-            unique: true,
+            unique: true
         },
-        slotSize: {
+        inventory: {
+            relation: "inventory",
             required: true,
-            type: "number",
+            unique: true
         },
-        maxWeight: {
-            required: true,
-            type: "number",
-        },
+
     },
     lifecycle: {
+        create: {
+            role: ["system"],
+        },
         read: {
             role: ["everybody"],
         },
         update: {
             role: ["system"],
         },
-        create: {
-            role: ["system"],
-        },
+
         delete: {
             role: ["system"],
         },

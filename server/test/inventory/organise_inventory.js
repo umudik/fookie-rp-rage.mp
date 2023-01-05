@@ -48,6 +48,7 @@ module.exports = async function (ctx) {
 
                 }
             })
+
             if (res.data.length != 2) {
                 throw Error("oganise_inventory")
             }

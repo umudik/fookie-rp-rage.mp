@@ -2,28 +2,29 @@ module.exports = async function (ctx) {
     await ctx.model({
         name: 'shop',
         database: process.env.DATABASE,
-        mixins: ["entity"],
+        mixins: [],
         schema: {
+            title: {
+                type: "string",
+                required: true
+            },
             inventory: {
-                required: true,
                 relation: "inventory"
             },
             owner: {
-                relation: "character"
-            },
-            open: {
-                type: "boolean",
-                input: "boolean"
+                relation: "player",
+                required: true,
             },
         },
         lifecycle: {
+            create: {
+                effect: ["shop_create_inventory"],
+                role: ["system"],
+            },
             read: {
                 role: ["everybody"],
             },
             update: {
-                role: ["system"],
-            },
-            create: {
                 role: ["system"],
             },
             delete: {

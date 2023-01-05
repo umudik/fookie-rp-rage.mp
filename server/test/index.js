@@ -42,8 +42,9 @@ module.exports = async function (fookie) {
 
     await fookie.use(require("./entity/index.js"))
 
+    await fookie.use(require("./bank/index.js"))
 
-
+    await fookie.use(require("./shop/index.js"))
     //------end test------
 
     //------teardown------
