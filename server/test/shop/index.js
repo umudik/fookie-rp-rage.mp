@@ -57,7 +57,20 @@ module.exports = async function (ctx) {
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    price: 0.79,
+                    price: 1,
+                    type: "buy"
+                }
+            })
+
+            await ctx.run({
+                token: state.system_token,
+                model: "shop_item_type_price",
+                method: "create",
+                body: {
+                    shop: shop[ctx.helpers.pk("shop")],
+                    item_type: lemon[ctx.helpers.pk("item_type")],
+                    price: 0.50,
+                    type: "sell"
                 }
             })
 
@@ -75,19 +88,41 @@ module.exports = async function (ctx) {
 
             const res = await ctx.run({
                 token: state.token,
-                model: "buy",
+                model: "shop_transaction",
                 method: "create",
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
                     player: state.player_id,
-                    amount: 10
+                    amount: 10,
+                    type: "buy"
                 }
             })
 
-            console.log(res);
+            const res2 = await ctx.run({
+                token: state.token,
+                model: "shop_transaction",
+                method: "create",
+                body: {
+                    shop: shop[ctx.helpers.pk("shop")],
+                    item_type: lemon[ctx.helpers.pk("item_type")],
+                    player: state.player_id,
+                    amount: 5,
+                    type: "sell"
+                }
+            })
 
-
+            console.log(await ctx.run({
+                token: state.system_token,
+                model: "item",
+                method: "read",
+                query: {
+                    filter: {
+                        inventory: player.inventory,
+                        item_type: lemon[ctx.helpers.pk("item_type")],
+                    }
+                }
+            }))
         }
     })
 }

@@ -11,6 +11,11 @@ module.exports = async function (ctx) {
             inventory: {
                 relation: "inventory"
             },
+            available_bank: {
+                type: "boolean",
+                required: true,
+                default: true
+            },
             owner: {
                 relation: "player",
                 required: true,

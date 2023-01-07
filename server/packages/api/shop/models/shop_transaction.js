@@ -1,6 +1,6 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'buy',
+        name: "shop_transaction",
         database: process.env.DATABASE,
         schema: {
             shop: {
@@ -18,6 +18,11 @@ module.exports = async function (ctx) {
             amount: {
                 type: "number",
                 required: true
+            },
+            type: {
+                type: "string",
+                required: true,
+                default: "buy"
             }
         },
         lifecycle: {

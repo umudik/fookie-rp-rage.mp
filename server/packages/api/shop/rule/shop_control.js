@@ -3,7 +3,32 @@ module.exports = async function (ctx) {
         name: "shop_control",
         wait: true,
         function: async function (payload, ctx, state) {
+            let buyyer_give_inventory = null
+            let buyyer_payment_inventory = null
+            let seller_payment_inventory = null
 
+            const player = (await ctx.run({
+                token: process.env.SYSTEM_TOKEN,
+                model: "player",
+                method: "read",
+                query: {
+                    filter: {
+                        pk: payload.body.player
+                    }
+                }
+
+            })).data[0]
+            const money = (await ctx.run({
+                token: process.env.SYSTEM_TOKEN,
+                model: "item_type",
+                method: "read",
+                query: {
+                    filter: {
+                        name: "money"
+                    }
+                }
+
+            })).data[0]
             const shop = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
                 model: "shop",
@@ -16,35 +41,7 @@ module.exports = async function (ctx) {
 
             })).data[0]
 
-            const shop_inventory = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "inventory",
-                method: "read",
-                query: {
-                    filter: {
-                        pk: shop.inventory
-                    }
-                }
-
-            })).data[0]
-
-            const inventory_type = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "inventory_type",
-                method: "read",
-                query: {
-                    filter: {
-                        pk: shop_inventory.inventory_type
-                    }
-                }
-
-            })).data[0]
-
-            if (inventory_type.name !== "shop") {
-                return false
-            }
-
-            const shop_item_type_price = (await ctx.run({
+            const shop_item_type_prices = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
                 model: "shop_item_type_price",
                 method: "read",
@@ -52,15 +49,21 @@ module.exports = async function (ctx) {
                     filter: {
                         shop: payload.body.shop,
                         item_type: payload.body.item_type,
+                        type: payload.body.type
                     }
                 }
 
             })).data
 
-            if (shop_item_type_price.length === 0) {
+            if (shop_item_type_prices.length === 0) {
                 console.log("Bu item bu shopta satilik değil.");
                 return false
             }
+            const shop_item_type_price = shop_item_type_prices[0]
+
+
+            let price = shop_item_type_price.price * payload.body.amount
+
 
             const buyer_bank_accounts = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
@@ -100,45 +103,23 @@ module.exports = async function (ctx) {
 
             const seller_bank_account = seller_bank_accounts[0]
 
-            const player = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "player",
-                method: "read",
-                query: {
-                    filter: {
-                        pk: payload.body.player
-                    }
-                }
 
-            })).data[0]
 
-            const player_inventory = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "inventory",
-                method: "read",
-                query: {
-                    filter: {
-                        pk: player.inventory
-                    }
-                }
+            if (shop.type === "buy") {
+                buyyer_payment_inventory = player.inventory
+                buyyer_give_inventory = player.inventory
+                seller_payment_inventory = seller_bank_account.inventory
 
-            })).data[0]
+            } else {
+                buyyer_payment_inventory = seller_bank_account.inventory
+                buyyer_give_inventory = shop.inventory
+                seller_payment_inventory = player.inventory
+            }
 
-            const money = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "item_type",
-                method: "read",
-                query: {
-                    filter: {
-                        name: "money"
-                    }
-                }
+            const buyyer_inventory_balance = await ctx.helpers.itemsAmount(buyyer_payment_inventory, money[ctx.helpers.pk("item_type")])
 
-            })).data[0]
-
-            const balance = await ctx.helpers.itemsAmount(buyer_bank_account.inventory, money[ctx.helpers.pk("item_type")])
-            if (balance < shop_item_type_price.price * payload.body.amount) {
-                console.log("Banka hesabında yeterli para yok");
+            if (buyyer_inventory_balance < price) {
+                console.log("yeterli paran yok");
                 return false
             }
 
@@ -147,7 +128,7 @@ module.exports = async function (ctx) {
                 model: "item",
                 method: "test",
                 body: {
-                    inventory: player.inventory,
+                    inventory: buyyer_give_inventory,
                     item_type: payload.body.item_type,
                     amount: payload.body.amount,
                 },
@@ -158,7 +139,7 @@ module.exports = async function (ctx) {
             })).data
 
             if (!give_item_test.status) {
-                console.log("item verilemez");
+                console.log("item test edildi verilemez");
                 return false
             }
 
@@ -167,9 +148,9 @@ module.exports = async function (ctx) {
                 model: "item",
                 method: "test",
                 body: {
-                    inventory: seller_bank_account.inventory,
+                    inventory: buyyer_payment_inventory,
                     item_type: money[ctx.helpers.pk("item_type")],
-                    amount: shop_item_type_price[0].price * payload.body.amount,
+                    amount: price,
                 },
                 options: {
                     method: "create"
@@ -182,12 +163,14 @@ module.exports = async function (ctx) {
                 return false
             }
 
-            state.shop_item_type_price = shop_item_type_price[0]
-            state.buyer_bank_account = buyer_bank_account
-            state.seller_bank_account = seller_bank_account
+
+
+            state.buyyer_give_inventory = buyyer_give_inventory
+            state.buyyer_payment_inventory = buyyer_payment_inventory
+            state.seller_payment_inventory = seller_payment_inventory
+            state.price = price
             state.money = money
-            state.shop = shop
-            state.player = player
+
             return true
         }
     })

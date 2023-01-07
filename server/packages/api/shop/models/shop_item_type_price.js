@@ -6,15 +6,23 @@ module.exports = async function (ctx) {
             shop: {
                 relation: "shop",
                 required: true,
+                uniqueGroup: ["g1"],
             },
             item_type: {
                 required: true,
-                relation: "item_type"
+                relation: "item_type",
+                uniqueGroup: ["g1"],
             },
             price: {
                 required: true,
                 type: "number",
             },
+            type: {
+                type: "string",
+                required: true,
+                default: "buy",
+                uniqueGroup: ["g1"],
+            }
 
         },
         lifecycle: {
