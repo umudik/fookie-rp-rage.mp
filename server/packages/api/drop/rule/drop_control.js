@@ -1,12 +1,16 @@
 module.exports = async function (ctx) {
     await ctx.lifecycle({
-        name: "shop_control",
+        name: "shop_txn_control",
         wait: true,
         function: async function (payload, ctx, state) {
             let buyyer_give_inventory = null
             let buyyer_payment_inventory = null
             let seller_payment_inventory = null
             let seller_give_inventory = null
+
+            if (!["buy", "sell"].includes(payload.body.type)) {
+                return false
+            }
 
             const player = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,

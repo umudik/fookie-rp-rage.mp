@@ -17,7 +17,8 @@ module.exports = async function (ctx) {
             },
             amount: {
                 type: "number",
-                required: true
+                required: true,
+                min: 1
             },
             type: {
                 type: "string",
@@ -27,7 +28,7 @@ module.exports = async function (ctx) {
         },
         lifecycle: {
             create: {
-                rule: ["shop_control"],
+                rule: ["shop_txn_control"],
                 effect: ["pay_amount_and_give_item"],
                 role: ["system", "logged_in"],
                 accept: {
