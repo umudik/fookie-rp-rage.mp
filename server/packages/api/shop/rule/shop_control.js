@@ -96,6 +96,15 @@ module.exports = async function (ctx) {
                 seller_give_inventory = player.inventory
             }
 
+
+            const existed_item = await ctx.helpers.itemsAmount(seller_give_inventory, payload.body.item_type)
+
+            if (existed_item < payload.body.amount) {
+                console.log("yeterli item yok");
+                return false
+            }
+
+
             const buyyer_inventory_balance = await ctx.helpers.itemsAmount(buyyer_payment_inventory, money[ctx.helpers.pk("item_type")])
 
             if (buyyer_inventory_balance < price) {

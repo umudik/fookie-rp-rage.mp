@@ -116,34 +116,18 @@ module.exports = async function (ctx) {
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    amount: 15,
+                    amount: 1,
                     type: "sell"
                 }
             })
 
-            console.log("limon", await ctx.run({
-                token: state.system_token,
-                model: "item",
-                method: "read",
-                query: {
-                    filter: {
-                        inventory: player.inventory,
-                        item_type: lemon[ctx.helpers.pk("item_type")],
-                    }
-                }
-            }))
-            console.log("para", await ctx.run({
-                token: state.system_token,
-                model: "item",
-                method: "read",
-                query: {
-                    filter: {
-                        inventory: player.inventory,
-                        item_type: state.item_type_1[ctx.helpers.pk("item_type")],
-                    }
-                }
-            }))
 
+            const a = await ctx.helpers.itemsAmount(player.inventory, lemon[ctx.helpers.pk("item_type")])
+            const b = await ctx.helpers.itemsAmount(player.inventory, state.item_type_1[ctx.helpers.pk("item_type")])
+
+            if (a != 9 || b != 31) {
+                throw Error("shop txn")
+            }
 
         }
     })
