@@ -6,6 +6,7 @@ module.exports = async function (ctx) {
             let buyyer_give_inventory = null
             let buyyer_payment_inventory = null
             let seller_payment_inventory = null
+            let seller_give_inventory = null
 
             const player = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
@@ -64,26 +65,6 @@ module.exports = async function (ctx) {
 
             let price = shop_item_type_price.price * payload.body.amount
 
-
-            const buyer_bank_accounts = (await ctx.run({
-                token: process.env.SYSTEM_TOKEN,
-                model: "bank_account",
-                method: "read",
-                query: {
-                    filter: {
-                        player: payload.body.player
-                    }
-                }
-
-            })).data
-
-            if (buyer_bank_accounts.length === 0) {
-                console.log("Banka hesabin yok");
-                return false
-            }
-
-            const buyer_bank_account = buyer_bank_accounts[0]
-
             const seller_bank_accounts = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
                 model: "bank_account",
@@ -103,17 +84,16 @@ module.exports = async function (ctx) {
 
             const seller_bank_account = seller_bank_accounts[0]
 
-
-
-            if (shop.type === "buy") {
+            if (payload.body.type === "buy") {
                 buyyer_payment_inventory = player.inventory
                 buyyer_give_inventory = player.inventory
                 seller_payment_inventory = seller_bank_account.inventory
-
+                seller_give_inventory = shop.inventory
             } else {
                 buyyer_payment_inventory = seller_bank_account.inventory
                 buyyer_give_inventory = shop.inventory
                 seller_payment_inventory = player.inventory
+                seller_give_inventory = player.inventory
             }
 
             const buyyer_inventory_balance = await ctx.helpers.itemsAmount(buyyer_payment_inventory, money[ctx.helpers.pk("item_type")])
@@ -168,6 +148,7 @@ module.exports = async function (ctx) {
             state.buyyer_give_inventory = buyyer_give_inventory
             state.buyyer_payment_inventory = buyyer_payment_inventory
             state.seller_payment_inventory = seller_payment_inventory
+            state.seller_give_inventory = seller_give_inventory
             state.price = price
             state.money = money
 

@@ -61,47 +61,43 @@ module.exports = async function (ctx) {
 
     ctx.helpers.removeItems = async function (inventory, item_type, amount) {
         const items = await ctx.helpers.itemsByType(inventory, item_type)
-
         if (await ctx.helpers.itemsAmount(inventory, item_type) < amount) {
             return false
         }
 
         for (const item of items) {
-            for (; ;) {
-                if (amount >= item.amount) {
-                    await ctx.run({
-                        token: process.env.SYSTEM_TOKEN,
-                        model: "item",
-                        method: "delete",
-                        query: {
-                            filter: {
-                                pk: item[ctx.helpers.pk("item")]
-                            }
+            if (amount >= item.amount) {
+                await ctx.run({
+                    token: process.env.SYSTEM_TOKEN,
+                    model: "item",
+                    method: "delete",
+                    query: {
+                        filter: {
+                            pk: item[ctx.helpers.pk("item")]
                         }
-                    })
-                } else {
-                    await ctx.run({
-                        token: process.env.SYSTEM_TOKEN,
-                        model: "item",
-                        method: "update",
-                        query: {
-                            filter: {
-                                pk: item[ctx.helpers.pk("item")]
-                            }
-                        },
-                        body: {
-                            amount: item.amount - amount
-                        }
-                    })
-                }
-
+                    }
+                })
                 amount = amount - item.amount
-
-                if (amount <= 0) {
-                    break
-                }
+            } else {
+                await ctx.run({
+                    token: process.env.SYSTEM_TOKEN,
+                    model: "item",
+                    method: "update",
+                    query: {
+                        filter: {
+                            pk: item[ctx.helpers.pk("item")]
+                        }
+                    },
+                    body: {
+                        amount: item.amount - amount
+                    }
+                })
+                amount = item.amount - amount
             }
 
+            if (amount <= 0) {
+                break
+            }
         }
     }
 

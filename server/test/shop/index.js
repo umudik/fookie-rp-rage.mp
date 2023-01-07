@@ -13,6 +13,17 @@ module.exports = async function (ctx) {
                 }
             })).data[0]
 
+            await ctx.run({
+                token: state.system_token,
+                model: "item",
+                method: "create",
+                body: {
+                    inventory: player.inventory,
+                    item_type: state.item_type_1[ctx.helpers.pk("item_type")],
+                    amount: 50,
+                }
+            })
+
             const lemon = (await ctx.run({
                 token: state.system_token,
                 model: "item_type",
@@ -57,7 +68,7 @@ module.exports = async function (ctx) {
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    price: 1,
+                    price: 2,
                     type: "buy"
                 }
             })
@@ -69,7 +80,7 @@ module.exports = async function (ctx) {
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    price: 0.50,
+                    price: 1,
                     type: "sell"
                 }
             })
@@ -82,18 +93,17 @@ module.exports = async function (ctx) {
                 body: {
                     inventory: shop.inventory,
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    amount: 25,
+                    amount: 10,
                 }
             })
 
-            const res = await ctx.run({
+            const res1 = await ctx.run({
                 token: state.token,
                 model: "shop_transaction",
                 method: "create",
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    player: state.player_id,
                     amount: 10,
                     type: "buy"
                 }
@@ -106,13 +116,12 @@ module.exports = async function (ctx) {
                 body: {
                     shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
-                    player: state.player_id,
-                    amount: 5,
+                    amount: 15,
                     type: "sell"
                 }
             })
 
-            console.log(await ctx.run({
+            console.log("limon", await ctx.run({
                 token: state.system_token,
                 model: "item",
                 method: "read",
@@ -123,6 +132,19 @@ module.exports = async function (ctx) {
                     }
                 }
             }))
+            console.log("para", await ctx.run({
+                token: state.system_token,
+                model: "item",
+                method: "read",
+                query: {
+                    filter: {
+                        inventory: player.inventory,
+                        item_type: state.item_type_1[ctx.helpers.pk("item_type")],
+                    }
+                }
+            }))
+
+
         }
     })
 }
