@@ -2,6 +2,17 @@ module.exports = async function (ctx) {
     await ctx.test({
         name: "shop",
         function: async function (state) {
+            const player = (await ctx.run({
+                token: state.system_token,
+                model: "player",
+                method: "read",
+                query: {
+                    filter: {
+                        email: "umut"
+                    }
+                }
+            })).data[0]
+
             const lemon = (await ctx.run({
                 token: state.system_token,
                 model: "item_type",
@@ -14,18 +25,29 @@ module.exports = async function (ctx) {
                 }
             })).data
 
-            const shop = await ctx.run({
+            const shop_create = await ctx.run({
                 token: state.system_token,
                 model: "shop",
                 method: "create",
                 body: {
-                    owner: state.user_id,
+                    owner: state.player_id,
                     title: "MY Shop",
                 }
             })
-            if (!shop.status) {
+            if (!shop_create.status) {
                 throw Error("shop")
             }
+
+            const shop = (await ctx.run({
+                token: state.system_token,
+                model: "shop",
+                method: "read",
+                query: {
+                    filter: {
+                        pk: shop_create.data[ctx.helpers.pk("shop")]
+                    }
+                }
+            })).data[0]
 
 
             await ctx.run({
@@ -33,21 +55,33 @@ module.exports = async function (ctx) {
                 model: "shop_item_type_price",
                 method: "create",
                 body: {
-                    shop: shop.data[ctx.helpers.pk("shop")],
+                    shop: shop[ctx.helpers.pk("shop")],
                     item_type: lemon[ctx.helpers.pk("item_type")],
                     price: 0.79,
                 }
             })
 
 
-            const res = await ctx.run({
+            await ctx.run({
                 token: state.system_token,
                 model: "item",
                 method: "create",
                 body: {
-                    inventory: shop.data.inventory,
+                    inventory: shop.inventory,
                     item_type: lemon[ctx.helpers.pk("item_type")],
                     amount: 25,
+                }
+            })
+
+            const res = await ctx.run({
+                token: state.token,
+                model: "buy",
+                method: "create",
+                body: {
+                    shop: shop[ctx.helpers.pk("shop")],
+                    item_type: lemon[ctx.helpers.pk("item_type")],
+                    player: state.player_id,
+                    amount: 10
                 }
             })
 

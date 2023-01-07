@@ -42,7 +42,7 @@ module.exports = async function (ctx) {
                 method: "create",
                 body: {
                     inventory: inventory.data[ctx.helpers.pk("inventory")],
-                    player: state.user_id
+                    player: state.player_id
                 }
             })
         }

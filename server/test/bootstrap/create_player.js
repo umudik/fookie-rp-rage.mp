@@ -33,9 +33,10 @@ module.exports = async function (ctx) {
             })
 
             state.token = login_user_res.data.token
-            state.user_id = create_user_res.data[ctx.helpers.pk("player")]
+            state.player_id = create_user_res.data[ctx.helpers.pk("player")]
+
             console.log(state.token);
-            console.log(state.user_id);
+            console.log(state.player_id);
 
             state.players = []
             for (let i = 0; i < 5; i++) {

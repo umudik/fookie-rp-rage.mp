@@ -6,8 +6,7 @@ module.exports = async function (ctx) {
       if (payload.token) {
         try {
           state.user = jwt.verify(payload.token, process.env.SYSTEM_TOKEN);
-        } catch (error) {
-        }
+        } catch (error) { }
       }
     }
   })

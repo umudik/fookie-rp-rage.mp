@@ -4,8 +4,8 @@ module.exports = async function (ctx) {
         database: process.env.DATABASE,
         schema: {
             shop: {
+                relation: "shop",
                 required: true,
-                relation: "shop"
             },
             item_type: {
                 required: true,

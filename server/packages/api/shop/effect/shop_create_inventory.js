@@ -36,6 +36,8 @@ module.exports = async function (ctx) {
                     inventory: inventory[ctx.helpers.pk("inventory")]
                 }
             })
+
+            payload.response.data.inventory = inventory[ctx.helpers.pk("inventory")]
         }
     })
 }

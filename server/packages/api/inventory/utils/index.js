@@ -96,6 +96,7 @@ module.exports = async function (ctx) {
                 }
 
                 amount = amount - item.amount
+
                 if (amount <= 0) {
                     break
                 }
