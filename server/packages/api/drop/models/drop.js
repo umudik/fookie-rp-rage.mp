@@ -6,14 +6,12 @@ module.exports = async function (ctx) {
         schema: {
             inventory: {
                 relation: "inventory",
-                required: true
             }
         },
         lifecycle: {
             create: {
-                effect: [],
                 role: ["system", "logged_in"],
-                modify: ["drop_create_inventory"],
+                effect: ["drop_create_inventory"],
             },
             read: {
                 role: ["everybody"],

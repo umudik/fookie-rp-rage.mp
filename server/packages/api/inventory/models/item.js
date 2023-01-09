@@ -38,7 +38,7 @@ module.exports = {
         update: {
             modify: ["find_items"],
             rule: ["check_weight", "openable", "has_slot", "is_slot_avaible"],
-            role: ["system"],
+            role: ["system", "logged_in"],
             effect: [],
         },
         delete: {

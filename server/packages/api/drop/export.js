@@ -1,7 +1,7 @@
 
 module.exports = async function (ctx) {
     await ctx.use(require("./models/drop.js"))
-    await ctx.use(require("./modify/drop_create_inventory.js"))
+    await ctx.use(require("./effect/drop_create_inventory.js"))
 
     await ctx.run({
         token: process.env.SYSTEM_TOKEN,
