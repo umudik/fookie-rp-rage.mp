@@ -139,8 +139,8 @@ module.exports = async function (ctx) {
             }
 
             if (state.user) {
-                if (state.user.id != "" || state.user.id != "") {
-                    //TODO
+                if (!(payload.body.from === state.user.inventory || payload.body.to === state.user.inventory)) {
+                    return false
                 }
             }
 

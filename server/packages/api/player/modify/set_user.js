@@ -5,7 +5,18 @@ module.exports = async function (ctx) {
     function: async function (payload, ctx, state) {
       if (payload.token) {
         try {
-          state.user = jwt.verify(payload.token, process.env.SYSTEM_TOKEN);
+          const obj = jwt.verify(payload.token, process.env.SYSTEM_TOKEN);
+          state.user = (await ctx.run({
+            token: process.env.SYSTEM_TOKEN,
+            model: "player",
+            method: "read",
+            query: {
+              filter: {
+                pk: obj.id
+              }
+            },
+
+          })).data[0]
         } catch (error) { }
       }
     }
