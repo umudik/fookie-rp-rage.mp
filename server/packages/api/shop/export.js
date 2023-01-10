@@ -7,6 +7,8 @@ module.exports = async function (ctx) {
     await ctx.use(require("./modify/shop_set_player.js"))
 
     await ctx.use(require("./rule/shop_txn_control"))
+    await ctx.use(require("./rule/shop_control_count"))
+
 
     await ctx.use(require("./effect/shop_create_inventory.js"))
     await ctx.use(require("./effect/pay_amount_and_give_item"))

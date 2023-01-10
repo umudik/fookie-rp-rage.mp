@@ -130,18 +130,21 @@ module.exports = async function (ctx) {
 
             })).data[0]
 
-            if (to_type.name === "drop" && from_type.name !== "player") {
-                return false
-            }
 
-            if (to_type.name === "player" && from_type.name !== "drop") {
-                return false
-            }
+            const move_in_same_inv = payload.body.to === payload.body.from
 
-            if (state.user) {
-                if (!(payload.body.from === state.user.inventory || payload.body.to === state.user.inventory)) {
+            if (!move_in_same_inv) {
+                if (to_type.name === "drop" && from_type.name !== "player") {
                     return false
                 }
+
+                if (to_type.name === "player" && from_type.name !== "drop") {
+                    return false
+                }
+            }
+
+            if (state.user && !(payload.body.from === state.user.inventory || payload.body.to === state.user.inventory)) {
+                return false
             }
 
             return true
@@ -163,7 +166,9 @@ module.exports = async function (ctx) {
                     item_type: payload.body.item_type,
                     amount: payload.body.amount
                 },
-
+                options: {
+                    dont_organise: true
+                }
             })).data
         }
     })

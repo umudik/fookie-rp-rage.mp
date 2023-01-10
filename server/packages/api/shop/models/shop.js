@@ -23,6 +23,7 @@ module.exports = async function (ctx) {
         },
         lifecycle: {
             create: {
+                rule: ["shop_control_count"],
                 effect: ["shop_create_inventory"],
                 role: ["system"],
             },
