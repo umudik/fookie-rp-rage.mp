@@ -1,23 +1,22 @@
+const race = require("../models/race")
+
 module.exports = async function (ctx) {
     await ctx.lifecycle({
-        name: "shop_control_count",
+        name: "rp_race_is_started",
         wait: true,
         function: async function (payload, ctx, state) {
 
-
-            const count = (await ctx.run({
+            state.race = (await ctx.run({
                 token: process.env.SYSTEM_TOKEN,
-                model: "shop",
-                method: "count",
+                model: "race",
+                method: "read",
                 query: {
                     filter: {
-                        owner: payload.body.owner
+                        pk: payload.body.race
                     }
                 }
-
-            })).data
-
-            if (count > 0) {
+            })).data[0]
+            if (state.race.start < 0) {
                 return false
             }
 

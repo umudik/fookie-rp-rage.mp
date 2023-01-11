@@ -27,6 +27,7 @@
     await fookie.use(require("./ui/export.js"))
     await fookie.use(require("./bank/export.js"))
     await fookie.use(require("./item_bomb/export.js"))
+    await fookie.use(require("./race/export.js"))
 
     // ADD SOMETHINGS
     await fookie.use(require("./house/menus/index.js"))

@@ -8,7 +8,6 @@ module.exports = async function (ctx) {
                 type: "string",
                 required: true
             },
-
         },
         lifecycle: {
             create: {

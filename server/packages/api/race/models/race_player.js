@@ -17,6 +17,7 @@ module.exports = async function (ctx) {
         },
         lifecycle: {
             create: {
+                rule: ["rp_race_is_started"],
                 role: ["system"],
             },
             read: {

@@ -47,6 +47,7 @@ module.exports = async function (fookie) {
     await fookie.use(require("./shop/index.js"))
 
     await fookie.use(require("./drop/index.js"))
+    await fookie.use(require("./race/index.js"))
     //------end test------
 
     //------teardown------

@@ -8,29 +8,41 @@ module.exports = async function (ctx) {
                 relation: "race_type",
                 required: true
             },
-            started: {
+            prepare: {
                 type: "boolean",
                 required: true,
-                default: false,
+                default: -1,
             },
-            ended: {
-                type: "boolean",
+            start: {
+                type: "number",
                 required: true,
-                default: false,
+                default: -1,
             },
-            winner: {
+            end: {
+                type: "number",
+                required: true,
+                default: -1,
+            },
+            owner: {
                 relation: "player",
-            }
+            },
         },
         lifecycle: {
             create: {
-                role: ["system"],
+                role: ["system", "logged_in"],
+                accept: {
+                    loggein_in: ["race_set_player"]
+                }
             },
             read: {
                 role: ["everybody"],
             },
             update: {
-                role: ["system"],
+                effect: ["race_prepare_effect", "race_start_effect", "race_end_effect"],
+                role: ["system", "logged_in"],
+                accept: {
+                    loggein_in: ["race_set_player"]
+                }
             },
             delete: {
                 role: ["system"],
