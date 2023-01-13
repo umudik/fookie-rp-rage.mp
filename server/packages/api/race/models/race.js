@@ -9,7 +9,7 @@ module.exports = async function (ctx) {
                 required: true
             },
             prepare: {
-                type: "boolean",
+                type: "number",
                 required: true,
                 default: -1,
             },
@@ -40,6 +40,7 @@ module.exports = async function (ctx) {
             update: {
                 effect: ["race_prepare_effect", "race_start_effect", "race_end_effect"],
                 role: ["system", "logged_in"],
+                modify: ["set_computed_data"],
                 accept: {
                     loggein_in: ["race_set_player"]
                 }

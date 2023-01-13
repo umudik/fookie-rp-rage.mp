@@ -54,7 +54,6 @@ module.exports = async function (ctx) {
                 }
             })).data
 
-
             const race_player = (await ctx.run({
                 token: state.token,
                 model: "race_player",
@@ -70,15 +69,14 @@ module.exports = async function (ctx) {
             await ctx.run({
                 token: state.token,
                 model: "race",
-                method: "create",
+                method: "update",
                 query: {
                     filter: {
                         pk: race[ctx.helpers.pk("race")]
                     }
                 },
                 body: {
-                    race_type: race_type[ctx.helpers.pk("race_type")],
-                    owner: player[ctx.helpers.pk("player")],
+                    prepare: Date.now()
                 }
             })
 
