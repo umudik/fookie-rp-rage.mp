@@ -8,11 +8,6 @@ module.exports = async function (ctx) {
                 relation: "race_type",
                 required: true
             },
-            prepare: {
-                type: "number",
-                required: true,
-                default: -1,
-            },
             start: {
                 type: "number",
                 required: true,
@@ -38,7 +33,7 @@ module.exports = async function (ctx) {
                 role: ["everybody"],
             },
             update: {
-                effect: ["race_prepare_effect", "race_start_effect", "race_end_effect"],
+                effect: ["race_start_effect", "race_end_effect"],
                 role: ["system", "logged_in"],
                 modify: ["set_computed_data"],
                 accept: {

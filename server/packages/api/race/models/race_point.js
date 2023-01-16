@@ -15,13 +15,20 @@ module.exports = async function (ctx) {
                 uniqueGroup: ["g1"],
             },
             player: {
-                type: "number",
+                relation: "player",
                 required: true,
                 uniqueGroup: ["g1"],
             },
+            achived: {
+                type: "number",
+                required: true,
+                default: -1
+            }
         },
         lifecycle: {
             create: {
+                effect: ["rp_is_end"],
+                rule: ["rp_last_is_checked"],
                 role: ["system"],
             },
             read: {

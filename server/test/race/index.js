@@ -23,26 +23,18 @@ module.exports = async function (ctx) {
             })).data
 
 
+            for (let i = 0; i < 20; i++) {
+                const r1 = await ctx.run({
+                    token: state.system_token,
+                    model: "race_type_point",
+                    method: "create",
+                    body: {
+                        race_type: race_type[ctx.helpers.pk("race_type")],
+                        order: i
+                    }
+                })
+            }
 
-            const r1 = await ctx.run({
-                token: state.system_token,
-                model: "race_type_point",
-                method: "create",
-                body: {
-                    race_type: race_type[ctx.helpers.pk("race_type")],
-                    order: 0
-                }
-            })
-
-            const r2 = await ctx.run({
-                token: state.system_token,
-                model: "race_type_point",
-                method: "create",
-                body: {
-                    race_type: race_type[ctx.helpers.pk("race_type")],
-                    order: 1
-                }
-            })
 
             const race = (await ctx.run({
                 token: state.token,
@@ -54,17 +46,14 @@ module.exports = async function (ctx) {
                 }
             })).data
 
-            const race_player = (await ctx.run({
+            const race_player = await ctx.run({
                 token: state.token,
                 model: "race_player",
                 method: "create",
                 body: {
                     race: race[ctx.helpers.pk("race")],
-                    player: player[ctx.helpers.pk("player")],
                 }
-            })).data
-
-
+            })
 
             await ctx.run({
                 token: state.token,
@@ -76,9 +65,27 @@ module.exports = async function (ctx) {
                     }
                 },
                 body: {
-                    prepare: Date.now()
+                    start: Date.now()
                 }
             })
+
+
+            for (let i = 0; i < 20; i++) {
+                await ctx.run({
+                    token: state.token,
+                    model: "race_point",
+                    method: "update",
+                    query: {
+                        filter: {
+                            race: race[ctx.helpers.pk("race")],
+                            player: player[ctx.helpers.pk("player")],
+                        }
+                    },
+                    body: {
+                        achived: Date.now()
+                    }
+                })
+            }
 
         }
     })

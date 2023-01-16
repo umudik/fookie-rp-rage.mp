@@ -9,15 +9,18 @@ module.exports = async function (ctx) {
             },
             amount: {
                 type: "number",
-                input: "number"
             },
             description: {
-                required: true,
                 type: "string",
-                input: "rich",
+                required: true,
             },
-            character: {
-                relation: "character"
+            player: {
+                relation: "player",
+                required: true
+            },
+            time: {
+                type: "number",
+                required: true,
             }
         },
         lifecycle: {

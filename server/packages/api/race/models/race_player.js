@@ -10,7 +10,7 @@ module.exports = async function (ctx) {
                 uniqueGroup: ["g1"]
             },
             player: {
-                relation: "race",
+                relation: "player",
                 required: true,
                 uniqueGroup: ["g1"]
             },
@@ -18,7 +18,10 @@ module.exports = async function (ctx) {
         lifecycle: {
             create: {
                 rule: ["rp_race_is_started"],
-                role: ["system"],
+                role: ["system", "logged_in"],
+                accept: {
+                    logged_in: ["rp_set_player"]
+                }
             },
             read: {
                 role: ["everybody"],
