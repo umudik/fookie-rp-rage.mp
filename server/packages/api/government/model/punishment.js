@@ -3,22 +3,11 @@ module.exports = async function (ctx) {
         name: 'punishment',
         database: process.env.DATABASE,
         schema: {
-            punishment_type: {
-                required: true,
-                relation: "punishment_type",
-            },
-            amount: {
-                type: "number",
-            },
-            description: {
-                type: "string",
-                required: true,
-            },
             player: {
                 relation: "player",
                 required: true
             },
-            time: {
+            created_at: {
                 type: "number",
                 required: true,
             }

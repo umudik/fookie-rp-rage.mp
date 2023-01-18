@@ -1,21 +1,27 @@
 module.exports = async function (ctx) {
     await ctx.model({
-        name: 'punishment_type',
+        name: 'punishment_line',
         database: process.env.DATABASE,
         schema: {
-            name: {
-                type: "string",
+            punishment: {
                 required: true,
+                relation: "punishment",
+            },
+            punishment_type: {
+                required: true,
+                relation: "punishment_type",
+            },
+            player: {
+                relation: "player",
+                required: true
+            },
+            amount: {
+                type: "number",
             },
             description: {
                 type: "string",
                 required: true,
             },
-            price: {
-                type: "string",
-                required: true,
-            },
-
         },
         lifecycle: {
             read: {
@@ -30,7 +36,6 @@ module.exports = async function (ctx) {
             delete: {
                 role: ["system"],
             },
-
         }
     })
 }
